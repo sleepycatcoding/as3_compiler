@@ -59,16 +59,13 @@ pub Class: ast::Class = {
 };
 
 pub Function: ast::Function = {
-    <vis:"visibility"> "function" <name:"identifier"> "(" <arguments:Arguments> ")"  ":" <return_type:"identifier">
-    "{"
-    <statements:Statement*>
-    "}" => {
+    <vis:"visibility"> "function" <name:"identifier"> "(" <arguments:Arguments> ")" ":" <return_type:"identifier"> <block:CodeBlock> => {
         ast::Function {
             name,
             visibility: vis,
             arguments,
             return_type: Some(return_type),
-            statements,
+            block,
         }
     }
 };
@@ -82,6 +79,10 @@ pub Argument: ast::Argument = {
             value_type: Some(value_type),
         }
     }
+};
+
+pub CodeBlock: Vec<Box<ast::Statement>> = {
+    "{" <Statement*> "}" => <>
 };
 
 pub Statement: Box<ast::Statement> = {
@@ -134,7 +135,7 @@ pub Term: Box<ast::Expression> = {
     <name:"identifier"> => {
         Box::new(ast::Expression::Variable(name))
     },
-    "(" <expr:Expression> ")" => expr,
+    "(" <Expression> ")",
 };
 
 // Utilities

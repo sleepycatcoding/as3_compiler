@@ -33,7 +33,7 @@ pub struct Function {
     pub visibility: Visibility,
     pub arguments: Vec<Argument>,
     pub return_type: Option<String>,
-    pub statements: Vec<Box<Statement>>,
+    pub block: Vec<Box<Statement>>,
 }
 
 #[derive(Debug)]
