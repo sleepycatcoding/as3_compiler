@@ -15,6 +15,7 @@ extern {
         "visibility" => Token::KeywordVisibility(<ast::Visibility>),
         "identifier" => Token::Identifier(<String>),
         "int" => Token::Integer(<i32>),
+        "string" => Token::String(<String>),
         "(" => Token::LParen,
         ")" => Token::RParen,
         "{" => Token::LCurlyBracket,
@@ -131,6 +132,9 @@ pub Expression: Box<ast::Expression> = {
 pub Term: Box<ast::Expression> = {
     <val:"int"> => {
         Box::new(ast::Expression::Integer(val))
+    },
+    <val:"string"> => {
+        Box::new(ast::Expression::String(val))
     },
     <name:"identifier"> => {
         Box::new(ast::Expression::Variable(name))

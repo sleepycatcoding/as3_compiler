@@ -1,10 +1,18 @@
 use crate::ast::Visibility;
-use logos::Logos;
+use logos::{Lexer, Logos};
 use std::fmt;
 
+fn string_literal(lex: &mut Lexer<Token>) -> Option<String> {
+    let slice = lex.slice();
+
+    // Remove double quotes. (left from parsing)
+    slice[1..slice.len() - 1].parse().ok()
+}
+
+// https://github.com/maciejhirsz/logos/issues/133
 #[derive(Clone, Debug, Logos)]
 // Slash comments.
-#[logos(skip r"//.*\n?")]
+#[logos(skip r"//[^\n]*")]
 #[logos(skip " ")]
 #[logos(skip "\n")]
 pub enum Token {
@@ -24,6 +32,8 @@ pub enum Token {
     Identifier(String),
     #[regex("\\d+", |lex| lex.slice().parse().ok())]
     Integer(i32),
+    #[regex(r#""(?:[^"]|\\")*""#, callback = string_literal)]
+    String(String),
 
     #[token("(")]
     LParen,

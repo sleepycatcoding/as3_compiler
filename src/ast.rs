@@ -52,8 +52,13 @@ pub enum Statement {
 
 #[derive(Debug, PartialEq)]
 pub enum Expression {
+    // A integer literal,
     Integer(i32),
+    // A string literal.
+    String(String),
+    // A variable.
     Variable(String),
+    // A binary operation.
     BinaryOperation {
         lhs: Box<Expression>,
         operator: Operator,
