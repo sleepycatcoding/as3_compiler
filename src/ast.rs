@@ -20,23 +20,26 @@ pub enum Visibility {
     Private,
 }
 
-impl FromStr for Visibility {
-    type Err = Error;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s {
-            "public" => Ok(Visibility::Public),
-            "protected" => Ok(Visibility::Protected),
-            "private" => Ok(Visibility::Private),
-            s => Err(Error::UnknownVisibility(s.to_owned())),
-        }
-    }
-}
-
 #[derive(Debug)]
 pub struct Class {
     pub name: String,
     pub visibility: Visibility,
+    pub functions: Vec<Function>,
+}
+
+#[derive(Debug)]
+pub struct Function {
+    pub name: String,
+    pub visibility: Visibility,
+    pub arguments: Vec<Argument>,
+    pub return_type: Option<String>,
+    pub statements: Vec<Box<Statement>>,
+}
+
+#[derive(Debug)]
+pub struct Argument {
+    pub name: String,
+    pub value_type: Option<String>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -64,4 +67,17 @@ pub enum Operator {
     Sub,
     Mul,
     Div,
+}
+
+impl FromStr for Visibility {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "public" => Ok(Visibility::Public),
+            "protected" => Ok(Visibility::Protected),
+            "private" => Ok(Visibility::Private),
+            s => Err(Error::UnknownVisibility(s.to_owned())),
+        }
+    }
 }

@@ -14,6 +14,8 @@ pub enum Token {
     KeywordPackage,
     #[token("class")]
     KeywordClass,
+    #[token("function")]
+    KeywordFunction,
 
     #[regex("(public|protected|private)", callback = |lex| lex.slice().parse().ok())]
     KeywordVisibility(Visibility),
@@ -33,6 +35,10 @@ pub enum Token {
     RCurlyBracket,
     #[token("=")]
     Assign,
+    #[token(",")]
+    Comma,
+    #[token(":")]
+    Colon,
     #[token(";")]
     Semicolon,
 

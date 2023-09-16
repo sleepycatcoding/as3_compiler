@@ -1,4 +1,3 @@
-use std::str::FromStr;
 use crate::ast;
 use crate::lexer::{LexicalError, Token};
 
@@ -12,6 +11,7 @@ extern {
         "var" => Token::KeywordVar,
         "package" => Token::KeywordPackage,
         "class" => Token::KeywordClass,
+        "function" => Token::KeywordFunction,
         "visibility" => Token::KeywordVisibility(<ast::Visibility>),
         "identifier" => Token::Identifier(<String>),
         "int" => Token::Integer(<i32>),
@@ -20,6 +20,8 @@ extern {
         "{" => Token::LCurlyBracket,
         "}" => Token::RCurlyBracket,
         "=" => Token::Assign,
+        "," => Token::Comma,
+        ":" => Token::Colon,
         ";" => Token::Semicolon,
         "+" => Token::OperatorAdd,
         "-" => Token::OperatorSub,
@@ -44,12 +46,42 @@ pub Package: ast::Package = {
 };
 
 pub Class: ast::Class = {
-    <vis:"visibility"> "class" <name:"identifier"> "{" "}" => {
+    <vis:"visibility"> "class" <name:"identifier">
+    "{"
+    <functions:Function*>
+    "}" => {
         ast::Class {
             name,
             visibility: vis,
+            functions,
         }
     },
+};
+
+pub Function: ast::Function = {
+    <vis:"visibility"> "function" <name:"identifier"> "(" <arguments:Arguments> ")"  ":" <return_type:"identifier">
+    "{"
+    <statements:Statement*>
+    "}" => {
+        ast::Function {
+            name,
+            visibility: vis,
+            arguments,
+            return_type: Some(return_type),
+            statements,
+        }
+    }
+};
+
+pub Arguments = Comma<Argument>;
+
+pub Argument: ast::Argument = {
+    <name:"identifier"> ":" <value_type:"identifier"> => {
+        ast::Argument {
+            name,
+            value_type: Some(value_type),
+        }
+    }
 };
 
 pub Statement: Box<ast::Statement> = {
@@ -103,4 +135,15 @@ pub Term: Box<ast::Expression> = {
         Box::new(ast::Expression::Variable(name))
     },
     "(" <expr:Expression> ")" => expr,
+};
+
+// Utilities
+Comma<T>: Vec<T> = { // (1)
+    <mut v:(<T> ",")*> <e:T?> => match e { // (2)
+        None => v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
 };
