@@ -10,10 +10,15 @@ extern {
 
     enum Token {
         "var" => Token::KeywordVar,
+        "package" => Token::KeywordPackage,
+        "class" => Token::KeywordClass,
+        "visibility" => Token::KeywordVisibility(<ast::Visibility>),
         "identifier" => Token::Identifier(<String>),
         "int" => Token::Integer(<i32>),
         "(" => Token::LParen,
         ")" => Token::RParen,
+        "{" => Token::LCurlyBracket,
+        "}" => Token::RCurlyBracket,
         "=" => Token::Assign,
         ";" => Token::Semicolon,
         "+" => Token::OperatorAdd,
@@ -23,17 +28,41 @@ extern {
     }
 }
 
-pub Statement: Box<ast::Statement> = {
-    "var" <name:"identifier"> "=" <value:Expression> ";" => {
-        Box::new(ast::Statement::Variable { name, value })
+pub Package: ast::Package = {
+    "package" <name:"identifier"> "{" <classes:Class*> "}" => {
+        ast::Package {
+            name: Some(name),
+            classes,
+        }
+    },
+    "package" "{" <classes:Class*> "}" => {
+        ast::Package {
+            name: None,
+            classes,
+        }
     }
 };
 
+pub Class: ast::Class = {
+    <vis:"visibility"> "class" <name:"identifier"> "{" "}" => {
+        ast::Class {
+            name,
+            visibility: vis,
+        }
+    },
+};
+
+pub Statement: Box<ast::Statement> = {
+    "var" <name:"identifier"> "=" <value:Expression> ";" => {
+        Box::new(ast::Statement::Variable { name, value })
+    },
+};
+
 pub Expression: Box<ast::Expression> = {
-    #[precedence(lvl="1")],
+    #[precedence(level="1")]
     Term,
 
-    #[precedence(lvl="2")] #[assoc(side="left")]
+    #[precedence(level="2")] #[assoc(side="left")]
     <lhs:Expression> "*" <rhs:Expression> => {
         Box::new(ast::Expression::BinaryOperation {
             lhs,
@@ -49,7 +78,7 @@ pub Expression: Box<ast::Expression> = {
         })
     },
 
-    #[precedence(lvl="3")]
+    #[precedence(level="3")] #[assoc(side="left")]
     <lhs:Expression> "+" <rhs:Expression> => {
         Box::new(ast::Expression::BinaryOperation {
             lhs,
@@ -73,5 +102,5 @@ pub Term: Box<ast::Expression> = {
     <name:"identifier"> => {
         Box::new(ast::Expression::Variable(name))
     },
-    "(" Expression ")",
+    "(" <expr:Expression> ")" => expr,
 };

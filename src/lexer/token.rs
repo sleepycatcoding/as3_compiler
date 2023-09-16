@@ -1,6 +1,12 @@
+use crate::ast::Visibility;
 use logos::Logos;
 use std::fmt;
 
+#[derive(Clone, Debug, Logos)]
+// Slash comments.
+#[logos(skip r"//.*\n?")]
+#[logos(skip " ")]
+#[logos(skip "\n")]
 pub enum Token {
     #[token("var")]
     KeywordVar,
@@ -9,15 +15,22 @@ pub enum Token {
     #[token("class")]
     KeywordClass,
 
-    #[regex("[_a-zA-Z][_0-9a-zA-Z]*", |lex| lex.slice().parse())]
+    #[regex("(public|protected|private)", callback = |lex| lex.slice().parse().ok())]
+    KeywordVisibility(Visibility),
+
+    #[regex("[_a-zA-Z][_0-9a-zA-Z]*", priority = 2, callback = |lex| lex.slice().parse().ok())]
     Identifier(String),
-    #[regex("\d+", |lex| lex.slice().parse())]
+    #[regex("\\d+", |lex| lex.slice().parse().ok())]
     Integer(i32),
 
     #[token("(")]
     LParen,
     #[token(")")]
     RParen,
+    #[token("{")]
+    LCurlyBracket,
+    #[token("}")]
+    RCurlyBracket,
     #[token("=")]
     Assign,
     #[token(";")]
@@ -31,11 +44,6 @@ pub enum Token {
     OperatorMul,
     #[token("/")]
     OperatorDiv,
-
-    // Slash comments.
-    #[regex(r"\/\/.*\n?", logos::skip)]
-    #[error]
-    Error,
 }
 
 impl fmt::Display for Token {

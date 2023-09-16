@@ -8,11 +8,12 @@ pub enum Error {
 }
 
 #[derive(Debug)]
-pub struct File {
-    pub package: Option<String>,
+pub struct Package {
+    pub name: Option<String>,
+    pub classes: Vec<Class>,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub enum Visibility {
     Public,
     Protected,
@@ -34,8 +35,8 @@ impl FromStr for Visibility {
 
 #[derive(Debug)]
 pub struct Class {
-    name: String,
-    visibility: Visibility,
+    pub name: String,
+    pub visibility: Visibility,
 }
 
 #[derive(Debug, PartialEq)]

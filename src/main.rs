@@ -8,14 +8,10 @@ lalrpop_mod!(pub grammar);
 fn main() {
     println!("Hello, world!");
 
-    println!(
-        "{:#?}",
-        grammar::ExprParser::new()
-            .parse("(10 + 10 * (100 * 100))")
-            .unwrap()
-    );
+    let file = std::fs::read_to_string("Test.as").unwrap();
+    let lexer = lexer::Lexer::new(&file);
+    let parser = grammar::PackageParser::new();
+    let ast = parser.parse(lexer).unwrap();
 
-    grammar::FileParser::new()
-        .parse(include_str!("../Test.as"))
-        .unwrap();
+    println!("{:?}", ast);
 }
