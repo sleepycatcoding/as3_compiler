@@ -1,5 +1,4 @@
 use logos::{Logos, SpannedIter};
-use std::ops::Range;
 
 mod token;
 
@@ -9,7 +8,7 @@ pub type Spanned<Tok, Loc, Error> = Result<(Loc, Tok, Loc), Error>;
 
 #[derive(Debug)]
 pub enum LexicalError {
-    InvalidToken { span: Range<usize> },
+    InvalidToken { line: usize, column: usize },
 }
 
 pub struct Lexer<'input> {
@@ -29,7 +28,10 @@ impl<'input> Iterator for Lexer<'input> {
 
     fn next(&mut self) -> Option<Self::Item> {
         self.token_stream.next().map(|(token, span)| match token {
-            Err(_) => Err(LexicalError::InvalidToken { span }),
+            Err(_) => Err(LexicalError::InvalidToken {
+                line: self.token_stream.extras.0,
+                column: span.start - self.token_stream.extras.1,
+            }),
             Ok(token) => Ok((span.start, token, span.end)),
         })
     }

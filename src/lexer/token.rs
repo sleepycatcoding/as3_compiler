@@ -1,5 +1,5 @@
 use crate::ast::Visibility;
-use logos::{Lexer, Logos};
+use logos::{Lexer, Logos, Skip};
 use std::fmt;
 
 fn string_literal(lex: &mut Lexer<Token>) -> Option<String> {
@@ -9,12 +9,20 @@ fn string_literal(lex: &mut Lexer<Token>) -> Option<String> {
     slice[1..slice.len() - 1].parse().ok()
 }
 
-// https://github.com/maciejhirsz/logos/issues/133
+/// Update the line count and the char index.
+fn newline_callback(lex: &mut Lexer<Token>) -> Skip {
+    lex.extras.0 += 1;
+    lex.extras.1 = lex.span().end;
+    Skip
+}
+
+// NOTE: Useful regexes https://github.com/maciejhirsz/logos/issues/133
 #[derive(Clone, Debug, Logos)]
 // Slash comments.
 #[logos(skip r"//[^\n]*")]
 #[logos(skip " ")]
-#[logos(skip "\n")]
+// Store current line and column for easier debugging.
+#[logos(extras = (usize, usize))]
 pub enum Token {
     #[token("var")]
     KeywordVar,
@@ -60,6 +68,9 @@ pub enum Token {
     OperatorMul,
     #[token("/")]
     OperatorDiv,
+
+    #[regex(r"\n", newline_callback)]
+    Newline,
 }
 
 impl fmt::Display for Token {
