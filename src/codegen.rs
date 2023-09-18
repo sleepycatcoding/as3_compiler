@@ -16,6 +16,10 @@ pub enum WrappedOp<'a> {
     SetLocal {
         name: &'a str,
     },
+    /// Represents an unresolved stack value, which has no constant pool index assigned.
+    PushString {
+        value: &'a str,
+    },
 }
 
 /// Our compilers "MIR" representation.
@@ -90,7 +94,8 @@ impl<'ast> Visitor<'ast> for CodeGenerator {
                 }
             }
             Expression::Integer(val) => code.emit_stack_push_int(*val),
-            _ => todo!(),
+            Expression::String(value) => code.emit_wrapped_op(WrappedOp::PushString { value }),
+            Expression::Variable(name) => code.emit_wrapped_op(WrappedOp::GetLocal { name }),
         }
 
         Ok(code)
