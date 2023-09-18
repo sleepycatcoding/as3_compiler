@@ -1,4 +1,4 @@
-use crate::ast::{Expression, Operator, Statement, Visitor};
+use crate::ast::{Expression, Operator, Statement, Type, Visitor};
 use swf::avm2::types::Op;
 
 pub struct CodeGenerator {}
@@ -100,10 +100,22 @@ impl<'ast> Visitor<'ast> for CodeGenerator {
         let mut code = CodeBlock::default();
 
         match v {
-            Statement::Variable { name, value } => {
+            Statement::Variable {
+                name,
+                var_type,
+                value,
+            } => {
+                // Emit expression code.
                 let expr = self.visit_expression(&value)?;
                 code.add_child(expr);
-                // FIXME: Emit coerce operations here.
+
+                // Emit a coerce operation.
+                match var_type {
+                    Type::Any => code.emit_op(Op::CoerceA),
+                    _ => todo!(),
+                }
+
+                // Emit wrapped SetLocal op.
                 code.emit_wrapped_op(WrappedOp::SetLocal { name })
             }
         }
