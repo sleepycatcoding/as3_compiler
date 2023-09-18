@@ -1,7 +1,7 @@
 use std::{borrow::Cow, str::FromStr};
 use thiserror::Error;
 
-pub use fold::Folder;
+pub use self::{fold::Folder, visitor::Visitor};
 
 #[derive(Debug, Error)]
 pub enum Error {
@@ -104,87 +104,22 @@ impl<'a> TryFrom<&'a Expression> for Cow<'a, String> {
     }
 }
 
-mod visitor {
+pub mod visitor {
     use super::*;
 
     pub trait Visitor: Sized {
         type Error;
+        type Ok;
 
-        fn visit_expression(&mut self, v: &Expression) -> Result<(), Self::Error> {
-            walk_expression(self, v)
-        }
+        fn visit_expression(&mut self, v: &Expression) -> Result<Self::Ok, Self::Error>;
 
-        fn visit_statement(&mut self, v: &Statement) -> Result<(), Self::Error> {
-            walk_statement(self, v)
-        }
+        fn visit_statement(&mut self, v: &Statement) -> Result<Self::Ok, Self::Error>;
 
-        fn visit_function(&mut self, v: &Function) -> Result<(), Self::Error> {
-            walk_function(self, v)
-        }
+        fn visit_function(&mut self, v: &Function) -> Result<Self::Ok, Self::Error>;
 
-        fn visit_class(&mut self, v: &Class) -> Result<(), Self::Error> {
-            walk_class(self, v)
-        }
+        fn visit_class(&mut self, v: &Class) -> Result<Self::Ok, Self::Error>;
 
-        fn visit_package(&mut self, v: &Package) -> Result<(), Self::Error> {
-            walk_package(self, v)
-        }
-    }
-
-    pub fn walk_expression<E, V: Visitor<Error = E>>(
-        visitor: &mut V,
-        v: &Expression,
-    ) -> Result<(), E> {
-        match v {
-            Expression::BinaryOperation {
-                lhs,
-                operator: _,
-                rhs,
-            } => {
-                visitor.visit_expression(&lhs)?;
-                visitor.visit_expression(&rhs)?;
-            }
-            Expression::Integer(_) => {}
-            Expression::String(_) => {}
-            Expression::Variable(_) => {}
-        }
-
-        Ok(())
-    }
-
-    pub fn walk_statement<E, V: Visitor<Error = E>>(
-        visitor: &mut V,
-        v: &Statement,
-    ) -> Result<(), E> {
-        match v {
-            Statement::Variable { name, value } => visitor.visit_expression(&value)?,
-        }
-
-        Ok(())
-    }
-
-    pub fn walk_function<E, V: Visitor<Error = E>>(visitor: &mut V, v: &Function) -> Result<(), E> {
-        for v in &v.block {
-            visitor.visit_statement(v)?;
-        }
-
-        Ok(())
-    }
-
-    pub fn walk_class<E, V: Visitor<Error = E>>(visitor: &mut V, v: &Class) -> Result<(), E> {
-        for v in &v.functions {
-            visitor.visit_function(v)?;
-        }
-
-        Ok(())
-    }
-
-    pub fn walk_package<E, V: Visitor<Error = E>>(visitor: &mut V, v: &Package) -> Result<(), E> {
-        for v in &v.classes {
-            visitor.visit_class(v)?;
-        }
-
-        Ok(())
+        fn visit_package(&mut self, v: &Package) -> Result<Self::Ok, Self::Error>;
     }
 }
 
