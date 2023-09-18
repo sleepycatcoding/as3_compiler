@@ -12,6 +12,15 @@ pub enum Error {
     CannotConvertToString,
 }
 
+#[derive(Debug, PartialEq, Eq)]
+pub enum Type {
+    Any,
+    Void,
+    Int,
+    Uint,
+    Other(String),
+}
+
 #[derive(Debug)]
 pub struct Package {
     pub name: Option<String>,
@@ -37,20 +46,21 @@ pub struct Function {
     pub name: String,
     pub visibility: Visibility,
     pub arguments: Vec<Argument>,
-    pub return_type: Option<String>,
+    pub return_type: Type,
     pub block: Vec<Box<Statement>>,
 }
 
 #[derive(Debug)]
 pub struct Argument {
     pub name: String,
-    pub value_type: Option<String>,
+    pub value_type: Type,
 }
 
 #[derive(Debug, PartialEq)]
 pub enum Statement {
     Variable {
         name: String,
+        var_type: Type,
         value: Box<Expression>,
     },
 }
@@ -88,6 +98,20 @@ impl FromStr for Visibility {
             "protected" => Ok(Visibility::Protected),
             "private" => Ok(Visibility::Private),
             s => Err(Error::UnknownVisibility(s.to_owned())),
+        }
+    }
+}
+
+impl FromStr for Type {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "*" => Ok(Type::Any),
+            "void" => Ok(Type::Void),
+            "int" => Ok(Type::Int),
+            "uint" => Ok(Type::Uint),
+            s => Ok(Type::Other(s.to_owned())),
         }
     }
 }
@@ -134,8 +158,13 @@ mod fold {
 
         fn fold_statement(&mut self, v: Box<Statement>) -> Box<Statement> {
             match *v {
-                Statement::Variable { name, value } => Box::new(Statement::Variable {
+                Statement::Variable {
                     name,
+                    var_type,
+                    value,
+                } => Box::new(Statement::Variable {
+                    name,
+                    var_type,
                     value: self.fold_expression(value),
                 }),
             }

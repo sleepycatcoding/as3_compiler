@@ -65,7 +65,7 @@ pub Function: ast::Function = {
             name,
             visibility: vis,
             arguments,
-            return_type: Some(return_type),
+            return_type: return_type.parse().unwrap(),
             block,
         }
     }
@@ -77,7 +77,7 @@ pub Argument: ast::Argument = {
     <name:"identifier"> ":" <value_type:"identifier"> => {
         ast::Argument {
             name,
-            value_type: Some(value_type),
+            value_type: value_type.parse().unwrap(),
         }
     }
 };
@@ -88,7 +88,7 @@ pub CodeBlock: Vec<Box<ast::Statement>> = {
 
 pub Statement: Box<ast::Statement> = {
     "var" <name:"identifier"> "=" <value:Expression> ";" => {
-        Box::new(ast::Statement::Variable { name, value })
+        Box::new(ast::Statement::Variable { name, var_type: ast::Type::Any, value })
     },
 };
 
