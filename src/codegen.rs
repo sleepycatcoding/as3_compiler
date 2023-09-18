@@ -1,16 +1,43 @@
-use crate::ast::{Expression, Operator, Visitor};
-use swf::avm2::types::{AbcFile, ConstantPool, Op};
+use crate::ast::{Expression, Operator, Statement, Visitor};
+use swf::avm2::types::Op;
 
 pub struct CodeGenerator {}
 
 #[derive(Debug)]
-pub struct CodeBlock {
-    code: Vec<Op>,
+pub enum WrappedOp<'a> {
+    RawOp(Op),
+    /// Represents an unresolved local, which has no number assigned.
+    /// This will be assigned later in a separate pass and converted into a raw op.
+    GetLocal {
+        name: &'a str,
+    },
+    /// Represents an unresolved local, which has no number assigned.
+    /// This will be assigned later in a separate pass and converted into a raw op.
+    SetLocal {
+        name: &'a str,
+    },
 }
 
-impl CodeBlock {
+/// Our compilers "MIR" representation.
+///
+/// This representation is used to assign variables, create constant pools and lots of other stuff.
+#[derive(Debug)]
+pub struct CodeBlock<'a> {
+    /// Sub codeblocks of this codeblock.
+    ///'
+    /// The code in children should be emitted before code in this codeblock.
+    children: Vec<CodeBlock<'a>>,
+    /// The code of the current codeblock.
+    code: Vec<WrappedOp<'a>>,
+}
+
+impl<'a> CodeBlock<'a> {
     fn emit_op(&mut self, op: Op) {
-        self.code.push(op);
+        self.code.push(WrappedOp::RawOp(op));
+    }
+
+    fn emit_wrapped_op(&mut self, op: WrappedOp<'a>) {
+        self.code.push(op)
     }
 
     fn emit_stack_push_int(&mut self, val: i32) {
@@ -23,22 +50,28 @@ impl CodeBlock {
         }
     }
 
-    fn merge(&mut self, block: CodeBlock) {
-        self.code.extend(block.code);
+    fn add_child(&mut self, block: CodeBlock<'a>) {
+        self.children.push(block)
     }
 }
 
-impl Default for CodeBlock {
+impl Default for CodeBlock<'_> {
     fn default() -> Self {
-        Self { code: Vec::new() }
+        Self {
+            code: Vec::new(),
+            children: Vec::new(),
+        }
     }
 }
 
-impl Visitor for CodeGenerator {
+impl<'ast> Visitor<'ast> for CodeGenerator {
     type Error = ();
-    type Ok = CodeBlock;
+    type Ok = CodeBlock<'ast>;
 
-    fn visit_expression(&mut self, v: &crate::ast::Expression) -> Result<Self::Ok, Self::Error> {
+    fn visit_expression(
+        &mut self,
+        v: &'ast crate::ast::Expression,
+    ) -> Result<Self::Ok, Self::Error> {
         let mut code = CodeBlock::default();
 
         match v {
@@ -46,8 +79,8 @@ impl Visitor for CodeGenerator {
                 let lhs = self.visit_expression(&lhs)?;
                 let rhs = self.visit_expression(&rhs)?;
 
-                code.merge(lhs);
-                code.merge(rhs);
+                code.add_child(lhs);
+                code.add_child(rhs);
 
                 match operator {
                     Operator::Add => code.emit_op(Op::Add),
@@ -63,19 +96,30 @@ impl Visitor for CodeGenerator {
         Ok(code)
     }
 
-    fn visit_class(&mut self, v: &crate::ast::Class) -> Result<Self::Ok, Self::Error> {
+    fn visit_statement(&mut self, v: &'ast crate::ast::Statement) -> Result<Self::Ok, Self::Error> {
+        let mut code = CodeBlock::default();
+
+        match v {
+            Statement::Variable { name, value } => {
+                let expr = self.visit_expression(&value)?;
+                code.add_child(expr);
+                // FIXME: Emit coerce operations here.
+                code.emit_wrapped_op(WrappedOp::SetLocal { name })
+            }
+        }
+
+        Ok(code)
+    }
+
+    fn visit_class(&mut self, v: &'ast crate::ast::Class) -> Result<Self::Ok, Self::Error> {
         todo!()
     }
 
-    fn visit_function(&mut self, v: &crate::ast::Function) -> Result<Self::Ok, Self::Error> {
+    fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<Self::Ok, Self::Error> {
         todo!()
     }
 
-    fn visit_package(&mut self, v: &crate::ast::Package) -> Result<Self::Ok, Self::Error> {
-        todo!()
-    }
-
-    fn visit_statement(&mut self, v: &crate::ast::Statement) -> Result<Self::Ok, Self::Error> {
+    fn visit_package(&mut self, v: &'ast crate::ast::Package) -> Result<Self::Ok, Self::Error> {
         todo!()
     }
 }

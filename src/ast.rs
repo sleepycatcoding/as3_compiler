@@ -107,19 +107,19 @@ impl<'a> TryFrom<&'a Expression> for Cow<'a, String> {
 pub mod visitor {
     use super::*;
 
-    pub trait Visitor: Sized {
+    pub trait Visitor<'ast>: Sized {
         type Error;
         type Ok;
 
-        fn visit_expression(&mut self, v: &Expression) -> Result<Self::Ok, Self::Error>;
+        fn visit_expression(&mut self, v: &'ast Expression) -> Result<Self::Ok, Self::Error>;
 
-        fn visit_statement(&mut self, v: &Statement) -> Result<Self::Ok, Self::Error>;
+        fn visit_statement(&mut self, v: &'ast Statement) -> Result<Self::Ok, Self::Error>;
 
-        fn visit_function(&mut self, v: &Function) -> Result<Self::Ok, Self::Error>;
+        fn visit_function(&mut self, v: &'ast Function) -> Result<Self::Ok, Self::Error>;
 
-        fn visit_class(&mut self, v: &Class) -> Result<Self::Ok, Self::Error>;
+        fn visit_class(&mut self, v: &'ast Class) -> Result<Self::Ok, Self::Error>;
 
-        fn visit_package(&mut self, v: &Package) -> Result<Self::Ok, Self::Error>;
+        fn visit_package(&mut self, v: &'ast Package) -> Result<Self::Ok, Self::Error>;
     }
 }
 
