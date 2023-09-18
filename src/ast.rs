@@ -104,38 +104,103 @@ impl<'a> TryFrom<&'a Expression> for Cow<'a, String> {
     }
 }
 
-// impl TryInto<String> for Expression {
-//     fn to_string(&self) -> String {
-//         match self {
-//             // FIXME: Sad clone face.
-//             Expression::String(v) => v.clone(),
-//             Expression::Integer(v) => v.to_string(),
-//             _ => panic!("Cannot convert {:?} to a string", self),
-//         }
-//     }
-// }
+mod visitor {
+    use super::*;
+
+    pub trait Visitor: Sized {
+        type Error;
+
+        fn visit_expression(&mut self, v: &Expression) -> Result<(), Self::Error> {
+            walk_expression(self, v)
+        }
+
+        fn visit_statement(&mut self, v: &Statement) -> Result<(), Self::Error> {
+            walk_statement(self, v)
+        }
+
+        fn visit_function(&mut self, v: &Function) -> Result<(), Self::Error> {
+            walk_function(self, v)
+        }
+
+        fn visit_class(&mut self, v: &Class) -> Result<(), Self::Error> {
+            walk_class(self, v)
+        }
+
+        fn visit_package(&mut self, v: &Package) -> Result<(), Self::Error> {
+            walk_package(self, v)
+        }
+    }
+
+    pub fn walk_expression<E, V: Visitor<Error = E>>(
+        visitor: &mut V,
+        v: &Expression,
+    ) -> Result<(), E> {
+        match v {
+            Expression::BinaryOperation {
+                lhs,
+                operator: _,
+                rhs,
+            } => {
+                visitor.visit_expression(&lhs)?;
+                visitor.visit_expression(&rhs)?;
+            }
+            Expression::Integer(_) => {}
+            Expression::String(_) => {}
+            Expression::Variable(_) => {}
+        }
+
+        Ok(())
+    }
+
+    pub fn walk_statement<E, V: Visitor<Error = E>>(
+        visitor: &mut V,
+        v: &Statement,
+    ) -> Result<(), E> {
+        match v {
+            Statement::Variable { name, value } => visitor.visit_expression(&value)?,
+        }
+
+        Ok(())
+    }
+
+    pub fn walk_function<E, V: Visitor<Error = E>>(visitor: &mut V, v: &Function) -> Result<(), E> {
+        for v in &v.block {
+            visitor.visit_statement(v)?;
+        }
+
+        Ok(())
+    }
+
+    pub fn walk_class<E, V: Visitor<Error = E>>(visitor: &mut V, v: &Class) -> Result<(), E> {
+        for v in &v.functions {
+            visitor.visit_function(v)?;
+        }
+
+        Ok(())
+    }
+
+    pub fn walk_package<E, V: Visitor<Error = E>>(visitor: &mut V, v: &Package) -> Result<(), E> {
+        for v in &v.classes {
+            visitor.visit_class(v)?;
+        }
+
+        Ok(())
+    }
+}
 
 /// Abstract folder.
 mod fold {
     use super::*;
 
     pub trait Folder {
-        fn fold_name(&mut self, v: String) -> String {
-            v
-        }
-
         fn fold_expression(&mut self, v: Box<Expression>) -> Box<Expression> {
-            if let Expression::Variable(name) = *v {
-                Box::new(Expression::Variable(self.fold_name(name)))
-            } else {
-                v
-            }
+            v
         }
 
         fn fold_statement(&mut self, v: Box<Statement>) -> Box<Statement> {
             match *v {
                 Statement::Variable { name, value } => Box::new(Statement::Variable {
-                    name: self.fold_name(name),
+                    name,
                     value: self.fold_expression(value),
                 }),
             }
@@ -149,8 +214,6 @@ mod fold {
                 return_type,
                 block,
             } = v;
-
-            let name = self.fold_name(name);
 
             let block = block
                 .into_iter()
@@ -175,7 +238,6 @@ mod fold {
                 functions,
             } = v;
 
-            let name = self.fold_name(name);
             let functions = functions
                 .into_iter()
                 .map(|v| self.fold_function(v))
