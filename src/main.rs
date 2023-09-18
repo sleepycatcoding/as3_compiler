@@ -1,7 +1,9 @@
+use crate::ast::Folder;
 use lalrpop_util::lalrpop_mod;
 
 mod ast;
 mod lexer;
+mod optimizer;
 
 lalrpop_mod!(pub grammar);
 
@@ -14,4 +16,10 @@ fn main() {
     let ast = parser.parse(lexer).unwrap();
 
     println!("{:?}", ast);
+
+    let mut optimizer = optimizer::AstOptimizer::default();
+
+    let new_ast = optimizer.fold_package(ast);
+
+    println!("{:?}", new_ast);
 }
