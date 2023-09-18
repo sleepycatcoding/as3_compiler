@@ -123,11 +123,32 @@ impl<'ast> Visitor<'ast> for CodeGenerator {
         Ok(code)
     }
 
-    fn visit_class(&mut self, v: &'ast crate::ast::Class) -> Result<Self::Ok, Self::Error> {
-        todo!()
+    fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<Self::Ok, Self::Error> {
+        let mut code = CodeBlock::default();
+
+        // This the setup that the asc.jar/Flex compiler always does in a function, so we do the same.
+        code.emit_op(Op::GetLocal { index: 0 });
+        code.emit_op(Op::PushScope);
+
+        // Parse all statements.
+        for statement in &v.block {
+            let statement = self.visit_statement(&statement)?;
+            code.add_child(statement);
+        }
+
+        // Check if return type is void and use stuff accordingly.
+        // FIXME: What if return keyword is used explicitly, then we need to clean it up somewhere. (Otherwise duplicates occur).
+        if v.return_type == Type::Void {
+            code.emit_op(Op::ReturnVoid);
+        } else {
+            // Not going to work yet.
+            todo!()
+        }
+
+        Ok(code)
     }
 
-    fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<Self::Ok, Self::Error> {
+    fn visit_class(&mut self, v: &'ast crate::ast::Class) -> Result<Self::Ok, Self::Error> {
         todo!()
     }
 
