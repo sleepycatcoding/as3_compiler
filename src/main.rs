@@ -27,9 +27,11 @@ fn main() {
 
     println!("Expr: {:?}", function);
 
-    let mut gen = codegen::CodeGenerator {};
+    let mut gen = codegen::CodeGenerator::default();
 
-    println!("Expr {:#?}", gen.visit_function(function).unwrap());
+    gen.visit_function(function).unwrap();
+
+    println!("Expr {:#?}", gen);
 
     //println!("{:?}", new_ast);
 }

@@ -133,17 +133,95 @@ pub mod visitor {
 
     pub trait Visitor<'ast>: Sized {
         type Error;
-        type Ok;
 
-        fn visit_expression(&mut self, v: &'ast Expression) -> Result<Self::Ok, Self::Error>;
+        fn visit_expression(&mut self, v: &'ast Expression) -> Result<(), Self::Error> {
+            walk_expression(self, v)
+        }
 
-        fn visit_statement(&mut self, v: &'ast Statement) -> Result<Self::Ok, Self::Error>;
+        fn visit_statement(&mut self, v: &'ast Statement) -> Result<(), Self::Error> {
+            walk_statement(self, v)
+        }
 
-        fn visit_function(&mut self, v: &'ast Function) -> Result<Self::Ok, Self::Error>;
+        fn visit_function(&mut self, v: &'ast Function) -> Result<(), Self::Error> {
+            walk_function(self, v)
+        }
 
-        fn visit_class(&mut self, v: &'ast Class) -> Result<Self::Ok, Self::Error>;
+        fn visit_class(&mut self, v: &'ast Class) -> Result<(), Self::Error> {
+            walk_class(self, v)
+        }
 
-        fn visit_package(&mut self, v: &'ast Package) -> Result<Self::Ok, Self::Error>;
+        fn visit_package(&mut self, v: &'ast Package) -> Result<(), Self::Error> {
+            walk_package(self, v)
+        }
+    }
+
+    pub fn walk_expression<'ast, E, V: Visitor<'ast, Error = E>>(
+        visitor: &mut V,
+        v: &'ast Expression,
+    ) -> Result<(), E> {
+        match v {
+            Expression::BinaryOperation {
+                lhs,
+                operator: _,
+                rhs,
+            } => {
+                visitor.visit_expression(&lhs)?;
+                visitor.visit_expression(&rhs)?;
+            }
+            Expression::Integer(_) => {}
+            Expression::String(_) => {}
+            Expression::Variable(_) => {}
+        }
+
+        Ok(())
+    }
+
+    pub fn walk_statement<'ast, E, V: Visitor<'ast, Error = E>>(
+        visitor: &mut V,
+        v: &'ast Statement,
+    ) -> Result<(), E> {
+        match v {
+            Statement::Variable {
+                name: _,
+                var_type: _,
+                value,
+            } => visitor.visit_expression(&value)?,
+        }
+
+        Ok(())
+    }
+
+    pub fn walk_function<'ast, E, V: Visitor<'ast, Error = E>>(
+        visitor: &mut V,
+        v: &'ast Function,
+    ) -> Result<(), E> {
+        for v in &v.block {
+            visitor.visit_statement(v)?;
+        }
+
+        Ok(())
+    }
+
+    pub fn walk_class<'ast, E, V: Visitor<'ast, Error = E>>(
+        visitor: &mut V,
+        v: &'ast Class,
+    ) -> Result<(), E> {
+        for v in &v.functions {
+            visitor.visit_function(v)?;
+        }
+
+        Ok(())
+    }
+
+    pub fn walk_package<'ast, E, V: Visitor<'ast, Error = E>>(
+        visitor: &mut V,
+        v: &'ast Package,
+    ) -> Result<(), E> {
+        for v in &v.classes {
+            visitor.visit_class(v)?;
+        }
+
+        Ok(())
     }
 }
 

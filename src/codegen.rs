@@ -1,8 +1,6 @@
 use crate::ast::{Expression, Operator, Statement, Type, Visitor};
 use swf::avm2::types::Op;
 
-pub struct CodeGenerator {}
-
 #[derive(Debug)]
 pub enum WrappedOp<'a> {
     RawOp(Op),
@@ -22,20 +20,14 @@ pub enum WrappedOp<'a> {
     },
 }
 
-/// Our compilers "MIR" representation.
-///
-/// This representation is used to assign variables, create constant pools and lots of other stuff.
+/// A visitor to generate ABC bytecode from a AST.
 #[derive(Debug)]
-pub struct CodeBlock<'a> {
-    /// Sub codeblocks of this codeblock.
-    ///'
-    /// The code in children should be emitted before code in this codeblock.
-    children: Vec<CodeBlock<'a>>,
-    /// The code of the current codeblock.
+pub struct CodeGenerator<'a> {
+    /// Generated code.
     code: Vec<WrappedOp<'a>>,
 }
 
-impl<'a> CodeBlock<'a> {
+impl<'a> CodeGenerator<'a> {
     fn emit_op(&mut self, op: Op) {
         self.code.push(WrappedOp::RawOp(op));
     }
@@ -53,57 +45,39 @@ impl<'a> CodeBlock<'a> {
             todo!("Unhandled");
         }
     }
-
-    fn add_child(&mut self, block: CodeBlock<'a>) {
-        self.children.push(block)
-    }
 }
 
-impl Default for CodeBlock<'_> {
+impl Default for CodeGenerator<'_> {
     fn default() -> Self {
-        Self {
-            code: Vec::new(),
-            children: Vec::new(),
-        }
+        Self { code: Vec::new() }
     }
 }
 
-impl<'ast> Visitor<'ast> for CodeGenerator {
+impl<'ast> Visitor<'ast> for CodeGenerator<'ast> {
     type Error = ();
-    type Ok = CodeBlock<'ast>;
 
-    fn visit_expression(
-        &mut self,
-        v: &'ast crate::ast::Expression,
-    ) -> Result<Self::Ok, Self::Error> {
-        let mut code = CodeBlock::default();
-
+    fn visit_expression(&mut self, v: &'ast crate::ast::Expression) -> Result<(), Self::Error> {
         match v {
             Expression::BinaryOperation { lhs, operator, rhs } => {
-                let lhs = self.visit_expression(&lhs)?;
-                let rhs = self.visit_expression(&rhs)?;
-
-                code.add_child(lhs);
-                code.add_child(rhs);
+                self.visit_expression(&lhs)?;
+                self.visit_expression(&rhs)?;
 
                 match operator {
-                    Operator::Add => code.emit_op(Op::Add),
-                    Operator::Sub => code.emit_op(Op::Subtract),
-                    Operator::Mul => code.emit_op(Op::Multiply),
-                    Operator::Div => code.emit_op(Op::Divide),
+                    Operator::Add => self.emit_op(Op::Add),
+                    Operator::Sub => self.emit_op(Op::Subtract),
+                    Operator::Mul => self.emit_op(Op::Multiply),
+                    Operator::Div => self.emit_op(Op::Divide),
                 }
             }
-            Expression::Integer(val) => code.emit_stack_push_int(*val),
-            Expression::String(value) => code.emit_wrapped_op(WrappedOp::PushString { value }),
-            Expression::Variable(name) => code.emit_wrapped_op(WrappedOp::GetLocal { name }),
+            Expression::Integer(val) => self.emit_stack_push_int(*val),
+            Expression::String(value) => self.emit_wrapped_op(WrappedOp::PushString { value }),
+            Expression::Variable(name) => self.emit_wrapped_op(WrappedOp::GetLocal { name }),
         }
 
-        Ok(code)
+        Ok(())
     }
 
-    fn visit_statement(&mut self, v: &'ast crate::ast::Statement) -> Result<Self::Ok, Self::Error> {
-        let mut code = CodeBlock::default();
-
+    fn visit_statement(&mut self, v: &'ast crate::ast::Statement) -> Result<(), Self::Error> {
         match v {
             Statement::Variable {
                 name,
@@ -111,53 +85,49 @@ impl<'ast> Visitor<'ast> for CodeGenerator {
                 value,
             } => {
                 // Emit expression code.
-                let expr = self.visit_expression(&value)?;
-                code.add_child(expr);
+                self.visit_expression(&value)?;
 
                 // Emit a coerce operation.
                 match var_type {
-                    Type::Any => code.emit_op(Op::CoerceA),
+                    Type::Any => self.emit_op(Op::CoerceA),
                     _ => todo!(),
                 }
 
                 // Emit wrapped SetLocal op.
-                code.emit_wrapped_op(WrappedOp::SetLocal { name })
+                self.emit_wrapped_op(WrappedOp::SetLocal { name })
             }
         }
 
-        Ok(code)
+        Ok(())
     }
 
-    fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<Self::Ok, Self::Error> {
-        let mut code = CodeBlock::default();
-
+    fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<(), Self::Error> {
         // This the setup that the asc.jar/Flex compiler always does in a function, so we do the same.
-        code.emit_op(Op::GetLocal { index: 0 });
-        code.emit_op(Op::PushScope);
+        self.emit_op(Op::GetLocal { index: 0 });
+        self.emit_op(Op::PushScope);
 
         // Parse all statements.
         for statement in &v.block {
-            let statement = self.visit_statement(&statement)?;
-            code.add_child(statement);
+            self.visit_statement(&statement)?;
         }
 
         // Check if return type is void and use stuff accordingly.
         // FIXME: What if return keyword is used explicitly, then we need to clean it up somewhere. (Otherwise duplicates occur).
         if v.return_type == Type::Void {
-            code.emit_op(Op::ReturnVoid);
+            self.emit_op(Op::ReturnVoid);
         } else {
             // Not going to work yet.
             todo!()
         }
 
-        Ok(code)
+        Ok(())
     }
 
-    fn visit_class(&mut self, v: &'ast crate::ast::Class) -> Result<Self::Ok, Self::Error> {
+    fn visit_class(&mut self, v: &'ast crate::ast::Class) -> Result<(), Self::Error> {
         todo!()
     }
 
-    fn visit_package(&mut self, v: &'ast crate::ast::Package) -> Result<Self::Ok, Self::Error> {
+    fn visit_package(&mut self, v: &'ast crate::ast::Package) -> Result<(), Self::Error> {
         todo!()
     }
 }
