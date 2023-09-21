@@ -1,6 +1,6 @@
 //! The purpose of this module is to generate ABC bytecode for functions.
 
-use swf::avm2::types::Op;
+use swf::avm2::types::{Index, MethodBody, Op};
 
 use crate::ast::{
     visitor::{walk_function, walk_statement},
@@ -11,13 +11,13 @@ use std::collections::HashMap;
 
 /// A visitor used to collect and assign indices to all variables/arguments referenced in a function.
 #[derive(Debug)]
-pub struct VariableCollectVisitor<'a> {
+pub struct LocalResolverVisitor<'a> {
     current_index: u32,
     // FIXME: Maybe store type here too since it might be needed later?
     variables: HashMap<&'a String, u32>,
 }
 
-impl Default for VariableCollectVisitor<'_> {
+impl Default for LocalResolverVisitor<'_> {
     fn default() -> Self {
         Self {
             current_index: 0,
@@ -26,7 +26,7 @@ impl Default for VariableCollectVisitor<'_> {
     }
 }
 
-impl<'a> VariableCollectVisitor<'a> {
+impl<'a> LocalResolverVisitor<'a> {
     /// Generates a new unique index.
     fn fetch_index(&mut self) -> u32 {
         self.current_index += 1;
@@ -42,7 +42,7 @@ impl<'a> VariableCollectVisitor<'a> {
     }
 }
 
-impl<'ast> Visitor<'ast> for VariableCollectVisitor<'ast> {
+impl<'ast> Visitor<'ast> for LocalResolverVisitor<'ast> {
     type Error = ();
 
     fn visit_statement(&mut self, v: &'ast Statement) -> Result<(), Self::Error> {
@@ -83,18 +83,89 @@ impl<'ast> Visitor<'ast> for VariableCollectVisitor<'ast> {
 #[derive(Debug)]
 pub struct FunctionGenerator<'ast, 'a> {
     context: &'a mut CodeGenerationContext,
-    variables: HashMap<&'ast String, u32>,
+    locals: HashMap<&'ast String, u32>,
+    // Max stack objects at once at any time during execution.
+    max_stack: u32,
+    current_stack: u32,
+    /// Generated code.
+    code: Vec<Op>,
 }
 
 impl<'ast, 'a> FunctionGenerator<'ast, 'a> {
     pub fn new(
-        variables: VariableCollectVisitor<'ast>,
+        variables: LocalResolverVisitor<'ast>,
         context: &'a mut CodeGenerationContext,
     ) -> Self {
         Self {
             context,
-            variables: variables.variables,
+            locals: variables.variables,
+            code: Vec::new(),
+            max_stack: 0,
+            current_stack: 0,
         }
+    }
+
+    // Meant to be used to emit raw operations, if possible, use wrappers instead.
+    fn emit_op(&mut self, op: Op) {
+        self.code.push(op);
+    }
+
+    /// A marker function to calculate a function's max stack value.
+    fn stack_push(&mut self) {
+        self.current_stack += 1;
+
+        if self.max_stack < self.current_stack {
+            self.max_stack = self.current_stack
+        }
+    }
+
+    /// A marker function to calculate a function's max stack value.
+    fn stack_pop(&mut self) {
+        self.current_stack -= 1;
+    }
+
+    fn push_int(&mut self, val: i32) {
+        if let Ok(value) = val.try_into() {
+            self.emit_op(Op::PushByte { value })
+        } else if let Ok(value) = val.try_into() {
+            self.emit_op(Op::PushShort { value })
+        } else {
+            todo!("Unhandled");
+        }
+
+        self.stack_push()
+    }
+
+    fn push_string(&mut self, val: &String) {
+        let index = self.context.add_string(val);
+        self.emit_op(Op::PushString { value: index });
+        self.stack_push()
+    }
+
+    fn push_bool(&mut self, val: bool) {
+        if val {
+            self.emit_op(Op::PushTrue)
+        } else {
+            self.emit_op(Op::PushFalse)
+        }
+        self.stack_push()
+    }
+
+    // Gets a value in a local register and pushes it onto the stack.
+    fn get_local(&mut self, name: &String) {
+        self.emit_op(Op::GetLocal {
+            // FIXME: return err, instead of unwrap.
+            index: *self.locals.get(name).unwrap(),
+        });
+        self.stack_push()
+    }
+
+    /// Pops a value from the stack and sets it to the specified local register.
+    fn set_local(&mut self, name: &String) {
+        self.emit_op(Op::SetLocal {
+            index: *self.locals.get(name).unwrap(),
+        });
+        self.stack_pop();
     }
 }
 
@@ -108,21 +179,19 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
                 self.visit_expression(&rhs)?;
 
                 match operator {
-                    Operator::Add => self.context.emit_op(Op::Add),
-                    Operator::Sub => self.context.emit_op(Op::Subtract),
-                    Operator::Mul => self.context.emit_op(Op::Multiply),
-                    Operator::Div => self.context.emit_op(Op::Divide),
+                    Operator::Add => self.emit_op(Op::Add),
+                    Operator::Sub => self.emit_op(Op::Subtract),
+                    Operator::Mul => self.emit_op(Op::Multiply),
+                    Operator::Div => self.emit_op(Op::Divide),
                 }
+
+                // These operations pop two values off the stack and pushes one back. So we pop only once.
+                self.stack_pop();
             }
-            Expression::Integer(val) => self.context.emit_stack_push_int(*val),
-            Expression::String(val) => self.context.push_string(val),
-            Expression::Bool(x) => self.context.push_bool(*x),
-            Expression::Variable(name) => {
-                // FIXME: return err, instead of unwrap.
-                self.context.emit_op(Op::GetLocal {
-                    index: *self.variables.get(name).unwrap(),
-                })
-            }
+            Expression::Integer(val) => self.push_int(*val),
+            Expression::String(val) => self.push_string(val),
+            Expression::Bool(x) => self.push_bool(*x),
+            Expression::Variable(name) => self.get_local(name),
         }
 
         Ok(())
@@ -140,14 +209,11 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
 
                 // Emit a coerce operation.
                 match var_type {
-                    Type::Any => self.context.emit_op(Op::CoerceA),
+                    Type::Any => self.emit_op(Op::CoerceA),
                     _ => todo!(),
                 }
 
-                // Emit wrapped SetLocal op.
-                self.context.emit_op(Op::SetLocal {
-                    index: *self.variables.get(name).unwrap(),
-                })
+                self.set_local(name);
             }
         }
 
@@ -156,8 +222,8 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
 
     fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<(), Self::Error> {
         // This the setup that the asc.jar/Flex compiler always does in a function, so we do the same.
-        self.context.emit_op(Op::GetLocal { index: 0 });
-        self.context.emit_op(Op::PushScope);
+        self.emit_op(Op::GetLocal { index: 0 });
+        self.emit_op(Op::PushScope);
 
         // Parse all statements.
         for statement in &v.block {
@@ -167,11 +233,30 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
         // Check if return type is void and use stuff accordingly.
         // FIXME: What if return keyword is used explicitly, then we need to clean it up somewhere. (Otherwise duplicates occur).
         if v.return_type == Type::Void {
-            self.context.emit_op(Op::ReturnVoid);
+            self.emit_op(Op::ReturnVoid);
         } else {
             // Not going to work yet.
             todo!()
         }
+
+        let method_body = MethodBody {
+            // FIXME: This actually not correct.
+            method: Index::new(0),
+            // FIXME: Not yet calculated.
+            max_stack: self.max_stack,
+            // NOTE: Plus one required since we are not including "this" object in locals.
+            num_locals: self.locals.len() as u32 + 1,
+            // FIXME: No idea about these two.
+            init_scope_depth: 0,
+            max_scope_depth: 0,
+            // FIXME: Swf crate does not provide an easy way to write opcodes out right now.
+            //        also this requires jump/label resolution.
+            code: Vec::new(),
+            exceptions: Vec::new(),
+            traits: Vec::new(),
+        };
+
+        println!("Method Body: {:?}", method_body);
 
         Ok(())
     }

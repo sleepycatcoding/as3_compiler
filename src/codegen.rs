@@ -5,28 +5,12 @@ mod function;
 
 #[derive(Debug)]
 pub struct CodeGenerationContext {
-    /// Generated code.
-    code: Vec<Op>,
     const_pool: ConstantPool,
 }
 
 impl CodeGenerationContext {
-    fn emit_op(&mut self, op: Op) {
-        self.code.push(op);
-    }
-
-    fn emit_stack_push_int(&mut self, val: i32) {
-        if let Ok(value) = val.try_into() {
-            self.emit_op(Op::PushByte { value })
-        } else if let Ok(value) = val.try_into() {
-            self.emit_op(Op::PushShort { value })
-        } else {
-            todo!("Unhandled");
-        }
-    }
-
-    /// Pushes a string onto the stack, if the string does not exist in the constant pool, it will be added.
-    fn push_string(&mut self, val: &String) {
+    /// Adds a string into constant pool (unless it already exists) and a index will be returned.
+    fn add_string(&mut self, val: &String) -> Index<String> {
         let index = if let Some(index) = self.const_pool.strings.iter().position(|x| x == val) {
             index
         } else {
@@ -37,17 +21,7 @@ impl CodeGenerationContext {
             index
         } as u32;
 
-        let index = Index::new(index);
-
-        self.emit_op(Op::PushString { value: index });
-    }
-
-    fn push_bool(&mut self, val: bool) {
-        if val {
-            self.emit_op(Op::PushTrue)
-        } else {
-            self.emit_op(Op::PushFalse)
-        }
+        Index::new(index)
     }
 }
 
@@ -61,7 +35,6 @@ impl Default for CodeGenerator {
     fn default() -> Self {
         Self {
             context: CodeGenerationContext {
-                code: Vec::new(),
                 const_pool: ConstantPool {
                     ints: Vec::new(),
                     uints: Vec::new(),
@@ -80,7 +53,7 @@ impl<'ast> Visitor<'ast> for CodeGenerator {
     type Error = ();
 
     fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<(), Self::Error> {
-        let mut var_visitor = function::VariableCollectVisitor::default();
+        let mut var_visitor = function::LocalResolverVisitor::default();
         var_visitor.visit_function(v)?;
 
         let mut function_gen = function::FunctionGenerator::new(var_visitor, &mut self.context);
