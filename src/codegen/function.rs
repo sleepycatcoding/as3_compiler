@@ -119,6 +119,7 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
             Expression::String(value) => self
                 .context
                 .emit_wrapped_op(WrappedOp::PushString { value }),
+            Expression::Bool(x) => self.context.push_bool(*x),
             Expression::Variable(name) => {
                 // FIXME: return err, instead of unwrap.
                 self.context.emit_op(Op::GetLocal {

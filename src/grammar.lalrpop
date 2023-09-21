@@ -16,6 +16,7 @@ extern {
         "identifier" => Token::Identifier(<String>),
         "int" => Token::Integer(<i32>),
         "string" => Token::String(<String>),
+        "bool" => Token::Bool(<bool>),
         "(" => Token::LParen,
         ")" => Token::RParen,
         "{" => Token::LCurlyBracket,
@@ -135,6 +136,9 @@ pub Term: Box<ast::Expression> = {
     },
     <val:"string"> => {
         Box::new(ast::Expression::String(val))
+    },
+    <val:"bool"> => {
+        Box::new(ast::Expression::Bool(val))
     },
     <name:"identifier"> => {
         Box::new(ast::Expression::Variable(name))

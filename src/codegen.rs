@@ -36,6 +36,14 @@ impl<'a> CodeGenerationContext<'a> {
             todo!("Unhandled");
         }
     }
+
+    fn push_bool(&mut self, val: bool) {
+        if val {
+            self.emit_op(Op::PushTrue)
+        } else {
+            self.emit_op(Op::PushFalse)
+        }
+    }
 }
 
 /// A visitor to generate ABC bytecode from a AST.

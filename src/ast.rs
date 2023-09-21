@@ -18,6 +18,7 @@ pub enum Type {
     Void,
     Int,
     Uint,
+    Bool,
     Other(String),
 }
 
@@ -71,6 +72,8 @@ pub enum Expression {
     Integer(i32),
     // A string literal.
     String(String),
+    // A boolean,
+    Bool(bool),
     // A variable.
     Variable(String),
     // A binary operation.
@@ -111,6 +114,7 @@ impl FromStr for Type {
             "void" => Ok(Type::Void),
             "int" => Ok(Type::Int),
             "uint" => Ok(Type::Uint),
+            "Boolean" => Ok(Type::Bool),
             s => Ok(Type::Other(s.to_owned())),
         }
     }
@@ -169,6 +173,7 @@ pub mod visitor {
                 visitor.visit_expression(&rhs)?;
             }
             Expression::Integer(_) => {}
+            Expression::Bool(_) => {}
             Expression::String(_) => {}
             Expression::Variable(_) => {}
         }

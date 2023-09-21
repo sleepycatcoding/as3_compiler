@@ -36,6 +36,8 @@ pub enum Token {
     #[regex("(public|protected|private)", callback = |lex| lex.slice().parse().ok())]
     KeywordVisibility(Visibility),
 
+    #[regex("(true|false)", callback = |lex| lex.slice().parse().ok())]
+    Bool(bool),
     #[regex("[_a-zA-Z][_0-9a-zA-Z]*", priority = 2, callback = |lex| lex.slice().parse().ok())]
     Identifier(String),
     #[regex("\\d+", |lex| lex.slice().parse().ok())]

@@ -55,9 +55,7 @@ mod ast {
                     }
                 }
                 // Cannot optimize any further.
-                Expression::Integer(v) => Box::new(Expression::Integer(v)),
-                Expression::Variable(v) => Box::new(Expression::Variable(v)),
-                Expression::String(v) => Box::new(Expression::String(v)),
+                x => Box::new(x),
             }
         }
     }
