@@ -13,9 +13,9 @@ use super::{CodeGenerationContext, WrappedOp};
 /// A visitor used to collect and assign indices to all variables/arguments referenced in a function.
 #[derive(Debug)]
 pub struct VariableCollectVisitor<'a> {
-    current_index: usize,
+    current_index: u32,
     // FIXME: Maybe store type here too since it might be needed later?
-    variables: HashMap<&'a str, usize>,
+    variables: HashMap<&'a String, u32>,
 }
 
 impl Default for VariableCollectVisitor<'_> {
@@ -29,13 +29,13 @@ impl Default for VariableCollectVisitor<'_> {
 
 impl<'a> VariableCollectVisitor<'a> {
     /// Generates a new unique index.
-    fn fetch_index(&mut self) -> usize {
+    fn fetch_index(&mut self) -> u32 {
         self.current_index += 1;
         self.current_index
     }
 
     /// Adds a variable to contained variables.
-    fn add_var(&mut self, name: &'a str) {
+    fn add_var(&mut self, name: &'a String) {
         if !self.variables.contains_key(name) {
             let index = self.fetch_index();
             self.variables.insert(name, index);
@@ -59,8 +59,7 @@ impl<'ast> Visitor<'ast> for VariableCollectVisitor<'ast> {
     }
 
     fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<(), Self::Error> {
-        // First argument is always self/this argument.
-        self.current_index = 1;
+        // NOTE: First argument is always self/this argument, but index 0 is never given out so this is fine.
 
         // FIXME: What if "arguments" is referenced and stuff like that?
         //        Also variadic arguments.
@@ -85,7 +84,7 @@ impl<'ast> Visitor<'ast> for VariableCollectVisitor<'ast> {
 #[derive(Debug)]
 pub struct FunctionGenerator<'ast, 'a> {
     context: &'a mut CodeGenerationContext<'ast>,
-    variables: HashMap<&'ast str, usize>,
+    variables: HashMap<&'ast String, u32>,
 }
 
 impl<'ast, 'a> FunctionGenerator<'ast, 'a> {
@@ -121,7 +120,10 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
                 .context
                 .emit_wrapped_op(WrappedOp::PushString { value }),
             Expression::Variable(name) => {
-                self.context.emit_wrapped_op(WrappedOp::GetLocal { name })
+                // FIXME: return err, instead of unwrap.
+                self.context.emit_op(Op::GetLocal {
+                    index: *self.variables.get(name).unwrap(),
+                })
             }
         }
 
@@ -145,7 +147,9 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
                 }
 
                 // Emit wrapped SetLocal op.
-                self.context.emit_wrapped_op(WrappedOp::SetLocal { name })
+                self.context.emit_op(Op::SetLocal {
+                    index: *self.variables.get(name).unwrap(),
+                })
             }
         }
 

@@ -6,16 +6,6 @@ mod function;
 #[derive(Debug)]
 pub enum WrappedOp<'a> {
     RawOp(Op),
-    /// Represents an unresolved local, which has no number assigned.
-    /// This will be assigned later in a separate pass and converted into a raw op.
-    GetLocal {
-        name: &'a str,
-    },
-    /// Represents an unresolved local, which has no number assigned.
-    /// This will be assigned later in a separate pass and converted into a raw op.
-    SetLocal {
-        name: &'a str,
-    },
     /// Represents an unresolved stack value, which has no constant pool index assigned.
     PushString {
         value: &'a str,
