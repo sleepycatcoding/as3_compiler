@@ -1,30 +1,18 @@
 use crate::ast::Visitor;
-use swf::avm2::types::Op;
+use swf::avm2::types::{ConstantPool, Index, Op};
 
 mod function;
 
 #[derive(Debug)]
-pub enum WrappedOp<'a> {
-    RawOp(Op),
-    /// Represents an unresolved stack value, which has no constant pool index assigned.
-    PushString {
-        value: &'a str,
-    },
-}
-
-#[derive(Debug)]
-pub struct CodeGenerationContext<'a> {
+pub struct CodeGenerationContext {
     /// Generated code.
-    code: Vec<WrappedOp<'a>>,
+    code: Vec<Op>,
+    const_pool: ConstantPool,
 }
 
-impl<'a> CodeGenerationContext<'a> {
+impl CodeGenerationContext {
     fn emit_op(&mut self, op: Op) {
-        self.code.push(WrappedOp::RawOp(op));
-    }
-
-    fn emit_wrapped_op(&mut self, op: WrappedOp<'a>) {
-        self.code.push(op)
+        self.code.push(op);
     }
 
     fn emit_stack_push_int(&mut self, val: i32) {
@@ -35,6 +23,23 @@ impl<'a> CodeGenerationContext<'a> {
         } else {
             todo!("Unhandled");
         }
+    }
+
+    /// Pushes a string onto the stack, if the string does not exist in the constant pool, it will be added.
+    fn push_string(&mut self, val: &String) {
+        let index = if let Some(index) = self.const_pool.strings.iter().position(|x| x == val) {
+            index
+        } else {
+            // Create a index.
+            let index = self.const_pool.strings.len();
+            // Push the value.
+            self.const_pool.strings.push(val.clone());
+            index
+        } as u32;
+
+        let index = Index::new(index);
+
+        self.emit_op(Op::PushString { value: index });
     }
 
     fn push_bool(&mut self, val: bool) {
@@ -48,19 +53,30 @@ impl<'a> CodeGenerationContext<'a> {
 
 /// A visitor to generate ABC bytecode from a AST.
 #[derive(Debug)]
-pub struct CodeGenerator<'a> {
-    context: CodeGenerationContext<'a>,
+pub struct CodeGenerator {
+    context: CodeGenerationContext,
 }
 
-impl Default for CodeGenerator<'_> {
+impl Default for CodeGenerator {
     fn default() -> Self {
         Self {
-            context: CodeGenerationContext { code: Vec::new() },
+            context: CodeGenerationContext {
+                code: Vec::new(),
+                const_pool: ConstantPool {
+                    ints: Vec::new(),
+                    uints: Vec::new(),
+                    doubles: Vec::new(),
+                    strings: Vec::new(),
+                    namespaces: Vec::new(),
+                    namespace_sets: Vec::new(),
+                    multinames: Vec::new(),
+                },
+            },
         }
     }
 }
 
-impl<'ast> Visitor<'ast> for CodeGenerator<'ast> {
+impl<'ast> Visitor<'ast> for CodeGenerator {
     type Error = ();
 
     fn visit_function(&mut self, v: &'ast crate::ast::Function) -> Result<(), Self::Error> {

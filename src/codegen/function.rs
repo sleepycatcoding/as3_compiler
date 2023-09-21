@@ -6,9 +6,8 @@ use crate::ast::{
     visitor::{walk_function, walk_statement},
     Expression, Operator, Statement, Type, Visitor,
 };
+use crate::codegen::CodeGenerationContext;
 use std::collections::HashMap;
-
-use super::{CodeGenerationContext, WrappedOp};
 
 /// A visitor used to collect and assign indices to all variables/arguments referenced in a function.
 #[derive(Debug)]
@@ -83,14 +82,14 @@ impl<'ast> Visitor<'ast> for VariableCollectVisitor<'ast> {
 
 #[derive(Debug)]
 pub struct FunctionGenerator<'ast, 'a> {
-    context: &'a mut CodeGenerationContext<'ast>,
+    context: &'a mut CodeGenerationContext,
     variables: HashMap<&'ast String, u32>,
 }
 
 impl<'ast, 'a> FunctionGenerator<'ast, 'a> {
     pub fn new(
         variables: VariableCollectVisitor<'ast>,
-        context: &'a mut CodeGenerationContext<'ast>,
+        context: &'a mut CodeGenerationContext,
     ) -> Self {
         Self {
             context,
@@ -116,9 +115,7 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
                 }
             }
             Expression::Integer(val) => self.context.emit_stack_push_int(*val),
-            Expression::String(value) => self
-                .context
-                .emit_wrapped_op(WrappedOp::PushString { value }),
+            Expression::String(val) => self.context.push_string(val),
             Expression::Bool(x) => self.context.push_bool(*x),
             Expression::Variable(name) => {
                 // FIXME: return err, instead of unwrap.
