@@ -3,6 +3,6 @@
 use crate::ast;
 
 pub enum ClassPart {
-    Member(()),
+    Member(ast::ClassMember),
     Function(ast::Function),
 }

@@ -40,6 +40,16 @@ pub struct Class {
     pub name: String,
     pub visibility: Visibility,
     pub functions: Vec<Function>,
+    pub members: Vec<ClassMember>,
+}
+
+#[derive(Debug)]
+pub struct ClassMember {
+    pub name: String,
+    // FIXME: What visibility is when none is specified.
+    pub visibility: Option<Visibility>,
+    pub ty: Type,
+    pub init_expr: Option<Box<Expression>>,
 }
 
 #[derive(Debug)]
@@ -283,6 +293,7 @@ mod fold {
                 name,
                 visibility,
                 functions,
+                members,
             } = v;
 
             let functions = functions
@@ -296,6 +307,7 @@ mod fold {
                 name,
                 visibility,
                 functions,
+                members,
             }
         }
 

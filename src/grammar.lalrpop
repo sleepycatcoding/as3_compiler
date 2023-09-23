@@ -67,6 +67,7 @@ pub Class: ast::Class = {
             name,
             visibility: vis,
             functions,
+            members,
         }
     },
 };
@@ -75,8 +76,35 @@ pub ClassPart: parser::ClassPart = {
     <Function> => parser::ClassPart::Function(<>),
     <Member> => parser::ClassPart::Member(<>),
 };
-pub Member: () = {
-    <vis:"visibility"> "var" <name:"identifier"> ";" => ()
+pub Member: ast::ClassMember = {
+    // example: public var asdasd;
+    <vis:"visibility"?> "var" <name:"identifier"> ";" => {
+        ast::ClassMember {
+            name,
+            visibility: vis,
+            // This is implicit, we should warn user with implicit any type, but if explicitly given then ignore.
+            ty: ast::Type::Any,
+            init_expr: None,
+        }
+    },
+    // example: public var value: String;
+    <vis:"visibility"?> "var" <name:"identifier"> ":" <ty:"identifier"> ";" => {
+        ast::ClassMember {
+            name,
+            visibility: vis,
+            ty: ty.parse().unwrap(),
+            init_expr: None,
+        }
+    },
+    // example: public var value: String = "";
+    <vis:"visibility"?> "var" <name:"identifier"> ":" <ty:"identifier"> "=" <init:Expression> ";" => {
+        ast::ClassMember {
+            name,
+            visibility: vis,
+            ty: ty.parse().unwrap(),
+            init_expr: Some(init),
+        }
+    },
 };
 
 
