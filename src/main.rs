@@ -6,6 +6,7 @@ mod ast;
 mod codegen;
 mod lexer;
 mod optimizer;
+mod parser;
 
 lalrpop_mod!(pub grammar);
 

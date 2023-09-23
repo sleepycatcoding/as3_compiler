@@ -1,4 +1,4 @@
-use crate::ast;
+use crate::{parser, ast};
 use crate::lexer::{LexicalError, Token};
 
 grammar;
@@ -47,11 +47,22 @@ pub Package: ast::Package = {
     }
 };
 
+// Class parsing.
 pub Class: ast::Class = {
     <vis:"visibility"> "class" <name:"identifier">
     "{"
-    <functions:Function*>
+    <parts:ClassPart*>
     "}" => {
+        let mut functions = Vec::new();
+        let mut members = Vec::new();
+
+        for part in parts {
+            match part {
+                parser::ClassPart::Function(v) => functions.push(v),
+                parser::ClassPart::Member(v) => members.push(v),
+            }
+        }
+
         ast::Class {
             name,
             visibility: vis,
@@ -60,6 +71,16 @@ pub Class: ast::Class = {
     },
 };
 
+pub ClassPart: parser::ClassPart = {
+    <Function> => parser::ClassPart::Function(<>),
+    <Member> => parser::ClassPart::Member(<>),
+};
+pub Member: () = {
+    <vis:"visibility"> "var" <name:"identifier"> ";" => ()
+};
+
+
+// Function parsing.
 pub Function: ast::Function = {
     <vis:"visibility"> "function" <name:"identifier"> "(" <arguments:Arguments> ")" ":" <return_type:"identifier"> <block:CodeBlock> => {
         ast::Function {
@@ -73,7 +94,6 @@ pub Function: ast::Function = {
 };
 
 pub Arguments = Comma<Argument>;
-
 pub Argument: ast::Argument = {
     <name:"identifier"> ":" <value_type:"identifier"> => {
         ast::Argument {
@@ -83,16 +103,17 @@ pub Argument: ast::Argument = {
     }
 };
 
+// Generic code parsing.
 pub CodeBlock: Vec<Box<ast::Statement>> = {
     "{" <Statement*> "}" => <>
 };
-
 pub Statement: Box<ast::Statement> = {
     "var" <name:"identifier"> "=" <value:Expression> ";" => {
         Box::new(ast::Statement::Variable { name, var_type: ast::Type::Any, value })
     },
 };
 
+// Expression parsing.
 pub Expression: Box<ast::Expression> = {
     #[precedence(level="1")]
     Term,
@@ -129,7 +150,6 @@ pub Expression: Box<ast::Expression> = {
         })
     },
 };
-
 pub Term: Box<ast::Expression> = {
     <val:"int"> => {
         Box::new(ast::Expression::Integer(val))
@@ -147,8 +167,8 @@ pub Term: Box<ast::Expression> = {
 };
 
 // Utilities
-Comma<T>: Vec<T> = { // (1)
-    <mut v:(<T> ",")*> <e:T?> => match e { // (2)
+Comma<T>: Vec<T> = {
+    <mut v:(<T> ",")*> <e:T?> => match e {
         None => v,
         Some(e) => {
             v.push(e);
