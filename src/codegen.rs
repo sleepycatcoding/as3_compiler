@@ -1,5 +1,5 @@
 use crate::ast::Visitor;
-use swf::avm2::types::{ConstantPool, Index, Op};
+use swf::avm2::types::{ConstantPool, Index};
 
 mod function;
 
@@ -9,7 +9,7 @@ pub struct CodeGenerationContext {
 }
 
 impl CodeGenerationContext {
-    /// Adds a string into constant pool (unless it already exists) and a index will be returned.
+    /// Adds a string into constant pool (unless it already exists) and a index into the pool will be returned.
     fn add_string(&mut self, val: &String) -> Index<String> {
         let index = if let Some(index) = self.const_pool.strings.iter().position(|x| x == val) {
             index
