@@ -9,11 +9,11 @@
 - loops
 - interfaces
 - abstract classes
-- class members
+- ~~class members~~
 - array indexing
 - array initializing (e.g. `[1, 2, 3, 4]`)
 - switch statements
 - Code generation
 - Type checking
 - Floating point numbers
-- Booleans
+- ~~Booleans~~
