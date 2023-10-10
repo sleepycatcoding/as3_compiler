@@ -242,7 +242,6 @@ impl<'ast, 'a> Visitor<'ast> for FunctionGenerator<'ast, 'a> {
         let method_body = MethodBody {
             // FIXME: This actually not correct.
             method: Index::new(0),
-            // FIXME: Not yet calculated.
             max_stack: self.max_stack,
             // NOTE: Plus one required since we are not including "this" object in locals.
             num_locals: self.locals.len() as u32 + 1,

@@ -1,5 +1,5 @@
 use crate::{parser, ast};
-use crate::lexer::{LexicalError, Token};
+use crate::lexer::{LexicalError, as3::Token};
 
 grammar;
 

@@ -2,7 +2,7 @@ use logos::{Logos, SpannedIter};
 
 mod token;
 
-pub use token::Token;
+pub use token::{abs, as3};
 
 pub type Spanned<Tok, Loc, Error> = Result<(Loc, Tok, Loc), Error>;
 
@@ -11,20 +11,22 @@ pub enum LexicalError {
     InvalidToken { line: usize, column: usize },
 }
 
-pub struct Lexer<'input> {
-    token_stream: SpannedIter<'input, Token>,
+pub struct Lexer<'input, T: Logos<'input, Source = str, Extras = (usize, usize)>> {
+    token_stream: SpannedIter<'input, T>,
 }
 
-impl<'input> Lexer<'input> {
+impl<'input, T: Logos<'input, Source = str, Extras = (usize, usize)>> Lexer<'input, T> {
     pub fn new(input: &'input str) -> Self {
         Self {
-            token_stream: Token::lexer(input).spanned(),
+            token_stream: T::lexer(input).spanned(),
         }
     }
 }
 
-impl<'input> Iterator for Lexer<'input> {
-    type Item = Spanned<Token, usize, LexicalError>;
+impl<'input, T: Logos<'input, Source = str, Extras = (usize, usize)>> Iterator
+    for Lexer<'input, T>
+{
+    type Item = Spanned<T, usize, LexicalError>;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.token_stream.next().map(|(token, span)| match token {

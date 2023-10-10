@@ -2,6 +2,7 @@ use lalrpop_util::lalrpop_mod;
 
 use crate::ast::Visitor;
 
+mod assembly;
 mod ast;
 mod codegen;
 mod lexer;
