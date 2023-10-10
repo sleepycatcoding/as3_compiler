@@ -9,7 +9,7 @@ edition = "2021"
 lalrpop-util = { version = "0.20.0", features = ["lexer", "unicode"] }
 logos = "0.13.0"
 thiserror = "1.0.48"
-swf = { git = "https://github.com/ruffle-rs/ruffle" }
+swf = { git = "https://github.com/sleepycatcoding/ruffle", branch = "make_write_op_pub" }
 
 [build-dependencies]
 lalrpop = { version = "0.20.0" }
