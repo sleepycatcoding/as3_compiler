@@ -1,5 +1,6 @@
 use crate::lexer::{LexicalError, abs::Token};
-use crate::codegen::CompilerOp;
+use crate::parser::asm::AssemblyOp;
+use swf::avm2::types::Op;
 
 grammar;
 
@@ -10,18 +11,38 @@ extern {
     enum Token {
         "returnvalue" => Token::OpReturnValue,
         "returnvoid" => Token::OpReturnVoid,
+        "iffalse" => Token::OpIfFalse,
+        "iftrue" => Token::OpIfTrue,
+        "ifeq" => Token::OpIfEq,
 
         "identifier" => Token::Identifier(<String>),
         "string" => Token::String(<String>),
 
+        "(" => Token::LParen,
+        ")" => Token::RParen,
         "{" => Token::LCurlyBracket,
         "}" => Token::RCurlyBracket,
         ":" => Token::Colon,
     }
 }
 
-// pub Op: CompilerOp = {
-//     <label:"identifier"> ":" => {
-//         CompilerOp::Label(<label>)
-//     },
-// };
+pub Op: AssemblyOp = {
+    <label:"identifier"> ":" => {
+        AssemblyOp::Label(label)
+    },
+    "returnvalue" => {
+        Op::ReturnValue.into()
+    },
+    "returnvoid" => {
+        Op::ReturnVoid.into()
+    },
+    "iffalse" <label:"identifier"> => {
+        AssemblyOp::IfFalse(label)
+    },
+    "iftrue" <label:"identifier"> => {
+        AssemblyOp::IfTrue(label)
+    },
+    "ifeq" <label:"identifier"> => {
+        AssemblyOp::IfEq(label)
+    },
+};

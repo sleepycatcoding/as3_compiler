@@ -33,12 +33,22 @@ pub mod abs {
         OpReturnValue,
         #[token("returnvoid")]
         OpReturnVoid,
+        #[token("iftrue")]
+        OpIfTrue,
+        #[token("iffalse")]
+        OpIfFalse,
+        #[token("ifeq")]
+        OpIfEq,
 
         #[regex("[_a-zA-Z][_0-9a-zA-Z]*", priority = 2, callback = |lex| lex.slice().parse().ok())]
         Identifier(String),
         #[regex(r#""(?:[^"]|\\")*""#, callback = string_literal)]
         String(String),
 
+        #[token("(")]
+        LParen,
+        #[token(")")]
+        RParen,
         #[token("{")]
         LCurlyBracket,
         #[token("}")]

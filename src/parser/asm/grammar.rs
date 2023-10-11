@@ -1,7 +1,8 @@
 // auto-generated: "lalrpop 0.20.0"
-// sha3: 941848a093c09bebcebf8a7b5dfeb1a54dee086af7b27ad26d0824a7fad13a36
+// sha3: 2ab3b6b6a12b7f77ead4afd160b0070d571c61d2b7c5ac22d1dac2a4d23e6e2d
 use crate::lexer::{LexicalError, abs::Token};
-use crate::codegen::CompilerOp;
+use crate::parser::asm::AssemblyOp;
+use swf::avm2::types::Op;
 #[allow(unused_extern_crates)]
 extern crate lalrpop_util as __lalrpop_util;
 #[allow(unused_imports)]
@@ -14,7 +15,8 @@ extern crate alloc;
 mod __parse__Op {
 
     use crate::lexer::{LexicalError, abs::Token};
-    use crate::codegen::CompilerOp;
+    use crate::parser::asm::AssemblyOp;
+    use swf::avm2::types::Op;
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
     #[allow(unused_imports)]
@@ -27,30 +29,62 @@ mod __parse__Op {
      {
         Variant0(Token),
         Variant1(String),
-        Variant2(CompilerOp),
+        Variant2(AssemblyOp),
     }
     const __ACTION: &[i8] = &[
         // State 0
-        0, 3, 0, 0, 0, 0, 0,
+        0, 0, 0, 3, 4, 5, 6, 7, 8, 0, 0, 0,
         // State 1
-        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 2
-        4, 0, 0, 0, 0, 0, 0,
+        0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 3
-        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 4
+        0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 5
+        0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 6
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 7
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 8
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 9
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 10
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 11
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ];
     fn __action(state: i8, integer: usize) -> i8 {
-        __ACTION[(state as usize) * 7 + integer]
+        __ACTION[(state as usize) * 12 + integer]
     }
     const __EOF_ACTION: &[i8] = &[
         // State 0
         0,
         // State 1
-        -2,
+        -7,
         // State 2
         0,
         // State 3
+        0,
+        // State 4
+        0,
+        // State 5
+        0,
+        // State 6
+        -2,
+        // State 7
+        -3,
+        // State 8
         -1,
+        // State 9
+        -6,
+        // State 10
+        -4,
+        // State 11
+        -5,
     ];
     fn __goto(state: i8, nt: usize) -> i8 {
         match nt {
@@ -59,8 +93,13 @@ mod __parse__Op {
         }
     }
     const __TERMINAL: &[&str] = &[
+        r###""(""###,
+        r###"")""###,
         r###"":""###,
         r###""identifier""###,
+        r###""ifeq""###,
+        r###""iffalse""###,
+        r###""iftrue""###,
         r###""returnvalue""###,
         r###""returnvoid""###,
         r###""string""###,
@@ -104,7 +143,7 @@ mod __parse__Op {
         type Token = Token;
         type TokenIndex = usize;
         type Symbol = __Symbol<>;
-        type Success = CompilerOp;
+        type Success = AssemblyOp;
         type StateIndex = i8;
         type Action = i8;
         type ReduceIndex = i8;
@@ -132,7 +171,7 @@ mod __parse__Op {
 
         #[inline]
         fn error_action(&self, state: i8) -> i8 {
-            __action(state, 7 - 1)
+            __action(state, 12 - 1)
         }
 
         #[inline]
@@ -197,13 +236,18 @@ mod __parse__Op {
     ) -> Option<usize>
     {
         match *__token {
-            Token::Colon if true => Some(0),
-            Token::Identifier(_) if true => Some(1),
-            Token::OpReturnValue if true => Some(2),
-            Token::OpReturnVoid if true => Some(3),
-            Token::String(_) if true => Some(4),
-            Token::LCurlyBracket if true => Some(5),
-            Token::RCurlyBracket if true => Some(6),
+            Token::LParen if true => Some(0),
+            Token::RParen if true => Some(1),
+            Token::Colon if true => Some(2),
+            Token::Identifier(_) if true => Some(3),
+            Token::OpIfEq if true => Some(4),
+            Token::OpIfFalse if true => Some(5),
+            Token::OpIfTrue if true => Some(6),
+            Token::OpReturnValue if true => Some(7),
+            Token::OpReturnVoid if true => Some(8),
+            Token::String(_) if true => Some(9),
+            Token::LCurlyBracket if true => Some(10),
+            Token::RCurlyBracket if true => Some(11),
             _ => None,
         }
     }
@@ -215,8 +259,8 @@ mod __parse__Op {
     ) -> __Symbol<>
     {
         match __token_index {
-            0 | 2 | 3 | 5 | 6 => __Symbol::Variant0(__token),
-            1 | 4 => match __token {
+            0 | 1 | 2 | 4 | 5 | 6 | 7 | 8 | 10 | 11 => __Symbol::Variant0(__token),
+            3 | 9 => match __token {
                 Token::Identifier(__tok0) | Token::String(__tok0) if true => __Symbol::Variant1(__tok0),
                 _ => unreachable!(),
             },
@@ -236,7 +280,37 @@ mod __parse__Op {
                     nonterminal_produced: 0,
                 }
             }
-            1 => __state_machine::SimulatedReduce::Accept,
+            1 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 1,
+                    nonterminal_produced: 0,
+                }
+            }
+            2 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 1,
+                    nonterminal_produced: 0,
+                }
+            }
+            3 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 2,
+                    nonterminal_produced: 0,
+                }
+            }
+            4 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 2,
+                    nonterminal_produced: 0,
+                }
+            }
+            5 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 2,
+                    nonterminal_produced: 0,
+                }
+            }
+            6 => __state_machine::SimulatedReduce::Accept,
             _ => panic!("invalid reduction index {}", __reduce_index)
         }
     }
@@ -258,7 +332,7 @@ mod __parse__Op {
         >(
             &self,
             __tokens0: __TOKENS,
-        ) -> Result<CompilerOp, __lalrpop_util::ParseError<usize, Token, LexicalError>>
+        ) -> Result<AssemblyOp, __lalrpop_util::ParseError<usize, Token, LexicalError>>
         {
             let __tokens = __tokens0.into_iter();
             let mut __tokens = __tokens.map(|t| __ToTriple::to_triple(t));
@@ -309,13 +383,28 @@ mod __parse__Op {
         __states: &mut alloc::vec::Vec<i8>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
         _: core::marker::PhantomData<()>,
-    ) -> Option<Result<CompilerOp,__lalrpop_util::ParseError<usize, Token, LexicalError>>>
+    ) -> Option<Result<AssemblyOp,__lalrpop_util::ParseError<usize, Token, LexicalError>>>
     {
         let (__pop_states, __nonterminal) = match __action {
             0 => {
                 __reduce0(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             1 => {
+                __reduce1(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            2 => {
+                __reduce2(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            3 => {
+                __reduce3(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            4 => {
+                __reduce4(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            5 => {
+                __reduce5(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            6 => {
                 // __Op = Op => ActionFn(0);
                 let __sym0 = __pop_Variant2(__symbols);
                 let __start = __sym0.0;
@@ -339,7 +428,7 @@ mod __parse__Op {
     fn __pop_Variant2<
     >(
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>
-    ) -> (usize, CompilerOp, usize)
+    ) -> (usize, AssemblyOp, usize)
      {
         match __symbols.pop() {
             Some((__l, __Symbol::Variant2(__v), __r)) => (__l, __v, __r),
@@ -383,14 +472,95 @@ mod __parse__Op {
         __symbols.push((__start, __Symbol::Variant2(__nt), __end));
         (2, 0)
     }
+    pub(crate) fn __reduce1<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op = "returnvalue" => ActionFn(2);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action2::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant2(__nt), __end));
+        (1, 0)
+    }
+    pub(crate) fn __reduce2<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op = "returnvoid" => ActionFn(3);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action3::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant2(__nt), __end));
+        (1, 0)
+    }
+    pub(crate) fn __reduce3<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op = "iffalse", "identifier" => ActionFn(4);
+        assert!(__symbols.len() >= 2);
+        let __sym1 = __pop_Variant1(__symbols);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym1.2;
+        let __nt = super::__action4::<>(__sym0, __sym1);
+        __symbols.push((__start, __Symbol::Variant2(__nt), __end));
+        (2, 0)
+    }
+    pub(crate) fn __reduce4<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op = "iftrue", "identifier" => ActionFn(5);
+        assert!(__symbols.len() >= 2);
+        let __sym1 = __pop_Variant1(__symbols);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym1.2;
+        let __nt = super::__action5::<>(__sym0, __sym1);
+        __symbols.push((__start, __Symbol::Variant2(__nt), __end));
+        (2, 0)
+    }
+    pub(crate) fn __reduce5<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op = "ifeq", "identifier" => ActionFn(6);
+        assert!(__symbols.len() >= 2);
+        let __sym1 = __pop_Variant1(__symbols);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym1.2;
+        let __nt = super::__action6::<>(__sym0, __sym1);
+        __symbols.push((__start, __Symbol::Variant2(__nt), __end));
+        (2, 0)
+    }
 }
 pub use self::__parse__Op::OpParser;
 
 #[allow(clippy::too_many_arguments)]
 fn __action0<
 >(
-    (_, __0, _): (usize, CompilerOp, usize),
-) -> CompilerOp
+    (_, __0, _): (usize, AssemblyOp, usize),
+) -> AssemblyOp
 {
     __0
 }
@@ -400,10 +570,68 @@ fn __action1<
 >(
     (_, label, _): (usize, String, usize),
     (_, _, _): (usize, Token, usize),
-) -> CompilerOp
+) -> AssemblyOp
 {
     {
-        CompilerOp::Label(<label>)
+        AssemblyOp::Label(label)
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn __action2<
+>(
+    (_, __0, _): (usize, Token, usize),
+) -> AssemblyOp
+{
+    {
+        Op::ReturnValue.into()
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn __action3<
+>(
+    (_, __0, _): (usize, Token, usize),
+) -> AssemblyOp
+{
+    {
+        Op::ReturnVoid.into()
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn __action4<
+>(
+    (_, _, _): (usize, Token, usize),
+    (_, label, _): (usize, String, usize),
+) -> AssemblyOp
+{
+    {
+        AssemblyOp::IfFalse(label)
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn __action5<
+>(
+    (_, _, _): (usize, Token, usize),
+    (_, label, _): (usize, String, usize),
+) -> AssemblyOp
+{
+    {
+        AssemblyOp::IfTrue(label)
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn __action6<
+>(
+    (_, _, _): (usize, Token, usize),
+    (_, label, _): (usize, String, usize),
+) -> AssemblyOp
+{
+    {
+        AssemblyOp::IfEq(label)
     }
 }
 #[allow(clippy::type_complexity)]
