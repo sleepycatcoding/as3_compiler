@@ -16,19 +16,33 @@ fn newline_callback<'a, T: Logos<'a, Source = str, Extras = (usize, usize)>>(
     Skip
 }
 
-pub mod abs {
+pub mod asm {
     use super::{newline_callback, string_literal};
-    use logos::Logos;
+    use logos::{Lexer, Logos};
     use std::fmt;
+
+    fn local_callback(lexer: &mut Lexer<Token>) -> Option<u32> {
+        // First we remove Get/SetLocal from the token, then parse the rest as a number.
+        let slice = &lexer.slice()[8..];
+
+        // FIXME: Insert debug messages (easier for debugging).
+        slice.parse().ok()
+    }
 
     /// ActionScript assembly token.
     #[derive(Clone, Debug, Logos)]
     // Slash comments.
     #[logos(skip r"//[^\n]*")]
+    // Block comments.
+    #[logos(skip r"/\*(?:[^*]|\*[^/])*\*/")]
     #[logos(skip " ")]
     // Store current line and column for easier debugging.
     #[logos(extras = (usize, usize))]
     pub enum Token {
+        #[token("function")]
+        KeywordFunction,
+
+        // Control Flow operations.
         #[token("returnvalue")]
         OpReturnValue,
         #[token("returnvoid")]
@@ -40,8 +54,36 @@ pub mod abs {
         #[token("ifeq")]
         OpIfEq,
 
+        #[regex("getlocal\\d", callback = local_callback)]
+        OpGetLocal(u32),
+        #[regex("setlocal\\d", callback = local_callback)]
+        OpSetLocal(u32),
+
+        // Push operations.
+        #[token("pushstring")]
+        OpPushString,
+        #[token("pushfalse")]
+        OpPushFalse,
+        #[token("pushnull")]
+        OpPushNull,
+        #[token("pushnamespace")]
+        OpPushNamespace,
+        #[token("pushscope")]
+        OpPushScope,
+
+        #[token("pop")]
+        OpPop,
+
+        // Coercion operations.
+        #[token("coerce_a")]
+        OpCoerceA,
+        #[token("coerce_s")]
+        OpCoerceS,
+
         #[regex("[_a-zA-Z][_0-9a-zA-Z]*", priority = 2, callback = |lex| lex.slice().parse().ok())]
         Identifier(String),
+        #[regex("\\d+", |lex| lex.slice().parse().ok())]
+        Integer(i32),
         #[regex(r#""(?:[^"]|\\")*""#, callback = string_literal)]
         String(String),
 
@@ -53,6 +95,8 @@ pub mod abs {
         LCurlyBracket,
         #[token("}")]
         RCurlyBracket,
+        #[token(",")]
+        Comma,
         #[token(":")]
         Colon,
 
@@ -76,8 +120,11 @@ pub mod as3 {
     /// ActionScript 3 token.
     // NOTE: Useful regexes https://github.com/maciejhirsz/logos/issues/133
     #[derive(Clone, Debug, Logos)]
+    // FIXME: Comments currently do not count towards line numbers.
     // Slash comments.
     #[logos(skip r"//[^\n]*")]
+    // Block comments.
+    #[logos(skip r"/\*(?:[^*]|\*[^/])*\*/")]
     #[logos(skip " ")]
     // Store current line and column for easier debugging.
     #[logos(extras = (usize, usize))]

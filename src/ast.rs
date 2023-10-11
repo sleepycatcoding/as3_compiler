@@ -1,3 +1,4 @@
+use crate::parser::common::Type;
 use std::{borrow::Cow, str::FromStr};
 use thiserror::Error;
 
@@ -10,16 +11,6 @@ pub enum Error {
     // FIXME: Include expression name here.
     #[error("Cannot convert 'Unimplemented' to string")]
     CannotConvertToString,
-}
-
-#[derive(Debug, PartialEq, Eq)]
-pub enum Type {
-    Any,
-    Void,
-    Int,
-    Uint,
-    Bool,
-    Other(String),
 }
 
 #[derive(Debug)]
@@ -111,21 +102,6 @@ impl FromStr for Visibility {
             "protected" => Ok(Visibility::Protected),
             "private" => Ok(Visibility::Private),
             s => Err(Error::UnknownVisibility(s.to_owned())),
-        }
-    }
-}
-
-impl FromStr for Type {
-    type Err = ();
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s {
-            "*" => Ok(Type::Any),
-            "void" => Ok(Type::Void),
-            "int" => Ok(Type::Int),
-            "uint" => Ok(Type::Uint),
-            "Boolean" => Ok(Type::Bool),
-            s => Ok(Type::Other(s.to_owned())),
         }
     }
 }

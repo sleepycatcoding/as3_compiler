@@ -1,6 +1,6 @@
 // auto-generated: "lalrpop 0.20.0"
-// sha3: 30ebd3a338cf5a4bed4d772cd4a18588a776186bbe7dd9ade4d0653bd6327ccb
-use crate::{parser::as3::ClassPart, ast};
+// sha3: 52d66c4c7aa522ac3ada49552b9788c66320ebf4066c782da98aae9e061fbe99
+use crate::{parser::{common::Type, as3::ClassPart}, ast};
 use crate::lexer::{LexicalError, as3::Token};
 #[allow(unused_extern_crates)]
 extern crate lalrpop_util as __lalrpop_util;
@@ -13,7 +13,7 @@ extern crate alloc;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Argument {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -2367,7 +2367,7 @@ pub use self::__parse__Argument::ArgumentParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Arguments {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -4751,7 +4751,7 @@ pub use self::__parse__Arguments::ArgumentsParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Class {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -7434,7 +7434,7 @@ pub use self::__parse__Class::ClassParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__ClassPart {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -10076,7 +10076,7 @@ pub use self::__parse__ClassPart::ClassPartParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__CodeBlock {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -12554,7 +12554,7 @@ pub use self::__parse__CodeBlock::CodeBlockParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Expression {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -14982,7 +14982,7 @@ pub use self::__parse__Expression::ExpressionParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Expression1 {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -17408,7 +17408,7 @@ pub use self::__parse__Expression1::Expression1Parser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Expression2 {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -19834,7 +19834,7 @@ pub use self::__parse__Expression2::Expression2Parser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Function {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -22392,7 +22392,7 @@ pub use self::__parse__Function::FunctionParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Member {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -24898,7 +24898,7 @@ pub use self::__parse__Member::MemberParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Package {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -27637,7 +27637,7 @@ pub use self::__parse__Package::PackageParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Statement {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -30086,7 +30086,7 @@ pub use self::__parse__Statement::StatementParser;
 #[allow(non_snake_case, non_camel_case_types, unused_mut, unused_variables, unused_imports, unused_parens, clippy::all)]
 mod __parse__Term {
 
-    use crate::{parser::as3::ClassPart, ast};
+    use crate::{parser::{common::Type, as3::ClassPart}, ast};
     use crate::lexer::{LexicalError, as3::Token};
     #[allow(unused_extern_crates)]
     extern crate lalrpop_util as __lalrpop_util;
@@ -32725,7 +32725,7 @@ fn __action18<
             name,
             visibility: vis,
             // This is implicit, we should warn user with implicit any type, but if explicitly given then ignore.
-            ty: ast::Type::Any,
+            ty: Type::Any,
             init_expr: None,
         }
     }
@@ -32847,7 +32847,7 @@ fn __action25<
 ) -> Box<ast::Statement>
 {
     {
-        Box::new(ast::Statement::Variable { name, var_type: ast::Type::Any, value })
+        Box::new(ast::Statement::Variable { name, var_type: Type::Any, value })
     }
 }
 

@@ -1,4 +1,4 @@
-use crate::{parser::as3::ClassPart, ast};
+use crate::{parser::{common::Type, as3::ClassPart}, ast};
 use crate::lexer::{LexicalError, as3::Token};
 
 grammar;
@@ -83,7 +83,7 @@ pub Member: ast::ClassMember = {
             name,
             visibility: vis,
             // This is implicit, we should warn user with implicit any type, but if explicitly given then ignore.
-            ty: ast::Type::Any,
+            ty: Type::Any,
             init_expr: None,
         }
     },
@@ -137,7 +137,7 @@ pub CodeBlock: Vec<Box<ast::Statement>> = {
 };
 pub Statement: Box<ast::Statement> = {
     "var" <name:"identifier"> "=" <value:Expression> ";" => {
-        Box::new(ast::Statement::Variable { name, var_type: ast::Type::Any, value })
+        Box::new(ast::Statement::Variable { name, var_type: Type::Any, value })
     },
 };
 

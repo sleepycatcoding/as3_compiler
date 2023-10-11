@@ -2,7 +2,7 @@ use logos::{Logos, SpannedIter};
 
 mod token;
 
-pub use token::{abs, as3};
+pub use token::{as3, asm};
 
 pub type Spanned<Tok, Loc, Error> = Result<(Loc, Tok, Loc), Error>;
 
@@ -34,7 +34,11 @@ impl<'input, T: Logos<'input, Source = str, Extras = (usize, usize)>> Iterator
                 line: self.token_stream.extras.0,
                 column: span.start - self.token_stream.extras.1,
             }),
-            Ok(token) => Ok((span.start, token, span.end)),
+            Ok(token) => Ok((
+                self.token_stream.extras.0,
+                token,
+                span.start - self.token_stream.extras.1,
+            )),
         })
     }
 }

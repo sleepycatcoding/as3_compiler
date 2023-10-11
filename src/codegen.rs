@@ -1,50 +1,36 @@
 use crate::ast::Visitor;
-use swf::avm2::types::{ConstantPool, Index};
+use swf::avm2::types::Op;
+
+pub mod context;
 
 mod function;
 
+/// A simple label index.
+#[derive(Debug, Clone, Copy)]
+pub struct LabelIndex(u32);
+
+/// A wrapped Opcode.
+///
+/// This will be converted to normal opcodes later when the code is passed through a label resolver.
 #[derive(Debug)]
-pub struct CodeGenerationContext {
-    const_pool: ConstantPool,
-}
-
-impl CodeGenerationContext {
-    /// Adds a string into constant pool (unless it already exists) and a index into the pool will be returned.
-    fn add_string(&mut self, val: &String) -> Index<String> {
-        let index = if let Some(index) = self.const_pool.strings.iter().position(|x| x == val) {
-            index
-        } else {
-            // Create a index.
-            let index = self.const_pool.strings.len();
-            // Push the value.
-            self.const_pool.strings.push(val.clone());
-            index
-        } as u32;
-
-        Index::new(index)
-    }
+pub enum CompilerOp {
+    /// These opcodes are written as is, and will not be transformed.
+    Raw(Op),
+    Label(LabelIndex),
+    IfFalse(LabelIndex),
+    IfTrue(LabelIndex),
 }
 
 /// A visitor to generate ABC bytecode from a AST.
 #[derive(Debug)]
 pub struct CodeGenerator {
-    context: CodeGenerationContext,
+    context: context::ConstantPoolContext,
 }
 
 impl Default for CodeGenerator {
     fn default() -> Self {
         Self {
-            context: CodeGenerationContext {
-                const_pool: ConstantPool {
-                    ints: Vec::new(),
-                    uints: Vec::new(),
-                    doubles: Vec::new(),
-                    strings: Vec::new(),
-                    namespaces: Vec::new(),
-                    namespace_sets: Vec::new(),
-                    multinames: Vec::new(),
-                },
-            },
+            context: Default::default(),
         }
     }
 }

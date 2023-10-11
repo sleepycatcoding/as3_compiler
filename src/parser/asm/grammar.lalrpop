@@ -1,5 +1,6 @@
-use crate::lexer::{LexicalError, abs::Token};
-use crate::parser::asm::AssemblyOp;
+use crate::lexer::{LexicalError, asm::Token};
+use crate::parser::common::Type;
+use crate::parser::asm::{Function, AssemblyOp};
 use swf::avm2::types::Op;
 
 grammar;
@@ -9,24 +10,43 @@ extern {
     type Error = LexicalError;
 
     enum Token {
+        "function" => Token::KeywordFunction,
+
         "returnvalue" => Token::OpReturnValue,
         "returnvoid" => Token::OpReturnVoid,
         "iffalse" => Token::OpIfFalse,
         "iftrue" => Token::OpIfTrue,
         "ifeq" => Token::OpIfEq,
 
+        "getlocal" => Token::OpGetLocal(<u32>),
+        "setlocal" => Token::OpSetLocal(<u32>),
+
+        "pushstring" => Token::OpPushString,
+        "pushfalse" => Token::OpPushFalse,
+        "pushnull" => Token::OpPushNull,
+        "pushnamespace" => Token::OpPushNamespace,
+        "pushscope" => Token::OpPushScope,
+
+        "pop" => Token::OpPop,
+
+        "coerce_a" => Token::OpCoerceA,
+        "coerce_s" => Token::OpCoerceS,
+
         "identifier" => Token::Identifier(<String>),
+        "int" => Token::Integer(<i32>),
         "string" => Token::String(<String>),
 
         "(" => Token::LParen,
         ")" => Token::RParen,
         "{" => Token::LCurlyBracket,
         "}" => Token::RCurlyBracket,
+        "," => Token::Comma,
         ":" => Token::Colon,
     }
 }
 
 pub Op: AssemblyOp = {
+    // Control Flow.
     <label:"identifier"> ":" => {
         AssemblyOp::Label(label)
     },
@@ -45,4 +65,71 @@ pub Op: AssemblyOp = {
     "ifeq" <label:"identifier"> => {
         AssemblyOp::IfEq(label)
     },
+    
+    <v:"getlocal"> => {
+        Op::GetLocal {
+            index: v,
+        }.into()
+    },
+    <v:"setlocal"> => {
+        Op::SetLocal {
+            index:v
+        }.into()
+    },
+
+    "pushstring" <val:"string"> => {
+        AssemblyOp::PushString(val)
+    },
+    "pushfalse" => {
+        Op::PushFalse.into()
+    },
+    "pushnull" => {
+        Op::PushNull.into()
+    },
+    "pushscope" => {
+        Op::PushScope.into()
+    },
+
+    "pop" => {
+        Op::Pop.into()
+    },
+
+    "coerce_a" => {
+        Op::CoerceA.into()
+    },
+    "coerce_s" => {
+        Op::CoerceS.into()
+    },
+};
+
+pub Functions = Function*;
+pub Function: Function = {
+    // FIXME: Handle arguments.
+    "function" <name:"identifier"> "(" <args:Arguments> ")" "{" <ops:Op*> "}" => {
+        Function {
+            name,
+            args,
+            ops,
+        }
+    },
+};
+
+pub Arguments = Comma<Argument>;
+pub Argument: Type = {
+    <name:"identifier"> => {
+        // NOTE: This process is infalliable
+        name.parse().unwrap()
+    }
+};
+
+// FIXME: Somehow dedup these between grammars.
+// Utilities
+Comma<T>: Vec<T> = {
+    <mut v:(<T> ",")*> <e:T?> => match e {
+        None => v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
 };
