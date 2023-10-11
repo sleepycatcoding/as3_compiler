@@ -1,22 +1,17 @@
-use lalrpop_util::lalrpop_mod;
-
 use crate::ast::Visitor;
 
-mod assembly;
 mod ast;
 mod codegen;
 mod lexer;
 mod optimizer;
 mod parser;
 
-lalrpop_mod!(pub grammar);
-
 fn main() {
     println!("Hello, world!");
 
     let file = std::fs::read_to_string("Test.as").unwrap();
     let lexer = lexer::Lexer::new(&file);
-    let parser = grammar::PackageParser::new();
+    let parser = parser::as3::grammar::PackageParser::new();
     let ast = parser.parse(lexer).unwrap();
 
     println!("{:?}", ast);

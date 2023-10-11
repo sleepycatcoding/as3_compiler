@@ -28,12 +28,14 @@ pub mod abs {
     #[logos(skip " ")]
     // Store current line and column for easier debugging.
     #[logos(extras = (usize, usize))]
-    pub enum ABSToken {
+    pub enum Token {
         #[token("returnvalue")]
         OpReturnValue,
         #[token("returnvoid")]
         OpReturnVoid,
 
+        #[regex("[_a-zA-Z][_0-9a-zA-Z]*", priority = 2, callback = |lex| lex.slice().parse().ok())]
+        Identifier(String),
         #[regex(r#""(?:[^"]|\\")*""#, callback = string_literal)]
         String(String),
 
@@ -41,12 +43,14 @@ pub mod abs {
         LCurlyBracket,
         #[token("}")]
         RCurlyBracket,
+        #[token(":")]
+        Colon,
 
         #[regex(r"\n", newline_callback)]
         Newline,
     }
 
-    impl fmt::Display for ABSToken {
+    impl fmt::Display for Token {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             write!(f, "{:?}", self)
         }

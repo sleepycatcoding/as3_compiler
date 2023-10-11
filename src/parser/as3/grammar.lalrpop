@@ -1,4 +1,4 @@
-use crate::{parser, ast};
+use crate::{parser::as3::ClassPart, ast};
 use crate::lexer::{LexicalError, as3::Token};
 
 grammar;
@@ -58,8 +58,8 @@ pub Class: ast::Class = {
 
         for part in parts {
             match part {
-                parser::ClassPart::Function(v) => functions.push(v),
-                parser::ClassPart::Member(v) => members.push(v),
+                ClassPart::Function(v) => functions.push(v),
+                ClassPart::Member(v) => members.push(v),
             }
         }
 
@@ -72,9 +72,9 @@ pub Class: ast::Class = {
     },
 };
 
-pub ClassPart: parser::ClassPart = {
-    <Function> => parser::ClassPart::Function(<>),
-    <Member> => parser::ClassPart::Member(<>),
+pub ClassPart: ClassPart = {
+    <Function> => ClassPart::Function(<>),
+    <Member> => ClassPart::Member(<>),
 };
 pub Member: ast::ClassMember = {
     // example: public var asdasd;

@@ -1,0 +1,27 @@
+use crate::lexer::{LexicalError, abs::Token};
+use crate::codegen::CompilerOp;
+
+grammar;
+
+extern {
+    type Location = usize;
+    type Error = LexicalError;
+
+    enum Token {
+        "returnvalue" => Token::OpReturnValue,
+        "returnvoid" => Token::OpReturnVoid,
+
+        "identifier" => Token::Identifier(<String>),
+        "string" => Token::String(<String>),
+
+        "{" => Token::LCurlyBracket,
+        "}" => Token::RCurlyBracket,
+        ":" => Token::Colon,
+    }
+}
+
+// pub Op: CompilerOp = {
+//     <label:"identifier"> ":" => {
+//         CompilerOp::Label(<label>)
+//     },
+// };
