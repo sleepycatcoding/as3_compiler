@@ -4,9 +4,10 @@ use swf::avm2::types::{Index, MethodBody, Op};
 
 use crate::ast::{
     visitor::{walk_function, walk_statement},
-    Expression, Operator, Statement, Type, Visitor,
+    Expression, Operator, Statement, Visitor,
 };
-use crate::codegen::CodeGenerationContext;
+use crate::codegen::context::ConstantPoolContext;
+use crate::parser::common::Type;
 use std::collections::HashMap;
 
 /// A visitor used to collect and assign indices to all variables/arguments referenced in a function.
@@ -82,7 +83,7 @@ impl<'ast> Visitor<'ast> for LocalResolverVisitor<'ast> {
 
 #[derive(Debug)]
 pub struct FunctionGenerator<'ast, 'a> {
-    context: &'a mut CodeGenerationContext,
+    context: &'a mut ConstantPoolContext,
     locals: HashMap<&'ast String, u32>,
     // Max stack objects at once at any time during execution.
     max_stack: u32,
@@ -94,7 +95,7 @@ pub struct FunctionGenerator<'ast, 'a> {
 impl<'ast, 'a> FunctionGenerator<'ast, 'a> {
     pub fn new(
         variables: LocalResolverVisitor<'ast>,
-        context: &'a mut CodeGenerationContext,
+        context: &'a mut ConstantPoolContext,
     ) -> Self {
         Self {
             context,
