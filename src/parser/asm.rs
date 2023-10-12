@@ -16,6 +16,8 @@ pub enum AssemblyOp {
     IfEq(String),
     PushString(String),
     PushNamespace(String),
+    FindProperty(String),
+    CallPropVoid(String, u32),
 }
 
 impl From<Op> for AssemblyOp {

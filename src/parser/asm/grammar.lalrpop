@@ -32,6 +32,9 @@ extern {
         "coerce_a" => Token::OpCoerceA,
         "coerce_s" => Token::OpCoerceS,
 
+        "findproperty" => Token::OpFindProperty,
+        "callpropvoid" => Token::OpCallPropVoid,
+
         "identifier" => Token::Identifier(<String>),
         "int" => Token::Integer(<i32>),
         "string" => Token::String(<String>),
@@ -103,6 +106,13 @@ pub Op: AssemblyOp = {
     "coerce_s" => {
         Op::CoerceS.into()
     },
+
+    "findproperty" <ident:"identifier"> => {
+        AssemblyOp::FindProperty(ident)
+    },
+    "callpropvoid" <ident:"identifier"> <int:"int"> => {
+        AssemblyOp::CallPropVoid(ident, int as u32)
+    }
 };
 
 pub Functions = Function*;

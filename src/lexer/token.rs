@@ -80,6 +80,11 @@ pub mod asm {
         #[token("coerce_s")]
         OpCoerceS,
 
+        #[token("findproperty")]
+        OpFindProperty,
+        #[token("callpropvoid")]
+        OpCallPropVoid,
+
         #[regex("[_a-zA-Z][_0-9a-zA-Z]*", priority = 2, callback = |lex| lex.slice().parse().ok())]
         Identifier(String),
         #[regex("\\d+", |lex| lex.slice().parse().ok())]
