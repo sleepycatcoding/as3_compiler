@@ -3,6 +3,12 @@ use swf::avm2::types::Op;
 
 pub mod grammar;
 
+/// Represents a Id source, which can be anything (e.g. .function_id).
+#[derive(Debug)]
+pub enum IdSource {
+    Function(String),
+}
+
 /// Represents an ActionScript assembly opcode.
 ///
 /// This is a step above, a normal opcode, since
@@ -18,6 +24,7 @@ pub enum AssemblyOp {
     PushNamespace(String),
     FindProperty(String),
     CallPropVoid(String, u32),
+    NewFunction(IdSource),
 }
 
 impl From<Op> for AssemblyOp {

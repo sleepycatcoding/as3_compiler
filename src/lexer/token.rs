@@ -85,6 +85,13 @@ pub mod asm {
         #[token("callpropvoid")]
         OpCallPropVoid,
 
+        // New operations.
+        #[token("newfunction")]
+        OpNewFunction,
+
+        #[token(".function_id")]
+        IdFunction,
+
         #[regex("[_a-zA-Z][_0-9a-zA-Z]*", priority = 2, callback = |lex| lex.slice().parse().ok())]
         Identifier(String),
         #[regex("\\d+", |lex| lex.slice().parse().ok())]

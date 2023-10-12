@@ -1,6 +1,6 @@
 use crate::lexer::{LexicalError, asm::Token};
 use crate::parser::common::Type;
-use crate::parser::asm::{Function, AssemblyOp};
+use crate::parser::asm::{Function, AssemblyOp, IdSource};
 use swf::avm2::types::Op;
 
 grammar;
@@ -34,6 +34,10 @@ extern {
 
         "findproperty" => Token::OpFindProperty,
         "callpropvoid" => Token::OpCallPropVoid,
+
+        "newfunction" => Token::OpNewFunction,
+
+        ".function_id" => Token::IdFunction,
 
         "identifier" => Token::Identifier(<String>),
         "int" => Token::Integer(<i32>),
@@ -112,6 +116,10 @@ pub Op: AssemblyOp = {
     },
     "callpropvoid" <ident:"identifier"> <int:"int"> => {
         AssemblyOp::CallPropVoid(ident, int as u32)
+    },
+    
+    "newfunction" <id:IdSource> => {
+        AssemblyOp::NewFunction(id)
     }
 };
 
@@ -132,6 +140,12 @@ pub Argument: Type = {
     <name:"identifier"> => {
         // NOTE: This process is infalliable
         name.parse().unwrap()
+    }
+};
+
+pub IdSource: IdSource = {
+    ".function_id" "(" <ident:"identifier"> ")" => {
+        IdSource::Function(ident)
     }
 };
 
