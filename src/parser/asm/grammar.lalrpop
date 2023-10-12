@@ -34,6 +34,7 @@ extern {
 
         "findproperty" => Token::OpFindProperty,
         "callpropvoid" => Token::OpCallPropVoid,
+        "call" => Token::OpCall,
 
         "newfunction" => Token::OpNewFunction,
 
@@ -116,6 +117,9 @@ pub Op: AssemblyOp = {
     },
     "callpropvoid" <ident:"identifier"> <int:"int"> => {
         AssemblyOp::CallPropVoid(ident, int as u32)
+    },
+    "call" <int:"int"> => {
+        AssemblyOp::Call(int as u32)
     },
     
     "newfunction" <id:IdSource> => {

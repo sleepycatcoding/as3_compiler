@@ -24,6 +24,7 @@ pub enum AssemblyOp {
     PushNamespace(String),
     FindProperty(String),
     CallPropVoid(String, u32),
+    Call(u32),
     NewFunction(IdSource),
 }
 

@@ -84,6 +84,8 @@ pub mod asm {
         OpFindProperty,
         #[token("callpropvoid")]
         OpCallPropVoid,
+        #[token("call")]
+        OpCall,
 
         // New operations.
         #[token("newfunction")]
