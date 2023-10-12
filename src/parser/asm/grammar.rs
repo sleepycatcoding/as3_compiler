@@ -1,5 +1,5 @@
 // auto-generated: "lalrpop 0.20.0"
-// sha3: 2653a80de58e03d9f8140deb77aa4898c91433dccd9ec45ad871c6073ed50b30
+// sha3: 61fa9baa3fda2efe493b4b7ff821f752c424a475c89b5b7db00a988c4ff60bd8
 use crate::lexer::{LexicalError, asm::Token};
 use crate::parser::common::Type;
 use crate::parser::asm::{Function, AssemblyOp};
@@ -57,7 +57,7 @@ mod __parse__Argument {
         // State 0
         0,
         // State 1
-        -41,
+        -42,
         // State 2
         -6,
     ];
@@ -477,7 +477,7 @@ mod __parse__Argument {
             }
             32 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 2,
                     nonterminal_produced: 11,
                 }
             }
@@ -501,48 +501,54 @@ mod __parse__Argument {
             }
             36 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 0,
-                    nonterminal_produced: 12,
+                    states_to_pop: 1,
+                    nonterminal_produced: 11,
                 }
             }
             37 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 0,
                     nonterminal_produced: 12,
                 }
             }
             38 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
-                    nonterminal_produced: 13,
+                    nonterminal_produced: 12,
                 }
             }
             39 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 1,
+                    nonterminal_produced: 13,
+                }
+            }
+            40 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 2,
                     nonterminal_produced: 13,
                 }
             }
-            40 => __state_machine::SimulatedReduce::Accept,
-            41 => {
+            41 => __state_machine::SimulatedReduce::Accept,
+            42 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 15,
                 }
             }
-            42 => {
+            43 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 16,
                 }
             }
-            43 => {
+            44 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 17,
                 }
             }
-            44 => {
+            45 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 18,
@@ -744,15 +750,15 @@ mod __parse__Argument {
                 __reduce39(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             40 => {
+                __reduce40(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            41 => {
                 // __Argument = Argument => ActionFn(4);
                 let __sym0 = __pop_Variant4(__symbols);
                 let __start = __sym0.0;
                 let __end = __sym0.2;
                 let __nt = super::__action4::<>(__sym0);
                 return Some(Ok(__nt));
-            }
-            41 => {
-                __reduce41(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             42 => {
                 __reduce42(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
@@ -762,6 +768,9 @@ mod __parse__Argument {
             }
             44 => {
                 __reduce44(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            45 => {
+                __reduce45(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             _ => panic!("invalid action code {}", __action)
         };
@@ -903,13 +912,13 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",") = Argument, "," => ActionFn(37);
+        // (<Argument> ",") = Argument, "," => ActionFn(38);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action37::<>(__sym0, __sym1);
+        let __nt = super::__action38::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (2, 0)
     }
@@ -920,10 +929,10 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* =  => ActionFn(35);
+        // (<Argument> ",")* =  => ActionFn(36);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action35::<>(&__start, &__end);
+        let __nt = super::__action36::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (0, 1)
     }
@@ -934,11 +943,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(36);
+        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(37);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action36::<>(__sym0);
+        let __nt = super::__action37::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (1, 1)
     }
@@ -949,13 +958,13 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = Argument, "," => ActionFn(40);
+        // (<Argument> ",")+ = Argument, "," => ActionFn(41);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action40::<>(__sym0, __sym1);
+        let __nt = super::__action41::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (2, 2)
     }
@@ -966,14 +975,14 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(41);
+        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(42);
         assert!(__symbols.len() >= 3);
         let __sym2 = __pop_Variant0(__symbols);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym2.2;
-        let __nt = super::__action41::<>(__sym0, __sym1, __sym2);
+        let __nt = super::__action42::<>(__sym0, __sym1, __sym2);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (3, 2)
     }
@@ -984,11 +993,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument = "identifier" => ActionFn(23);
+        // Argument = "identifier" => ActionFn(24);
         let __sym0 = __pop_Variant2(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action23::<>(__sym0);
+        let __nt = super::__action24::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 3)
     }
@@ -999,11 +1008,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? = Argument => ActionFn(33);
+        // Argument? = Argument => ActionFn(34);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action33::<>(__sym0);
+        let __nt = super::__action34::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (1, 4)
     }
@@ -1014,10 +1023,10 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? =  => ActionFn(34);
+        // Argument? =  => ActionFn(35);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action34::<>(&__start, &__end);
+        let __nt = super::__action35::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (0, 4)
     }
@@ -1028,11 +1037,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Arguments = Comma<Argument> => ActionFn(22);
+        // Arguments = Comma<Argument> => ActionFn(23);
         let __sym0 = __pop_Variant7(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action22::<>(__sym0);
+        let __nt = super::__action23::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 5)
     }
@@ -1043,11 +1052,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = Argument => ActionFn(44);
+        // Comma<Argument> = Argument => ActionFn(45);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action44::<>(__sym0);
+        let __nt = super::__action45::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -1058,10 +1067,10 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> =  => ActionFn(45);
+        // Comma<Argument> =  => ActionFn(46);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action45::<>(&__start, &__end);
+        let __nt = super::__action46::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (0, 6)
     }
@@ -1072,13 +1081,13 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(46);
+        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(47);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action46::<>(__sym0, __sym1);
+        let __nt = super::__action47::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (2, 6)
     }
@@ -1089,11 +1098,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+ => ActionFn(47);
+        // Comma<Argument> = (<Argument> ",")+ => ActionFn(48);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action47::<>(__sym0);
+        let __nt = super::__action48::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -1104,7 +1113,7 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(50);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(51);
         assert!(__symbols.len() >= 7);
         let __sym6 = __pop_Variant0(__symbols);
         let __sym5 = __pop_Variant0(__symbols);
@@ -1115,7 +1124,7 @@ mod __parse__Argument {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym6.2;
-        let __nt = super::__action50::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
+        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (7, 7)
     }
@@ -1126,7 +1135,7 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(51);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(52);
         assert!(__symbols.len() >= 8);
         let __sym7 = __pop_Variant0(__symbols);
         let __sym6 = __pop_Variant11(__symbols);
@@ -1138,7 +1147,7 @@ mod __parse__Argument {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym7.2;
-        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
+        let __nt = super::__action52::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (8, 7)
     }
@@ -1149,10 +1158,10 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* =  => ActionFn(27);
+        // Function* =  => ActionFn(28);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action27::<>(&__start, &__end);
+        let __nt = super::__action28::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 8)
     }
@@ -1163,11 +1172,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* = Function+ => ActionFn(28);
+        // Function* = Function+ => ActionFn(29);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action28::<>(__sym0);
+        let __nt = super::__action29::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 8)
     }
@@ -1178,11 +1187,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function => ActionFn(29);
+        // Function+ = Function => ActionFn(30);
         let __sym0 = __pop_Variant8(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action29::<>(__sym0);
+        let __nt = super::__action30::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 9)
     }
@@ -1193,13 +1202,13 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function+, Function => ActionFn(30);
+        // Function+ = Function+, Function => ActionFn(31);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant8(__symbols);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action30::<>(__sym0, __sym1);
+        let __nt = super::__action31::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (2, 9)
     }
@@ -1210,10 +1219,10 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions =  => ActionFn(48);
+        // Functions =  => ActionFn(49);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action48::<>(&__start, &__end);
+        let __nt = super::__action49::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 10)
     }
@@ -1224,11 +1233,11 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions = Function+ => ActionFn(49);
+        // Functions = Function+ => ActionFn(50);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action49::<>(__sym0);
+        let __nt = super::__action50::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 10)
     }
@@ -1414,13 +1423,15 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pushscope" => ActionFn(16);
+        // Op = "pushnamespace", "identifier" => ActionFn(16);
+        assert!(__symbols.len() >= 2);
+        let __sym1 = __pop_Variant2(__symbols);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action16::<>(__sym0);
+        let __end = __sym1.2;
+        let __nt = super::__action16::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant10(__nt), __end));
-        (1, 11)
+        (2, 11)
     }
     pub(crate) fn __reduce33<
     >(
@@ -1429,7 +1440,7 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pop" => ActionFn(17);
+        // Op = "pushscope" => ActionFn(17);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -1444,7 +1455,7 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_a" => ActionFn(18);
+        // Op = "pop" => ActionFn(18);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -1459,7 +1470,7 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_s" => ActionFn(19);
+        // Op = "coerce_a" => ActionFn(19);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -1474,12 +1485,13 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* =  => ActionFn(25);
-        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
-        let __end = __start.clone();
-        let __nt = super::__action25::<>(&__start, &__end);
-        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (0, 12)
+        // Op = "coerce_s" => ActionFn(20);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action20::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant10(__nt), __end));
+        (1, 11)
     }
     pub(crate) fn __reduce37<
     >(
@@ -1488,13 +1500,12 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* = Op+ => ActionFn(26);
-        let __sym0 = __pop_Variant11(__symbols);
-        let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action26::<>(__sym0);
+        // Op* =  => ActionFn(26);
+        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
+        let __end = __start.clone();
+        let __nt = super::__action26::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 12)
+        (0, 12)
     }
     pub(crate) fn __reduce38<
     >(
@@ -1503,13 +1514,13 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op => ActionFn(31);
-        let __sym0 = __pop_Variant10(__symbols);
+        // Op* = Op+ => ActionFn(27);
+        let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action31::<>(__sym0);
+        let __nt = super::__action27::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 13)
+        (1, 12)
     }
     pub(crate) fn __reduce39<
     >(
@@ -1518,17 +1529,32 @@ mod __parse__Argument {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op+, Op => ActionFn(32);
+        // Op+ = Op => ActionFn(32);
+        let __sym0 = __pop_Variant10(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action32::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
+        (1, 13)
+    }
+    pub(crate) fn __reduce40<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op+ = Op+, Op => ActionFn(33);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant10(__symbols);
         let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action32::<>(__sym0, __sym1);
+        let __nt = super::__action33::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
         (2, 13)
     }
-    pub(crate) fn __reduce41<
+    pub(crate) fn __reduce42<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -1543,7 +1569,7 @@ mod __parse__Argument {
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 15)
     }
-    pub(crate) fn __reduce42<
+    pub(crate) fn __reduce43<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -1558,7 +1584,7 @@ mod __parse__Argument {
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (1, 16)
     }
-    pub(crate) fn __reduce43<
+    pub(crate) fn __reduce44<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -1573,7 +1599,7 @@ mod __parse__Argument {
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 17)
     }
-    pub(crate) fn __reduce44<
+    pub(crate) fn __reduce45<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -1653,7 +1679,7 @@ mod __parse__Arguments {
         // State 2
         -10,
         // State 3
-        -42,
+        -43,
         // State 4
         -9,
         // State 5
@@ -2087,7 +2113,7 @@ mod __parse__Arguments {
             }
             32 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 2,
                     nonterminal_produced: 11,
                 }
             }
@@ -2111,48 +2137,54 @@ mod __parse__Arguments {
             }
             36 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 0,
-                    nonterminal_produced: 12,
+                    states_to_pop: 1,
+                    nonterminal_produced: 11,
                 }
             }
             37 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 0,
                     nonterminal_produced: 12,
                 }
             }
             38 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
-                    nonterminal_produced: 13,
+                    nonterminal_produced: 12,
                 }
             }
             39 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 2,
+                    states_to_pop: 1,
                     nonterminal_produced: 13,
                 }
             }
             40 => {
                 __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 2,
+                    nonterminal_produced: 13,
+                }
+            }
+            41 => {
+                __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 14,
                 }
             }
-            41 => __state_machine::SimulatedReduce::Accept,
-            42 => {
+            42 => __state_machine::SimulatedReduce::Accept,
+            43 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 16,
                 }
             }
-            43 => {
+            44 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 17,
                 }
             }
-            44 => {
+            45 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 18,
@@ -2357,6 +2389,9 @@ mod __parse__Arguments {
                 __reduce40(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             41 => {
+                __reduce41(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            42 => {
                 // __Arguments = Arguments => ActionFn(3);
                 let __sym0 = __pop_Variant7(__symbols);
                 let __start = __sym0.0;
@@ -2364,14 +2399,14 @@ mod __parse__Arguments {
                 let __nt = super::__action3::<>(__sym0);
                 return Some(Ok(__nt));
             }
-            42 => {
-                __reduce42(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
-            }
             43 => {
                 __reduce43(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             44 => {
                 __reduce44(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            45 => {
+                __reduce45(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             _ => panic!("invalid action code {}", __action)
         };
@@ -2513,13 +2548,13 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",") = Argument, "," => ActionFn(37);
+        // (<Argument> ",") = Argument, "," => ActionFn(38);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action37::<>(__sym0, __sym1);
+        let __nt = super::__action38::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (2, 0)
     }
@@ -2530,10 +2565,10 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* =  => ActionFn(35);
+        // (<Argument> ",")* =  => ActionFn(36);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action35::<>(&__start, &__end);
+        let __nt = super::__action36::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (0, 1)
     }
@@ -2544,11 +2579,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(36);
+        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(37);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action36::<>(__sym0);
+        let __nt = super::__action37::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (1, 1)
     }
@@ -2559,13 +2594,13 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = Argument, "," => ActionFn(40);
+        // (<Argument> ",")+ = Argument, "," => ActionFn(41);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action40::<>(__sym0, __sym1);
+        let __nt = super::__action41::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (2, 2)
     }
@@ -2576,14 +2611,14 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(41);
+        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(42);
         assert!(__symbols.len() >= 3);
         let __sym2 = __pop_Variant0(__symbols);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym2.2;
-        let __nt = super::__action41::<>(__sym0, __sym1, __sym2);
+        let __nt = super::__action42::<>(__sym0, __sym1, __sym2);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (3, 2)
     }
@@ -2594,11 +2629,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument = "identifier" => ActionFn(23);
+        // Argument = "identifier" => ActionFn(24);
         let __sym0 = __pop_Variant2(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action23::<>(__sym0);
+        let __nt = super::__action24::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 3)
     }
@@ -2609,11 +2644,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? = Argument => ActionFn(33);
+        // Argument? = Argument => ActionFn(34);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action33::<>(__sym0);
+        let __nt = super::__action34::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (1, 4)
     }
@@ -2624,10 +2659,10 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? =  => ActionFn(34);
+        // Argument? =  => ActionFn(35);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action34::<>(&__start, &__end);
+        let __nt = super::__action35::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (0, 4)
     }
@@ -2638,11 +2673,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Arguments = Comma<Argument> => ActionFn(22);
+        // Arguments = Comma<Argument> => ActionFn(23);
         let __sym0 = __pop_Variant7(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action22::<>(__sym0);
+        let __nt = super::__action23::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 5)
     }
@@ -2653,11 +2688,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = Argument => ActionFn(44);
+        // Comma<Argument> = Argument => ActionFn(45);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action44::<>(__sym0);
+        let __nt = super::__action45::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -2668,10 +2703,10 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> =  => ActionFn(45);
+        // Comma<Argument> =  => ActionFn(46);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action45::<>(&__start, &__end);
+        let __nt = super::__action46::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (0, 6)
     }
@@ -2682,13 +2717,13 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(46);
+        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(47);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action46::<>(__sym0, __sym1);
+        let __nt = super::__action47::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (2, 6)
     }
@@ -2699,11 +2734,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+ => ActionFn(47);
+        // Comma<Argument> = (<Argument> ",")+ => ActionFn(48);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action47::<>(__sym0);
+        let __nt = super::__action48::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -2714,7 +2749,7 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(50);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(51);
         assert!(__symbols.len() >= 7);
         let __sym6 = __pop_Variant0(__symbols);
         let __sym5 = __pop_Variant0(__symbols);
@@ -2725,7 +2760,7 @@ mod __parse__Arguments {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym6.2;
-        let __nt = super::__action50::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
+        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (7, 7)
     }
@@ -2736,7 +2771,7 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(51);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(52);
         assert!(__symbols.len() >= 8);
         let __sym7 = __pop_Variant0(__symbols);
         let __sym6 = __pop_Variant11(__symbols);
@@ -2748,7 +2783,7 @@ mod __parse__Arguments {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym7.2;
-        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
+        let __nt = super::__action52::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (8, 7)
     }
@@ -2759,10 +2794,10 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* =  => ActionFn(27);
+        // Function* =  => ActionFn(28);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action27::<>(&__start, &__end);
+        let __nt = super::__action28::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 8)
     }
@@ -2773,11 +2808,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* = Function+ => ActionFn(28);
+        // Function* = Function+ => ActionFn(29);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action28::<>(__sym0);
+        let __nt = super::__action29::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 8)
     }
@@ -2788,11 +2823,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function => ActionFn(29);
+        // Function+ = Function => ActionFn(30);
         let __sym0 = __pop_Variant8(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action29::<>(__sym0);
+        let __nt = super::__action30::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 9)
     }
@@ -2803,13 +2838,13 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function+, Function => ActionFn(30);
+        // Function+ = Function+, Function => ActionFn(31);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant8(__symbols);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action30::<>(__sym0, __sym1);
+        let __nt = super::__action31::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (2, 9)
     }
@@ -2820,10 +2855,10 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions =  => ActionFn(48);
+        // Functions =  => ActionFn(49);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action48::<>(&__start, &__end);
+        let __nt = super::__action49::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 10)
     }
@@ -2834,11 +2869,11 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions = Function+ => ActionFn(49);
+        // Functions = Function+ => ActionFn(50);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action49::<>(__sym0);
+        let __nt = super::__action50::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 10)
     }
@@ -3024,13 +3059,15 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pushscope" => ActionFn(16);
+        // Op = "pushnamespace", "identifier" => ActionFn(16);
+        assert!(__symbols.len() >= 2);
+        let __sym1 = __pop_Variant2(__symbols);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action16::<>(__sym0);
+        let __end = __sym1.2;
+        let __nt = super::__action16::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant10(__nt), __end));
-        (1, 11)
+        (2, 11)
     }
     pub(crate) fn __reduce33<
     >(
@@ -3039,7 +3076,7 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pop" => ActionFn(17);
+        // Op = "pushscope" => ActionFn(17);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -3054,7 +3091,7 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_a" => ActionFn(18);
+        // Op = "pop" => ActionFn(18);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -3069,7 +3106,7 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_s" => ActionFn(19);
+        // Op = "coerce_a" => ActionFn(19);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -3084,12 +3121,13 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* =  => ActionFn(25);
-        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
-        let __end = __start.clone();
-        let __nt = super::__action25::<>(&__start, &__end);
-        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (0, 12)
+        // Op = "coerce_s" => ActionFn(20);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action20::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant10(__nt), __end));
+        (1, 11)
     }
     pub(crate) fn __reduce37<
     >(
@@ -3098,13 +3136,12 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* = Op+ => ActionFn(26);
-        let __sym0 = __pop_Variant11(__symbols);
-        let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action26::<>(__sym0);
+        // Op* =  => ActionFn(26);
+        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
+        let __end = __start.clone();
+        let __nt = super::__action26::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 12)
+        (0, 12)
     }
     pub(crate) fn __reduce38<
     >(
@@ -3113,13 +3150,13 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op => ActionFn(31);
-        let __sym0 = __pop_Variant10(__symbols);
+        // Op* = Op+ => ActionFn(27);
+        let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action31::<>(__sym0);
+        let __nt = super::__action27::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 13)
+        (1, 12)
     }
     pub(crate) fn __reduce39<
     >(
@@ -3128,17 +3165,32 @@ mod __parse__Arguments {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op+, Op => ActionFn(32);
+        // Op+ = Op => ActionFn(32);
+        let __sym0 = __pop_Variant10(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action32::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
+        (1, 13)
+    }
+    pub(crate) fn __reduce40<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op+ = Op+, Op => ActionFn(33);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant10(__symbols);
         let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action32::<>(__sym0, __sym1);
+        let __nt = super::__action33::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
         (2, 13)
     }
-    pub(crate) fn __reduce40<
+    pub(crate) fn __reduce41<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -3153,7 +3205,7 @@ mod __parse__Arguments {
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 14)
     }
-    pub(crate) fn __reduce42<
+    pub(crate) fn __reduce43<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -3168,7 +3220,7 @@ mod __parse__Arguments {
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (1, 16)
     }
-    pub(crate) fn __reduce43<
+    pub(crate) fn __reduce44<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -3183,7 +3235,7 @@ mod __parse__Arguments {
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 17)
     }
-    pub(crate) fn __reduce44<
+    pub(crate) fn __reduce45<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -3240,9 +3292,9 @@ mod __parse__Function {
         // State 2
         0, -13, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 3
-        0, 0, 0, 0, 18, 19, 0, 20, 21, 22, 23, 24, 0, 25, 26, 0, 27, 28, 29, 30, 31, 32, 0, 0, 33,
+        0, 0, 0, 0, 18, 19, 0, 20, 21, 22, 23, 24, 0, 25, 26, 27, 28, 29, 30, 31, 32, 33, 0, 0, 34,
         // State 4
-        0, 0, 0, 0, 18, 19, 0, 20, 21, 22, 23, 24, 0, 25, 26, 0, 27, 28, 29, 30, 31, 32, 0, 0, 35,
+        0, 0, 0, 0, 18, 19, 0, 20, 21, 22, 23, 24, 0, 25, 26, 27, 28, 29, 30, 31, 32, 33, 0, 0, 36,
         // State 5
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 6
@@ -3266,53 +3318,57 @@ mod __parse__Function {
         // State 15
         0, -5, 0, 0, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 16
-        0, 0, 0, 0, -39, -39, 0, -39, -39, -39, -39, -39, 0, -39, -39, 0, -39, -39, -39, -39, -39, -39, 0, 0, -39,
+        0, 0, 0, 0, -40, -40, 0, -40, -40, -40, -40, -40, 0, -40, -40, -40, -40, -40, -40, -40, -40, -40, 0, 0, -40,
         // State 17
-        0, 0, 0, 0, -35, -35, 0, -35, -35, -35, -35, -35, 0, -35, -35, 0, -35, -35, -35, -35, -35, -35, 0, 0, -35,
+        0, 0, 0, 0, -36, -36, 0, -36, -36, -36, -36, -36, 0, -36, -36, -36, -36, -36, -36, -36, -36, -36, 0, 0, -36,
         // State 18
-        0, 0, 0, 0, -36, -36, 0, -36, -36, -36, -36, -36, 0, -36, -36, 0, -36, -36, -36, -36, -36, -36, 0, 0, -36,
+        0, 0, 0, 0, -37, -37, 0, -37, -37, -37, -37, -37, 0, -37, -37, -37, -37, -37, -37, -37, -37, -37, 0, 0, -37,
         // State 19
-        0, 0, 0, 0, -28, -28, 0, -28, -28, -28, -28, -28, 0, -28, -28, 0, -28, -28, -28, -28, -28, -28, 0, 0, -28,
+        0, 0, 0, 0, -28, -28, 0, -28, -28, -28, -28, -28, 0, -28, -28, -28, -28, -28, -28, -28, -28, -28, 0, 0, -28,
         // State 20
-        0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 21
-        0, 0, 0, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        // State 22
         0, 0, 0, 0, 0, 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        // State 23
+        // State 22
         0, 0, 0, 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 23
+        0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 24
-        0, 0, 0, 0, -34, -34, 0, -34, -34, -34, -34, -34, 0, -34, -34, 0, -34, -34, -34, -34, -34, -34, 0, 0, -34,
+        0, 0, 0, 0, -35, -35, 0, -35, -35, -35, -35, -35, 0, -35, -35, -35, -35, -35, -35, -35, -35, -35, 0, 0, -35,
         // State 25
-        0, 0, 0, 0, -31, -31, 0, -31, -31, -31, -31, -31, 0, -31, -31, 0, -31, -31, -31, -31, -31, -31, 0, 0, -31,
+        0, 0, 0, 0, -31, -31, 0, -31, -31, -31, -31, -31, 0, -31, -31, -31, -31, -31, -31, -31, -31, -31, 0, 0, -31,
         // State 26
-        0, 0, 0, 0, -32, -32, 0, -32, -32, -32, -32, -32, 0, -32, -32, 0, -32, -32, -32, -32, -32, -32, 0, 0, -32,
+        0, 0, 0, 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 27
-        0, 0, 0, 0, -33, -33, 0, -33, -33, -33, -33, -33, 0, -33, -33, 0, -33, -33, -33, -33, -33, -33, 0, 0, -33,
+        0, 0, 0, 0, -32, -32, 0, -32, -32, -32, -32, -32, 0, -32, -32, -32, -32, -32, -32, -32, -32, -32, 0, 0, -32,
         // State 28
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0,
+        0, 0, 0, 0, -34, -34, 0, -34, -34, -34, -34, -34, 0, -34, -34, -34, -34, -34, -34, -34, -34, -34, 0, 0, -34,
         // State 29
-        0, 0, 0, 0, -23, -23, 0, -23, -23, -23, -23, -23, 0, -23, -23, 0, -23, -23, -23, -23, -23, -23, 0, 0, -23,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 0,
         // State 30
-        0, 0, 0, 0, -24, -24, 0, -24, -24, -24, -24, -24, 0, -24, -24, 0, -24, -24, -24, -24, -24, -24, 0, 0, -24,
+        0, 0, 0, 0, -23, -23, 0, -23, -23, -23, -23, -23, 0, -23, -23, -23, -23, -23, -23, -23, -23, -23, 0, 0, -23,
         // State 31
-        0, 0, 0, 0, -29, -29, 0, -29, -29, -29, -29, -29, 0, -29, -29, 0, -29, -29, -29, -29, -29, -29, 0, 0, -29,
+        0, 0, 0, 0, -24, -24, 0, -24, -24, -24, -24, -24, 0, -24, -24, -24, -24, -24, -24, -24, -24, -24, 0, 0, -24,
         // State 32
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, -29, -29, 0, -29, -29, -29, -29, -29, 0, -29, -29, -29, -29, -29, -29, -29, -29, -29, 0, 0, -29,
         // State 33
-        0, 0, 0, 0, -40, -40, 0, -40, -40, -40, -40, -40, 0, -40, -40, 0, -40, -40, -40, -40, -40, -40, 0, 0, -40,
-        // State 34
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 34
+        0, 0, 0, 0, -41, -41, 0, -41, -41, -41, -41, -41, 0, -41, -41, -41, -41, -41, -41, -41, -41, -41, 0, 0, -41,
         // State 35
-        0, 0, 0, 0, -22, -22, 0, -22, -22, -22, -22, -22, 0, -22, -22, 0, -22, -22, -22, -22, -22, -22, 0, 0, -22,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 36
-        0, 0, 0, 0, -27, -27, 0, -27, -27, -27, -27, -27, 0, -27, -27, 0, -27, -27, -27, -27, -27, -27, 0, 0, -27,
+        0, 0, 0, 0, -22, -22, 0, -22, -22, -22, -22, -22, 0, -22, -22, -22, -22, -22, -22, -22, -22, -22, 0, 0, -22,
         // State 37
-        0, 0, 0, 0, -25, -25, 0, -25, -25, -25, -25, -25, 0, -25, -25, 0, -25, -25, -25, -25, -25, -25, 0, 0, -25,
+        0, 0, 0, 0, -27, -27, 0, -27, -27, -27, -27, -27, 0, -27, -27, -27, -27, -27, -27, -27, -27, -27, 0, 0, -27,
         // State 38
-        0, 0, 0, 0, -26, -26, 0, -26, -26, -26, -26, -26, 0, -26, -26, 0, -26, -26, -26, -26, -26, -26, 0, 0, -26,
+        0, 0, 0, 0, -25, -25, 0, -25, -25, -25, -25, -25, 0, -25, -25, -25, -25, -25, -25, -25, -25, -25, 0, 0, -25,
         // State 39
-        0, 0, 0, 0, -30, -30, 0, -30, -30, -30, -30, -30, 0, -30, -30, 0, -30, -30, -30, -30, -30, -30, 0, 0, -30,
+        0, 0, 0, 0, -26, -26, 0, -26, -26, -26, -26, -26, 0, -26, -26, -26, -26, -26, -26, -26, -26, -26, 0, 0, -26,
+        // State 40
+        0, 0, 0, 0, -33, -33, 0, -33, -33, -33, -33, -33, 0, -33, -33, -33, -33, -33, -33, -33, -33, -33, 0, 0, -33,
+        // State 41
+        0, 0, 0, 0, -30, -30, 0, -30, -30, -30, -30, -30, 0, -30, -30, -30, -30, -30, -30, -30, -30, -30, 0, 0, -30,
     ];
     fn __action(state: i8, integer: usize) -> i8 {
         __ACTION[(state as usize) * 25 + integer]
@@ -3329,7 +3385,7 @@ mod __parse__Function {
         // State 4
         0,
         // State 5
-        -43,
+        -44,
         // State 6
         0,
         // State 7
@@ -3383,13 +3439,13 @@ mod __parse__Function {
         // State 31
         0,
         // State 32
-        -14,
+        0,
         // State 33
-        0,
+        -14,
         // State 34
-        -15,
-        // State 35
         0,
+        // State 35
+        -15,
         // State 36
         0,
         // State 37
@@ -3397,6 +3453,10 @@ mod __parse__Function {
         // State 38
         0,
         // State 39
+        0,
+        // State 40
+        0,
+        // State 41
         0,
     ];
     fn __goto(state: i8, nt: usize) -> i8 {
@@ -3410,7 +3470,7 @@ mod __parse__Function {
             6 => 10,
             7 => 5,
             11 => match state {
-                4 => 33,
+                4 => 34,
                 _ => 16,
             },
             13 => 4,
@@ -3827,7 +3887,7 @@ mod __parse__Function {
             }
             32 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 2,
                     nonterminal_produced: 11,
                 }
             }
@@ -3851,48 +3911,54 @@ mod __parse__Function {
             }
             36 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 0,
-                    nonterminal_produced: 12,
+                    states_to_pop: 1,
+                    nonterminal_produced: 11,
                 }
             }
             37 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 0,
                     nonterminal_produced: 12,
                 }
             }
             38 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
-                    nonterminal_produced: 13,
+                    nonterminal_produced: 12,
                 }
             }
             39 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 2,
+                    states_to_pop: 1,
                     nonterminal_produced: 13,
                 }
             }
             40 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
-                    nonterminal_produced: 14,
+                    states_to_pop: 2,
+                    nonterminal_produced: 13,
                 }
             }
             41 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
+                    nonterminal_produced: 14,
+                }
+            }
+            42 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 1,
                     nonterminal_produced: 15,
                 }
             }
-            42 => __state_machine::SimulatedReduce::Accept,
-            43 => {
+            43 => __state_machine::SimulatedReduce::Accept,
+            44 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 17,
                 }
             }
-            44 => {
+            45 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 18,
@@ -4100,6 +4166,9 @@ mod __parse__Function {
                 __reduce41(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             42 => {
+                __reduce42(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            43 => {
                 // __Function = Function => ActionFn(2);
                 let __sym0 = __pop_Variant8(__symbols);
                 let __start = __sym0.0;
@@ -4107,11 +4176,11 @@ mod __parse__Function {
                 let __nt = super::__action2::<>(__sym0);
                 return Some(Ok(__nt));
             }
-            43 => {
-                __reduce43(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
-            }
             44 => {
                 __reduce44(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            45 => {
+                __reduce45(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             _ => panic!("invalid action code {}", __action)
         };
@@ -4253,13 +4322,13 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",") = Argument, "," => ActionFn(37);
+        // (<Argument> ",") = Argument, "," => ActionFn(38);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action37::<>(__sym0, __sym1);
+        let __nt = super::__action38::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (2, 0)
     }
@@ -4270,10 +4339,10 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* =  => ActionFn(35);
+        // (<Argument> ",")* =  => ActionFn(36);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action35::<>(&__start, &__end);
+        let __nt = super::__action36::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (0, 1)
     }
@@ -4284,11 +4353,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(36);
+        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(37);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action36::<>(__sym0);
+        let __nt = super::__action37::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (1, 1)
     }
@@ -4299,13 +4368,13 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = Argument, "," => ActionFn(40);
+        // (<Argument> ",")+ = Argument, "," => ActionFn(41);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action40::<>(__sym0, __sym1);
+        let __nt = super::__action41::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (2, 2)
     }
@@ -4316,14 +4385,14 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(41);
+        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(42);
         assert!(__symbols.len() >= 3);
         let __sym2 = __pop_Variant0(__symbols);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym2.2;
-        let __nt = super::__action41::<>(__sym0, __sym1, __sym2);
+        let __nt = super::__action42::<>(__sym0, __sym1, __sym2);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (3, 2)
     }
@@ -4334,11 +4403,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument = "identifier" => ActionFn(23);
+        // Argument = "identifier" => ActionFn(24);
         let __sym0 = __pop_Variant2(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action23::<>(__sym0);
+        let __nt = super::__action24::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 3)
     }
@@ -4349,11 +4418,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? = Argument => ActionFn(33);
+        // Argument? = Argument => ActionFn(34);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action33::<>(__sym0);
+        let __nt = super::__action34::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (1, 4)
     }
@@ -4364,10 +4433,10 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? =  => ActionFn(34);
+        // Argument? =  => ActionFn(35);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action34::<>(&__start, &__end);
+        let __nt = super::__action35::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (0, 4)
     }
@@ -4378,11 +4447,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Arguments = Comma<Argument> => ActionFn(22);
+        // Arguments = Comma<Argument> => ActionFn(23);
         let __sym0 = __pop_Variant7(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action22::<>(__sym0);
+        let __nt = super::__action23::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 5)
     }
@@ -4393,11 +4462,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = Argument => ActionFn(44);
+        // Comma<Argument> = Argument => ActionFn(45);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action44::<>(__sym0);
+        let __nt = super::__action45::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -4408,10 +4477,10 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> =  => ActionFn(45);
+        // Comma<Argument> =  => ActionFn(46);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action45::<>(&__start, &__end);
+        let __nt = super::__action46::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (0, 6)
     }
@@ -4422,13 +4491,13 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(46);
+        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(47);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action46::<>(__sym0, __sym1);
+        let __nt = super::__action47::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (2, 6)
     }
@@ -4439,11 +4508,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+ => ActionFn(47);
+        // Comma<Argument> = (<Argument> ",")+ => ActionFn(48);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action47::<>(__sym0);
+        let __nt = super::__action48::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -4454,7 +4523,7 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(50);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(51);
         assert!(__symbols.len() >= 7);
         let __sym6 = __pop_Variant0(__symbols);
         let __sym5 = __pop_Variant0(__symbols);
@@ -4465,7 +4534,7 @@ mod __parse__Function {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym6.2;
-        let __nt = super::__action50::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
+        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (7, 7)
     }
@@ -4476,7 +4545,7 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(51);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(52);
         assert!(__symbols.len() >= 8);
         let __sym7 = __pop_Variant0(__symbols);
         let __sym6 = __pop_Variant11(__symbols);
@@ -4488,7 +4557,7 @@ mod __parse__Function {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym7.2;
-        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
+        let __nt = super::__action52::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (8, 7)
     }
@@ -4499,10 +4568,10 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* =  => ActionFn(27);
+        // Function* =  => ActionFn(28);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action27::<>(&__start, &__end);
+        let __nt = super::__action28::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 8)
     }
@@ -4513,11 +4582,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* = Function+ => ActionFn(28);
+        // Function* = Function+ => ActionFn(29);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action28::<>(__sym0);
+        let __nt = super::__action29::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 8)
     }
@@ -4528,11 +4597,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function => ActionFn(29);
+        // Function+ = Function => ActionFn(30);
         let __sym0 = __pop_Variant8(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action29::<>(__sym0);
+        let __nt = super::__action30::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 9)
     }
@@ -4543,13 +4612,13 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function+, Function => ActionFn(30);
+        // Function+ = Function+, Function => ActionFn(31);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant8(__symbols);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action30::<>(__sym0, __sym1);
+        let __nt = super::__action31::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (2, 9)
     }
@@ -4560,10 +4629,10 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions =  => ActionFn(48);
+        // Functions =  => ActionFn(49);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action48::<>(&__start, &__end);
+        let __nt = super::__action49::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 10)
     }
@@ -4574,11 +4643,11 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions = Function+ => ActionFn(49);
+        // Functions = Function+ => ActionFn(50);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action49::<>(__sym0);
+        let __nt = super::__action50::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 10)
     }
@@ -4764,13 +4833,15 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pushscope" => ActionFn(16);
+        // Op = "pushnamespace", "identifier" => ActionFn(16);
+        assert!(__symbols.len() >= 2);
+        let __sym1 = __pop_Variant2(__symbols);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action16::<>(__sym0);
+        let __end = __sym1.2;
+        let __nt = super::__action16::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant10(__nt), __end));
-        (1, 11)
+        (2, 11)
     }
     pub(crate) fn __reduce33<
     >(
@@ -4779,7 +4850,7 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pop" => ActionFn(17);
+        // Op = "pushscope" => ActionFn(17);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -4794,7 +4865,7 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_a" => ActionFn(18);
+        // Op = "pop" => ActionFn(18);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -4809,7 +4880,7 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_s" => ActionFn(19);
+        // Op = "coerce_a" => ActionFn(19);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -4824,12 +4895,13 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* =  => ActionFn(25);
-        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
-        let __end = __start.clone();
-        let __nt = super::__action25::<>(&__start, &__end);
-        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (0, 12)
+        // Op = "coerce_s" => ActionFn(20);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action20::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant10(__nt), __end));
+        (1, 11)
     }
     pub(crate) fn __reduce37<
     >(
@@ -4838,13 +4910,12 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* = Op+ => ActionFn(26);
-        let __sym0 = __pop_Variant11(__symbols);
-        let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action26::<>(__sym0);
+        // Op* =  => ActionFn(26);
+        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
+        let __end = __start.clone();
+        let __nt = super::__action26::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 12)
+        (0, 12)
     }
     pub(crate) fn __reduce38<
     >(
@@ -4853,13 +4924,13 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op => ActionFn(31);
-        let __sym0 = __pop_Variant10(__symbols);
+        // Op* = Op+ => ActionFn(27);
+        let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action31::<>(__sym0);
+        let __nt = super::__action27::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 13)
+        (1, 12)
     }
     pub(crate) fn __reduce39<
     >(
@@ -4868,17 +4939,32 @@ mod __parse__Function {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op+, Op => ActionFn(32);
+        // Op+ = Op => ActionFn(32);
+        let __sym0 = __pop_Variant10(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action32::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
+        (1, 13)
+    }
+    pub(crate) fn __reduce40<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op+ = Op+, Op => ActionFn(33);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant10(__symbols);
         let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action32::<>(__sym0, __sym1);
+        let __nt = super::__action33::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
         (2, 13)
     }
-    pub(crate) fn __reduce40<
+    pub(crate) fn __reduce41<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -4893,7 +4979,7 @@ mod __parse__Function {
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 14)
     }
-    pub(crate) fn __reduce41<
+    pub(crate) fn __reduce42<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -4908,7 +4994,7 @@ mod __parse__Function {
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 15)
     }
-    pub(crate) fn __reduce43<
+    pub(crate) fn __reduce44<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -4923,7 +5009,7 @@ mod __parse__Function {
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 17)
     }
-    pub(crate) fn __reduce44<
+    pub(crate) fn __reduce45<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -4982,9 +5068,9 @@ mod __parse__Functions {
         // State 3
         0, -13, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 4
-        0, 0, 0, 0, 21, 22, 0, 23, 24, 25, 26, 27, 0, 28, 29, 0, 30, 31, 32, 33, 34, 35, 0, 0, 36,
+        0, 0, 0, 0, 21, 22, 0, 23, 24, 25, 26, 27, 0, 28, 29, 30, 31, 32, 33, 34, 35, 36, 0, 0, 37,
         // State 5
-        0, 0, 0, 0, 21, 22, 0, 23, 24, 25, 26, 27, 0, 28, 29, 0, 30, 31, 32, 33, 34, 35, 0, 0, 38,
+        0, 0, 0, 0, 21, 22, 0, 23, 24, 25, 26, 27, 0, 28, 29, 30, 31, 32, 33, 34, 35, 36, 0, 0, 39,
         // State 6
         0, 0, 0, 0, 0, 0, -18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 7
@@ -5012,53 +5098,57 @@ mod __parse__Functions {
         // State 18
         0, -5, 0, 0, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 19
-        0, 0, 0, 0, -39, -39, 0, -39, -39, -39, -39, -39, 0, -39, -39, 0, -39, -39, -39, -39, -39, -39, 0, 0, -39,
+        0, 0, 0, 0, -40, -40, 0, -40, -40, -40, -40, -40, 0, -40, -40, -40, -40, -40, -40, -40, -40, -40, 0, 0, -40,
         // State 20
-        0, 0, 0, 0, -35, -35, 0, -35, -35, -35, -35, -35, 0, -35, -35, 0, -35, -35, -35, -35, -35, -35, 0, 0, -35,
+        0, 0, 0, 0, -36, -36, 0, -36, -36, -36, -36, -36, 0, -36, -36, -36, -36, -36, -36, -36, -36, -36, 0, 0, -36,
         // State 21
-        0, 0, 0, 0, -36, -36, 0, -36, -36, -36, -36, -36, 0, -36, -36, 0, -36, -36, -36, -36, -36, -36, 0, 0, -36,
+        0, 0, 0, 0, -37, -37, 0, -37, -37, -37, -37, -37, 0, -37, -37, -37, -37, -37, -37, -37, -37, -37, 0, 0, -37,
         // State 22
-        0, 0, 0, 0, -28, -28, 0, -28, -28, -28, -28, -28, 0, -28, -28, 0, -28, -28, -28, -28, -28, -28, 0, 0, -28,
+        0, 0, 0, 0, -28, -28, 0, -28, -28, -28, -28, -28, 0, -28, -28, -28, -28, -28, -28, -28, -28, -28, 0, 0, -28,
         // State 23
-        0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 24
-        0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        // State 25
         0, 0, 0, 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        // State 26
+        // State 25
         0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 26
+        0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 27
-        0, 0, 0, 0, -34, -34, 0, -34, -34, -34, -34, -34, 0, -34, -34, 0, -34, -34, -34, -34, -34, -34, 0, 0, -34,
+        0, 0, 0, 0, -35, -35, 0, -35, -35, -35, -35, -35, 0, -35, -35, -35, -35, -35, -35, -35, -35, -35, 0, 0, -35,
         // State 28
-        0, 0, 0, 0, -31, -31, 0, -31, -31, -31, -31, -31, 0, -31, -31, 0, -31, -31, -31, -31, -31, -31, 0, 0, -31,
+        0, 0, 0, 0, -31, -31, 0, -31, -31, -31, -31, -31, 0, -31, -31, -31, -31, -31, -31, -31, -31, -31, 0, 0, -31,
         // State 29
-        0, 0, 0, 0, -32, -32, 0, -32, -32, -32, -32, -32, 0, -32, -32, 0, -32, -32, -32, -32, -32, -32, 0, 0, -32,
+        0, 0, 0, 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 30
-        0, 0, 0, 0, -33, -33, 0, -33, -33, -33, -33, -33, 0, -33, -33, 0, -33, -33, -33, -33, -33, -33, 0, 0, -33,
+        0, 0, 0, 0, -32, -32, 0, -32, -32, -32, -32, -32, 0, -32, -32, -32, -32, -32, -32, -32, -32, -32, 0, 0, -32,
         // State 31
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0,
+        0, 0, 0, 0, -34, -34, 0, -34, -34, -34, -34, -34, 0, -34, -34, -34, -34, -34, -34, -34, -34, -34, 0, 0, -34,
         // State 32
-        0, 0, 0, 0, -23, -23, 0, -23, -23, -23, -23, -23, 0, -23, -23, 0, -23, -23, -23, -23, -23, -23, 0, 0, -23,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 0,
         // State 33
-        0, 0, 0, 0, -24, -24, 0, -24, -24, -24, -24, -24, 0, -24, -24, 0, -24, -24, -24, -24, -24, -24, 0, 0, -24,
+        0, 0, 0, 0, -23, -23, 0, -23, -23, -23, -23, -23, 0, -23, -23, -23, -23, -23, -23, -23, -23, -23, 0, 0, -23,
         // State 34
-        0, 0, 0, 0, -29, -29, 0, -29, -29, -29, -29, -29, 0, -29, -29, 0, -29, -29, -29, -29, -29, -29, 0, 0, -29,
+        0, 0, 0, 0, -24, -24, 0, -24, -24, -24, -24, -24, 0, -24, -24, -24, -24, -24, -24, -24, -24, -24, 0, 0, -24,
         // State 35
-        0, 0, 0, 0, 0, 0, -14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, -29, -29, 0, -29, -29, -29, -29, -29, 0, -29, -29, -29, -29, -29, -29, -29, -29, -29, 0, 0, -29,
         // State 36
-        0, 0, 0, 0, -40, -40, 0, -40, -40, -40, -40, -40, 0, -40, -40, 0, -40, -40, -40, -40, -40, -40, 0, 0, -40,
+        0, 0, 0, 0, 0, 0, -14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 37
-        0, 0, 0, 0, 0, 0, -15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, -41, -41, 0, -41, -41, -41, -41, -41, 0, -41, -41, -41, -41, -41, -41, -41, -41, -41, 0, 0, -41,
         // State 38
-        0, 0, 0, 0, -22, -22, 0, -22, -22, -22, -22, -22, 0, -22, -22, 0, -22, -22, -22, -22, -22, -22, 0, 0, -22,
+        0, 0, 0, 0, 0, 0, -15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 39
-        0, 0, 0, 0, -27, -27, 0, -27, -27, -27, -27, -27, 0, -27, -27, 0, -27, -27, -27, -27, -27, -27, 0, 0, -27,
+        0, 0, 0, 0, -22, -22, 0, -22, -22, -22, -22, -22, 0, -22, -22, -22, -22, -22, -22, -22, -22, -22, 0, 0, -22,
         // State 40
-        0, 0, 0, 0, -25, -25, 0, -25, -25, -25, -25, -25, 0, -25, -25, 0, -25, -25, -25, -25, -25, -25, 0, 0, -25,
+        0, 0, 0, 0, -27, -27, 0, -27, -27, -27, -27, -27, 0, -27, -27, -27, -27, -27, -27, -27, -27, -27, 0, 0, -27,
         // State 41
-        0, 0, 0, 0, -26, -26, 0, -26, -26, -26, -26, -26, 0, -26, -26, 0, -26, -26, -26, -26, -26, -26, 0, 0, -26,
+        0, 0, 0, 0, -25, -25, 0, -25, -25, -25, -25, -25, 0, -25, -25, -25, -25, -25, -25, -25, -25, -25, 0, 0, -25,
         // State 42
-        0, 0, 0, 0, -30, -30, 0, -30, -30, -30, -30, -30, 0, -30, -30, 0, -30, -30, -30, -30, -30, -30, 0, 0, -30,
+        0, 0, 0, 0, -26, -26, 0, -26, -26, -26, -26, -26, 0, -26, -26, -26, -26, -26, -26, -26, -26, -26, 0, 0, -26,
+        // State 43
+        0, 0, 0, 0, -33, -33, 0, -33, -33, -33, -33, -33, 0, -33, -33, -33, -33, -33, -33, -33, -33, -33, 0, 0, -33,
+        // State 44
+        0, 0, 0, 0, -30, -30, 0, -30, -30, -30, -30, -30, 0, -30, -30, -30, -30, -30, -30, -30, -30, -30, 0, 0, -30,
     ];
     fn __action(state: i8, integer: usize) -> i8 {
         __ACTION[(state as usize) * 25 + integer]
@@ -5079,7 +5169,7 @@ mod __parse__Functions {
         // State 6
         -18,
         // State 7
-        -44,
+        -45,
         // State 8
         0,
         // State 9
@@ -5135,13 +5225,13 @@ mod __parse__Functions {
         // State 34
         0,
         // State 35
-        -14,
+        0,
         // State 36
-        0,
+        -14,
         // State 37
-        -15,
-        // State 38
         0,
+        // State 38
+        -15,
         // State 39
         0,
         // State 40
@@ -5149,6 +5239,10 @@ mod __parse__Functions {
         // State 41
         0,
         // State 42
+        0,
+        // State 43
+        0,
+        // State 44
         0,
     ];
     fn __goto(state: i8, nt: usize) -> i8 {
@@ -5167,7 +5261,7 @@ mod __parse__Functions {
             9 => 1,
             10 => 7,
             11 => match state {
-                5 => 36,
+                5 => 37,
                 _ => 19,
             },
             13 => 5,
@@ -5584,7 +5678,7 @@ mod __parse__Functions {
             }
             32 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 2,
                     nonterminal_produced: 11,
                 }
             }
@@ -5608,48 +5702,54 @@ mod __parse__Functions {
             }
             36 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 0,
-                    nonterminal_produced: 12,
+                    states_to_pop: 1,
+                    nonterminal_produced: 11,
                 }
             }
             37 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 0,
                     nonterminal_produced: 12,
                 }
             }
             38 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
-                    nonterminal_produced: 13,
+                    nonterminal_produced: 12,
                 }
             }
             39 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 2,
+                    states_to_pop: 1,
                     nonterminal_produced: 13,
                 }
             }
             40 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
-                    nonterminal_produced: 14,
+                    states_to_pop: 2,
+                    nonterminal_produced: 13,
                 }
             }
             41 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
-                    nonterminal_produced: 15,
+                    nonterminal_produced: 14,
                 }
             }
             42 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
+                    nonterminal_produced: 15,
+                }
+            }
+            43 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 1,
                     nonterminal_produced: 16,
                 }
             }
-            43 => __state_machine::SimulatedReduce::Accept,
-            44 => {
+            44 => __state_machine::SimulatedReduce::Accept,
+            45 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
                     nonterminal_produced: 18,
@@ -5860,6 +5960,9 @@ mod __parse__Functions {
                 __reduce42(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             43 => {
+                __reduce43(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            44 => {
                 // __Functions = Functions => ActionFn(1);
                 let __sym0 = __pop_Variant9(__symbols);
                 let __start = __sym0.0;
@@ -5867,8 +5970,8 @@ mod __parse__Functions {
                 let __nt = super::__action1::<>(__sym0);
                 return Some(Ok(__nt));
             }
-            44 => {
-                __reduce44(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            45 => {
+                __reduce45(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             _ => panic!("invalid action code {}", __action)
         };
@@ -6010,13 +6113,13 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",") = Argument, "," => ActionFn(37);
+        // (<Argument> ",") = Argument, "," => ActionFn(38);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action37::<>(__sym0, __sym1);
+        let __nt = super::__action38::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (2, 0)
     }
@@ -6027,10 +6130,10 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* =  => ActionFn(35);
+        // (<Argument> ",")* =  => ActionFn(36);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action35::<>(&__start, &__end);
+        let __nt = super::__action36::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (0, 1)
     }
@@ -6041,11 +6144,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(36);
+        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(37);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action36::<>(__sym0);
+        let __nt = super::__action37::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (1, 1)
     }
@@ -6056,13 +6159,13 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = Argument, "," => ActionFn(40);
+        // (<Argument> ",")+ = Argument, "," => ActionFn(41);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action40::<>(__sym0, __sym1);
+        let __nt = super::__action41::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (2, 2)
     }
@@ -6073,14 +6176,14 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(41);
+        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(42);
         assert!(__symbols.len() >= 3);
         let __sym2 = __pop_Variant0(__symbols);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym2.2;
-        let __nt = super::__action41::<>(__sym0, __sym1, __sym2);
+        let __nt = super::__action42::<>(__sym0, __sym1, __sym2);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (3, 2)
     }
@@ -6091,11 +6194,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument = "identifier" => ActionFn(23);
+        // Argument = "identifier" => ActionFn(24);
         let __sym0 = __pop_Variant2(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action23::<>(__sym0);
+        let __nt = super::__action24::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 3)
     }
@@ -6106,11 +6209,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? = Argument => ActionFn(33);
+        // Argument? = Argument => ActionFn(34);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action33::<>(__sym0);
+        let __nt = super::__action34::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (1, 4)
     }
@@ -6121,10 +6224,10 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? =  => ActionFn(34);
+        // Argument? =  => ActionFn(35);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action34::<>(&__start, &__end);
+        let __nt = super::__action35::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (0, 4)
     }
@@ -6135,11 +6238,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Arguments = Comma<Argument> => ActionFn(22);
+        // Arguments = Comma<Argument> => ActionFn(23);
         let __sym0 = __pop_Variant7(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action22::<>(__sym0);
+        let __nt = super::__action23::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 5)
     }
@@ -6150,11 +6253,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = Argument => ActionFn(44);
+        // Comma<Argument> = Argument => ActionFn(45);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action44::<>(__sym0);
+        let __nt = super::__action45::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -6165,10 +6268,10 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> =  => ActionFn(45);
+        // Comma<Argument> =  => ActionFn(46);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action45::<>(&__start, &__end);
+        let __nt = super::__action46::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (0, 6)
     }
@@ -6179,13 +6282,13 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(46);
+        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(47);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action46::<>(__sym0, __sym1);
+        let __nt = super::__action47::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (2, 6)
     }
@@ -6196,11 +6299,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+ => ActionFn(47);
+        // Comma<Argument> = (<Argument> ",")+ => ActionFn(48);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action47::<>(__sym0);
+        let __nt = super::__action48::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -6211,7 +6314,7 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(50);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(51);
         assert!(__symbols.len() >= 7);
         let __sym6 = __pop_Variant0(__symbols);
         let __sym5 = __pop_Variant0(__symbols);
@@ -6222,7 +6325,7 @@ mod __parse__Functions {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym6.2;
-        let __nt = super::__action50::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
+        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (7, 7)
     }
@@ -6233,7 +6336,7 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(51);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(52);
         assert!(__symbols.len() >= 8);
         let __sym7 = __pop_Variant0(__symbols);
         let __sym6 = __pop_Variant11(__symbols);
@@ -6245,7 +6348,7 @@ mod __parse__Functions {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym7.2;
-        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
+        let __nt = super::__action52::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (8, 7)
     }
@@ -6256,10 +6359,10 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* =  => ActionFn(27);
+        // Function* =  => ActionFn(28);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action27::<>(&__start, &__end);
+        let __nt = super::__action28::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 8)
     }
@@ -6270,11 +6373,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* = Function+ => ActionFn(28);
+        // Function* = Function+ => ActionFn(29);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action28::<>(__sym0);
+        let __nt = super::__action29::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 8)
     }
@@ -6285,11 +6388,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function => ActionFn(29);
+        // Function+ = Function => ActionFn(30);
         let __sym0 = __pop_Variant8(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action29::<>(__sym0);
+        let __nt = super::__action30::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 9)
     }
@@ -6300,13 +6403,13 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function+, Function => ActionFn(30);
+        // Function+ = Function+, Function => ActionFn(31);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant8(__symbols);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action30::<>(__sym0, __sym1);
+        let __nt = super::__action31::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (2, 9)
     }
@@ -6317,10 +6420,10 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions =  => ActionFn(48);
+        // Functions =  => ActionFn(49);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action48::<>(&__start, &__end);
+        let __nt = super::__action49::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 10)
     }
@@ -6331,11 +6434,11 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions = Function+ => ActionFn(49);
+        // Functions = Function+ => ActionFn(50);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action49::<>(__sym0);
+        let __nt = super::__action50::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 10)
     }
@@ -6521,13 +6624,15 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pushscope" => ActionFn(16);
+        // Op = "pushnamespace", "identifier" => ActionFn(16);
+        assert!(__symbols.len() >= 2);
+        let __sym1 = __pop_Variant2(__symbols);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action16::<>(__sym0);
+        let __end = __sym1.2;
+        let __nt = super::__action16::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant10(__nt), __end));
-        (1, 11)
+        (2, 11)
     }
     pub(crate) fn __reduce33<
     >(
@@ -6536,7 +6641,7 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pop" => ActionFn(17);
+        // Op = "pushscope" => ActionFn(17);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -6551,7 +6656,7 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_a" => ActionFn(18);
+        // Op = "pop" => ActionFn(18);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -6566,7 +6671,7 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_s" => ActionFn(19);
+        // Op = "coerce_a" => ActionFn(19);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -6581,12 +6686,13 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* =  => ActionFn(25);
-        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
-        let __end = __start.clone();
-        let __nt = super::__action25::<>(&__start, &__end);
-        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (0, 12)
+        // Op = "coerce_s" => ActionFn(20);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action20::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant10(__nt), __end));
+        (1, 11)
     }
     pub(crate) fn __reduce37<
     >(
@@ -6595,13 +6701,12 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* = Op+ => ActionFn(26);
-        let __sym0 = __pop_Variant11(__symbols);
-        let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action26::<>(__sym0);
+        // Op* =  => ActionFn(26);
+        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
+        let __end = __start.clone();
+        let __nt = super::__action26::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 12)
+        (0, 12)
     }
     pub(crate) fn __reduce38<
     >(
@@ -6610,13 +6715,13 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op => ActionFn(31);
-        let __sym0 = __pop_Variant10(__symbols);
+        // Op* = Op+ => ActionFn(27);
+        let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action31::<>(__sym0);
+        let __nt = super::__action27::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 13)
+        (1, 12)
     }
     pub(crate) fn __reduce39<
     >(
@@ -6625,17 +6730,32 @@ mod __parse__Functions {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op+, Op => ActionFn(32);
+        // Op+ = Op => ActionFn(32);
+        let __sym0 = __pop_Variant10(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action32::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
+        (1, 13)
+    }
+    pub(crate) fn __reduce40<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op+ = Op+, Op => ActionFn(33);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant10(__symbols);
         let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action32::<>(__sym0, __sym1);
+        let __nt = super::__action33::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
         (2, 13)
     }
-    pub(crate) fn __reduce40<
+    pub(crate) fn __reduce41<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -6650,7 +6770,7 @@ mod __parse__Functions {
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 14)
     }
-    pub(crate) fn __reduce41<
+    pub(crate) fn __reduce42<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -6665,7 +6785,7 @@ mod __parse__Functions {
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 15)
     }
-    pub(crate) fn __reduce42<
+    pub(crate) fn __reduce43<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -6680,7 +6800,7 @@ mod __parse__Functions {
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (1, 16)
     }
-    pub(crate) fn __reduce44<
+    pub(crate) fn __reduce45<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -6731,7 +6851,7 @@ mod __parse__Op {
     }
     const __ACTION: &[i8] = &[
         // State 0
-        0, 0, 0, 0, 3, 4, 0, 5, 6, 7, 8, 9, 0, 10, 11, 0, 12, 13, 14, 15, 16, 17, 0, 0, 0,
+        0, 0, 0, 0, 3, 4, 0, 5, 6, 7, 8, 9, 0, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0, 0, 0,
         // State 1
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 2
@@ -6741,25 +6861,25 @@ mod __parse__Op {
         // State 4
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 5
-        0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 6
-        0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        // State 7
         0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        // State 8
+        // State 7
         0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 8
+        0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 9
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 10
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 11
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 12
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 13
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0,
-        // State 14
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 14
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0,
         // State 15
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 16
@@ -6774,6 +6894,10 @@ mod __parse__Op {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         // State 21
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 22
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        // State 23
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ];
     fn __action(state: i8, integer: usize) -> i8 {
         __ACTION[(state as usize) * 25 + integer]
@@ -6782,11 +6906,11 @@ mod __parse__Op {
         // State 0
         0,
         // State 1
-        -45,
+        -46,
         // State 2
-        -35,
-        // State 3
         -36,
+        // State 3
+        -37,
         // State 4
         -28,
         // State 5
@@ -6798,30 +6922,34 @@ mod __parse__Op {
         // State 8
         0,
         // State 9
-        -34,
+        -35,
         // State 10
         -31,
         // State 11
-        -32,
-        // State 12
-        -33,
-        // State 13
         0,
+        // State 12
+        -32,
+        // State 13
+        -34,
         // State 14
-        -23,
+        0,
         // State 15
-        -24,
+        -23,
         // State 16
-        -29,
+        -24,
         // State 17
-        -22,
+        -29,
         // State 18
-        -27,
+        -22,
         // State 19
-        -25,
+        -27,
         // State 20
-        -26,
+        -25,
         // State 21
+        -26,
+        // State 22
+        -33,
+        // State 23
         -30,
     ];
     fn __goto(state: i8, nt: usize) -> i8 {
@@ -7240,7 +7368,7 @@ mod __parse__Op {
             }
             32 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 2,
                     nonterminal_produced: 11,
                 }
             }
@@ -7264,53 +7392,59 @@ mod __parse__Op {
             }
             36 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 0,
-                    nonterminal_produced: 12,
+                    states_to_pop: 1,
+                    nonterminal_produced: 11,
                 }
             }
             37 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
+                    states_to_pop: 0,
                     nonterminal_produced: 12,
                 }
             }
             38 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
-                    nonterminal_produced: 13,
+                    nonterminal_produced: 12,
                 }
             }
             39 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 2,
+                    states_to_pop: 1,
                     nonterminal_produced: 13,
                 }
             }
             40 => {
                 __state_machine::SimulatedReduce::Reduce {
-                    states_to_pop: 1,
-                    nonterminal_produced: 14,
+                    states_to_pop: 2,
+                    nonterminal_produced: 13,
                 }
             }
             41 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
-                    nonterminal_produced: 15,
+                    nonterminal_produced: 14,
                 }
             }
             42 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
-                    nonterminal_produced: 16,
+                    nonterminal_produced: 15,
                 }
             }
             43 => {
                 __state_machine::SimulatedReduce::Reduce {
                     states_to_pop: 1,
+                    nonterminal_produced: 16,
+                }
+            }
+            44 => {
+                __state_machine::SimulatedReduce::Reduce {
+                    states_to_pop: 1,
                     nonterminal_produced: 17,
                 }
             }
-            44 => __state_machine::SimulatedReduce::Accept,
+            45 => __state_machine::SimulatedReduce::Accept,
             _ => panic!("invalid reduction index {}", __reduce_index)
         }
     }
@@ -7519,6 +7653,9 @@ mod __parse__Op {
                 __reduce43(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
             }
             44 => {
+                __reduce44(__lookahead_start, __symbols, core::marker::PhantomData::<()>)
+            }
+            45 => {
                 // __Op = Op => ActionFn(0);
                 let __sym0 = __pop_Variant10(__symbols);
                 let __start = __sym0.0;
@@ -7666,13 +7803,13 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",") = Argument, "," => ActionFn(37);
+        // (<Argument> ",") = Argument, "," => ActionFn(38);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action37::<>(__sym0, __sym1);
+        let __nt = super::__action38::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (2, 0)
     }
@@ -7683,10 +7820,10 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* =  => ActionFn(35);
+        // (<Argument> ",")* =  => ActionFn(36);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action35::<>(&__start, &__end);
+        let __nt = super::__action36::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (0, 1)
     }
@@ -7697,11 +7834,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(36);
+        // (<Argument> ",")* = (<Argument> ",")+ => ActionFn(37);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action36::<>(__sym0);
+        let __nt = super::__action37::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (1, 1)
     }
@@ -7712,13 +7849,13 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = Argument, "," => ActionFn(40);
+        // (<Argument> ",")+ = Argument, "," => ActionFn(41);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant0(__symbols);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action40::<>(__sym0, __sym1);
+        let __nt = super::__action41::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (2, 2)
     }
@@ -7729,14 +7866,14 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(41);
+        // (<Argument> ",")+ = (<Argument> ",")+, Argument, "," => ActionFn(42);
         assert!(__symbols.len() >= 3);
         let __sym2 = __pop_Variant0(__symbols);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym2.2;
-        let __nt = super::__action41::<>(__sym0, __sym1, __sym2);
+        let __nt = super::__action42::<>(__sym0, __sym1, __sym2);
         __symbols.push((__start, __Symbol::Variant5(__nt), __end));
         (3, 2)
     }
@@ -7747,11 +7884,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument = "identifier" => ActionFn(23);
+        // Argument = "identifier" => ActionFn(24);
         let __sym0 = __pop_Variant2(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action23::<>(__sym0);
+        let __nt = super::__action24::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 3)
     }
@@ -7762,11 +7899,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? = Argument => ActionFn(33);
+        // Argument? = Argument => ActionFn(34);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action33::<>(__sym0);
+        let __nt = super::__action34::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (1, 4)
     }
@@ -7777,10 +7914,10 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Argument? =  => ActionFn(34);
+        // Argument? =  => ActionFn(35);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action34::<>(&__start, &__end);
+        let __nt = super::__action35::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant6(__nt), __end));
         (0, 4)
     }
@@ -7791,11 +7928,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Arguments = Comma<Argument> => ActionFn(22);
+        // Arguments = Comma<Argument> => ActionFn(23);
         let __sym0 = __pop_Variant7(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action22::<>(__sym0);
+        let __nt = super::__action23::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 5)
     }
@@ -7806,11 +7943,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = Argument => ActionFn(44);
+        // Comma<Argument> = Argument => ActionFn(45);
         let __sym0 = __pop_Variant4(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action44::<>(__sym0);
+        let __nt = super::__action45::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -7821,10 +7958,10 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> =  => ActionFn(45);
+        // Comma<Argument> =  => ActionFn(46);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action45::<>(&__start, &__end);
+        let __nt = super::__action46::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (0, 6)
     }
@@ -7835,13 +7972,13 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(46);
+        // Comma<Argument> = (<Argument> ",")+, Argument => ActionFn(47);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant4(__symbols);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action46::<>(__sym0, __sym1);
+        let __nt = super::__action47::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (2, 6)
     }
@@ -7852,11 +7989,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Comma<Argument> = (<Argument> ",")+ => ActionFn(47);
+        // Comma<Argument> = (<Argument> ",")+ => ActionFn(48);
         let __sym0 = __pop_Variant5(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action47::<>(__sym0);
+        let __nt = super::__action48::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 6)
     }
@@ -7867,7 +8004,7 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(50);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", "}" => ActionFn(51);
         assert!(__symbols.len() >= 7);
         let __sym6 = __pop_Variant0(__symbols);
         let __sym5 = __pop_Variant0(__symbols);
@@ -7878,7 +8015,7 @@ mod __parse__Op {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym6.2;
-        let __nt = super::__action50::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
+        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (7, 7)
     }
@@ -7889,7 +8026,7 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(51);
+        // Function = "function", "identifier", "(", Arguments, ")", "{", Op+, "}" => ActionFn(52);
         assert!(__symbols.len() >= 8);
         let __sym7 = __pop_Variant0(__symbols);
         let __sym6 = __pop_Variant11(__symbols);
@@ -7901,7 +8038,7 @@ mod __parse__Op {
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym7.2;
-        let __nt = super::__action51::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
+        let __nt = super::__action52::<>(__sym0, __sym1, __sym2, __sym3, __sym4, __sym5, __sym6, __sym7);
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (8, 7)
     }
@@ -7912,10 +8049,10 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* =  => ActionFn(27);
+        // Function* =  => ActionFn(28);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action27::<>(&__start, &__end);
+        let __nt = super::__action28::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 8)
     }
@@ -7926,11 +8063,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function* = Function+ => ActionFn(28);
+        // Function* = Function+ => ActionFn(29);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action28::<>(__sym0);
+        let __nt = super::__action29::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 8)
     }
@@ -7941,11 +8078,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function => ActionFn(29);
+        // Function+ = Function => ActionFn(30);
         let __sym0 = __pop_Variant8(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action29::<>(__sym0);
+        let __nt = super::__action30::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 9)
     }
@@ -7956,13 +8093,13 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Function+ = Function+, Function => ActionFn(30);
+        // Function+ = Function+, Function => ActionFn(31);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant8(__symbols);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action30::<>(__sym0, __sym1);
+        let __nt = super::__action31::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (2, 9)
     }
@@ -7973,10 +8110,10 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions =  => ActionFn(48);
+        // Functions =  => ActionFn(49);
         let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
         let __end = __start.clone();
-        let __nt = super::__action48::<>(&__start, &__end);
+        let __nt = super::__action49::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (0, 10)
     }
@@ -7987,11 +8124,11 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Functions = Function+ => ActionFn(49);
+        // Functions = Function+ => ActionFn(50);
         let __sym0 = __pop_Variant9(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action49::<>(__sym0);
+        let __nt = super::__action50::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant9(__nt), __end));
         (1, 10)
     }
@@ -8177,13 +8314,15 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pushscope" => ActionFn(16);
+        // Op = "pushnamespace", "identifier" => ActionFn(16);
+        assert!(__symbols.len() >= 2);
+        let __sym1 = __pop_Variant2(__symbols);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action16::<>(__sym0);
+        let __end = __sym1.2;
+        let __nt = super::__action16::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant10(__nt), __end));
-        (1, 11)
+        (2, 11)
     }
     pub(crate) fn __reduce33<
     >(
@@ -8192,7 +8331,7 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "pop" => ActionFn(17);
+        // Op = "pushscope" => ActionFn(17);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -8207,7 +8346,7 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_a" => ActionFn(18);
+        // Op = "pop" => ActionFn(18);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -8222,7 +8361,7 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op = "coerce_s" => ActionFn(19);
+        // Op = "coerce_a" => ActionFn(19);
         let __sym0 = __pop_Variant0(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
@@ -8237,12 +8376,13 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* =  => ActionFn(25);
-        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
-        let __end = __start.clone();
-        let __nt = super::__action25::<>(&__start, &__end);
-        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (0, 12)
+        // Op = "coerce_s" => ActionFn(20);
+        let __sym0 = __pop_Variant0(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action20::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant10(__nt), __end));
+        (1, 11)
     }
     pub(crate) fn __reduce37<
     >(
@@ -8251,13 +8391,12 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op* = Op+ => ActionFn(26);
-        let __sym0 = __pop_Variant11(__symbols);
-        let __start = __sym0.0;
-        let __end = __sym0.2;
-        let __nt = super::__action26::<>(__sym0);
+        // Op* =  => ActionFn(26);
+        let __start = __lookahead_start.cloned().or_else(|| __symbols.last().map(|s| s.2.clone())).unwrap_or_default();
+        let __end = __start.clone();
+        let __nt = super::__action26::<>(&__start, &__end);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 12)
+        (0, 12)
     }
     pub(crate) fn __reduce38<
     >(
@@ -8266,13 +8405,13 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op => ActionFn(31);
-        let __sym0 = __pop_Variant10(__symbols);
+        // Op* = Op+ => ActionFn(27);
+        let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym0.2;
-        let __nt = super::__action31::<>(__sym0);
+        let __nt = super::__action27::<>(__sym0);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
-        (1, 13)
+        (1, 12)
     }
     pub(crate) fn __reduce39<
     >(
@@ -8281,17 +8420,32 @@ mod __parse__Op {
         _: core::marker::PhantomData<()>,
     ) -> (usize, usize)
     {
-        // Op+ = Op+, Op => ActionFn(32);
+        // Op+ = Op => ActionFn(32);
+        let __sym0 = __pop_Variant10(__symbols);
+        let __start = __sym0.0;
+        let __end = __sym0.2;
+        let __nt = super::__action32::<>(__sym0);
+        __symbols.push((__start, __Symbol::Variant11(__nt), __end));
+        (1, 13)
+    }
+    pub(crate) fn __reduce40<
+    >(
+        __lookahead_start: Option<&usize>,
+        __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
+        _: core::marker::PhantomData<()>,
+    ) -> (usize, usize)
+    {
+        // Op+ = Op+, Op => ActionFn(33);
         assert!(__symbols.len() >= 2);
         let __sym1 = __pop_Variant10(__symbols);
         let __sym0 = __pop_Variant11(__symbols);
         let __start = __sym0.0;
         let __end = __sym1.2;
-        let __nt = super::__action32::<>(__sym0, __sym1);
+        let __nt = super::__action33::<>(__sym0, __sym1);
         __symbols.push((__start, __Symbol::Variant11(__nt), __end));
         (2, 13)
     }
-    pub(crate) fn __reduce40<
+    pub(crate) fn __reduce41<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -8306,7 +8460,7 @@ mod __parse__Op {
         __symbols.push((__start, __Symbol::Variant4(__nt), __end));
         (1, 14)
     }
-    pub(crate) fn __reduce41<
+    pub(crate) fn __reduce42<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -8321,7 +8475,7 @@ mod __parse__Op {
         __symbols.push((__start, __Symbol::Variant7(__nt), __end));
         (1, 15)
     }
-    pub(crate) fn __reduce42<
+    pub(crate) fn __reduce43<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -8336,7 +8490,7 @@ mod __parse__Op {
         __symbols.push((__start, __Symbol::Variant8(__nt), __end));
         (1, 16)
     }
-    pub(crate) fn __reduce43<
+    pub(crate) fn __reduce44<
     >(
         __lookahead_start: Option<&usize>,
         __symbols: &mut alloc::vec::Vec<(usize,__Symbol<>,usize)>,
@@ -8532,11 +8686,12 @@ fn __action15<
 #[allow(clippy::too_many_arguments)]
 fn __action16<
 >(
-    (_, __0, _): (usize, Token, usize),
+    (_, _, _): (usize, Token, usize),
+    (_, ident, _): (usize, String, usize),
 ) -> AssemblyOp
 {
     {
-        Op::PushScope.into()
+        AssemblyOp::PushNamespace(ident)
     }
 }
 
@@ -8547,7 +8702,7 @@ fn __action17<
 ) -> AssemblyOp
 {
     {
-        Op::Pop.into()
+        Op::PushScope.into()
     }
 }
 
@@ -8558,7 +8713,7 @@ fn __action18<
 ) -> AssemblyOp
 {
     {
-        Op::CoerceA.into()
+        Op::Pop.into()
     }
 }
 
@@ -8569,12 +8724,23 @@ fn __action19<
 ) -> AssemblyOp
 {
     {
-        Op::CoerceS.into()
+        Op::CoerceA.into()
     }
 }
 
 #[allow(clippy::too_many_arguments)]
 fn __action20<
+>(
+    (_, __0, _): (usize, Token, usize),
+) -> AssemblyOp
+{
+    {
+        Op::CoerceS.into()
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn __action21<
 >(
     (_, __0, _): (usize, alloc::vec::Vec<Function>, usize),
 ) -> alloc::vec::Vec<Function>
@@ -8583,7 +8749,7 @@ fn __action20<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action21<
+fn __action22<
 >(
     (_, _, _): (usize, Token, usize),
     (_, name, _): (usize, String, usize),
@@ -8605,7 +8771,7 @@ fn __action21<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action22<
+fn __action23<
 >(
     (_, __0, _): (usize, Vec<Type>, usize),
 ) -> Vec<Type>
@@ -8614,7 +8780,7 @@ fn __action22<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action23<
+fn __action24<
 >(
     (_, name, _): (usize, String, usize),
 ) -> Type
@@ -8626,7 +8792,7 @@ fn __action23<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action24<
+fn __action25<
 >(
     (_, mut v, _): (usize, alloc::vec::Vec<Type>, usize),
     (_, e, _): (usize, core::option::Option<Type>, usize),
@@ -8642,7 +8808,7 @@ fn __action24<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action25<
+fn __action26<
 >(
     __lookbehind: &usize,
     __lookahead: &usize,
@@ -8652,7 +8818,7 @@ fn __action25<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action26<
+fn __action27<
 >(
     (_, v, _): (usize, alloc::vec::Vec<AssemblyOp>, usize),
 ) -> alloc::vec::Vec<AssemblyOp>
@@ -8661,7 +8827,7 @@ fn __action26<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action27<
+fn __action28<
 >(
     __lookbehind: &usize,
     __lookahead: &usize,
@@ -8671,7 +8837,7 @@ fn __action27<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action28<
+fn __action29<
 >(
     (_, v, _): (usize, alloc::vec::Vec<Function>, usize),
 ) -> alloc::vec::Vec<Function>
@@ -8680,7 +8846,7 @@ fn __action28<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action29<
+fn __action30<
 >(
     (_, __0, _): (usize, Function, usize),
 ) -> alloc::vec::Vec<Function>
@@ -8689,7 +8855,7 @@ fn __action29<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action30<
+fn __action31<
 >(
     (_, v, _): (usize, alloc::vec::Vec<Function>, usize),
     (_, e, _): (usize, Function, usize),
@@ -8699,7 +8865,7 @@ fn __action30<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action31<
+fn __action32<
 >(
     (_, __0, _): (usize, AssemblyOp, usize),
 ) -> alloc::vec::Vec<AssemblyOp>
@@ -8708,7 +8874,7 @@ fn __action31<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action32<
+fn __action33<
 >(
     (_, v, _): (usize, alloc::vec::Vec<AssemblyOp>, usize),
     (_, e, _): (usize, AssemblyOp, usize),
@@ -8718,7 +8884,7 @@ fn __action32<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action33<
+fn __action34<
 >(
     (_, __0, _): (usize, Type, usize),
 ) -> core::option::Option<Type>
@@ -8727,7 +8893,7 @@ fn __action33<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action34<
+fn __action35<
 >(
     __lookbehind: &usize,
     __lookahead: &usize,
@@ -8737,7 +8903,7 @@ fn __action34<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action35<
+fn __action36<
 >(
     __lookbehind: &usize,
     __lookahead: &usize,
@@ -8747,7 +8913,7 @@ fn __action35<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action36<
+fn __action37<
 >(
     (_, v, _): (usize, alloc::vec::Vec<Type>, usize),
 ) -> alloc::vec::Vec<Type>
@@ -8756,7 +8922,7 @@ fn __action36<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action37<
+fn __action38<
 >(
     (_, __0, _): (usize, Type, usize),
     (_, _, _): (usize, Token, usize),
@@ -8766,7 +8932,7 @@ fn __action37<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action38<
+fn __action39<
 >(
     (_, __0, _): (usize, Type, usize),
 ) -> alloc::vec::Vec<Type>
@@ -8775,7 +8941,7 @@ fn __action38<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action39<
+fn __action40<
 >(
     (_, v, _): (usize, alloc::vec::Vec<Type>, usize),
     (_, e, _): (usize, Type, usize),
@@ -8785,7 +8951,7 @@ fn __action39<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action40<
+fn __action41<
 >(
     __0: (usize, Type, usize),
     __1: (usize, Token, usize),
@@ -8793,18 +8959,18 @@ fn __action40<
 {
     let __start0 = __0.0;
     let __end0 = __1.2;
-    let __temp0 = __action37(
+    let __temp0 = __action38(
         __0,
         __1,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action38(
+    __action39(
         __temp0,
     )
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action41<
+fn __action42<
 >(
     __0: (usize, alloc::vec::Vec<Type>, usize),
     __1: (usize, Type, usize),
@@ -8813,38 +8979,38 @@ fn __action41<
 {
     let __start0 = __1.0;
     let __end0 = __2.2;
-    let __temp0 = __action37(
+    let __temp0 = __action38(
         __1,
         __2,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action39(
+    __action40(
         __0,
         __temp0,
     )
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action42<
+fn __action43<
 >(
     __0: (usize, core::option::Option<Type>, usize),
 ) -> Vec<Type>
 {
     let __start0 = __0.0;
     let __end0 = __0.0;
-    let __temp0 = __action35(
+    let __temp0 = __action36(
         &__start0,
         &__end0,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action24(
+    __action25(
         __temp0,
         __0,
     )
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action43<
+fn __action44<
 >(
     __0: (usize, alloc::vec::Vec<Type>, usize),
     __1: (usize, core::option::Option<Type>, usize),
@@ -8852,48 +9018,29 @@ fn __action43<
 {
     let __start0 = __0.0;
     let __end0 = __0.2;
-    let __temp0 = __action36(
+    let __temp0 = __action37(
         __0,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action24(
+    __action25(
         __temp0,
         __1,
     )
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action44<
+fn __action45<
 >(
     __0: (usize, Type, usize),
 ) -> Vec<Type>
 {
     let __start0 = __0.0;
     let __end0 = __0.2;
-    let __temp0 = __action33(
+    let __temp0 = __action34(
         __0,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action42(
-        __temp0,
-    )
-}
-
-#[allow(clippy::too_many_arguments)]
-fn __action45<
->(
-    __lookbehind: &usize,
-    __lookahead: &usize,
-) -> Vec<Type>
-{
-    let __start0 = *__lookbehind;
-    let __end0 = *__lookahead;
-    let __temp0 = __action34(
-        &__start0,
-        &__end0,
-    );
-    let __temp0 = (__start0, __temp0, __end0);
-    __action42(
+    __action43(
         __temp0,
     )
 }
@@ -8901,18 +9048,18 @@ fn __action45<
 #[allow(clippy::too_many_arguments)]
 fn __action46<
 >(
-    __0: (usize, alloc::vec::Vec<Type>, usize),
-    __1: (usize, Type, usize),
+    __lookbehind: &usize,
+    __lookahead: &usize,
 ) -> Vec<Type>
 {
-    let __start0 = __1.0;
-    let __end0 = __1.2;
-    let __temp0 = __action33(
-        __1,
+    let __start0 = *__lookbehind;
+    let __end0 = *__lookahead;
+    let __temp0 = __action35(
+        &__start0,
+        &__end0,
     );
     let __temp0 = (__start0, __temp0, __end0);
     __action43(
-        __0,
         __temp0,
     )
 }
@@ -8921,16 +9068,16 @@ fn __action46<
 fn __action47<
 >(
     __0: (usize, alloc::vec::Vec<Type>, usize),
+    __1: (usize, Type, usize),
 ) -> Vec<Type>
 {
-    let __start0 = __0.2;
-    let __end0 = __0.2;
+    let __start0 = __1.0;
+    let __end0 = __1.2;
     let __temp0 = __action34(
-        &__start0,
-        &__end0,
+        __1,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action43(
+    __action44(
         __0,
         __temp0,
     )
@@ -8939,18 +9086,18 @@ fn __action47<
 #[allow(clippy::too_many_arguments)]
 fn __action48<
 >(
-    __lookbehind: &usize,
-    __lookahead: &usize,
-) -> alloc::vec::Vec<Function>
+    __0: (usize, alloc::vec::Vec<Type>, usize),
+) -> Vec<Type>
 {
-    let __start0 = *__lookbehind;
-    let __end0 = *__lookahead;
-    let __temp0 = __action27(
+    let __start0 = __0.2;
+    let __end0 = __0.2;
+    let __temp0 = __action35(
         &__start0,
         &__end0,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action20(
+    __action44(
+        __0,
         __temp0,
     )
 }
@@ -8958,22 +9105,41 @@ fn __action48<
 #[allow(clippy::too_many_arguments)]
 fn __action49<
 >(
-    __0: (usize, alloc::vec::Vec<Function>, usize),
+    __lookbehind: &usize,
+    __lookahead: &usize,
 ) -> alloc::vec::Vec<Function>
 {
-    let __start0 = __0.0;
-    let __end0 = __0.2;
+    let __start0 = *__lookbehind;
+    let __end0 = *__lookahead;
     let __temp0 = __action28(
-        __0,
+        &__start0,
+        &__end0,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action20(
+    __action21(
         __temp0,
     )
 }
 
 #[allow(clippy::too_many_arguments)]
 fn __action50<
+>(
+    __0: (usize, alloc::vec::Vec<Function>, usize),
+) -> alloc::vec::Vec<Function>
+{
+    let __start0 = __0.0;
+    let __end0 = __0.2;
+    let __temp0 = __action29(
+        __0,
+    );
+    let __temp0 = (__start0, __temp0, __end0);
+    __action21(
+        __temp0,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn __action51<
 >(
     __0: (usize, Token, usize),
     __1: (usize, String, usize),
@@ -8986,12 +9152,12 @@ fn __action50<
 {
     let __start0 = __5.2;
     let __end0 = __6.0;
-    let __temp0 = __action25(
+    let __temp0 = __action26(
         &__start0,
         &__end0,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action21(
+    __action22(
         __0,
         __1,
         __2,
@@ -9004,7 +9170,7 @@ fn __action50<
 }
 
 #[allow(clippy::too_many_arguments)]
-fn __action51<
+fn __action52<
 >(
     __0: (usize, Token, usize),
     __1: (usize, String, usize),
@@ -9018,11 +9184,11 @@ fn __action51<
 {
     let __start0 = __6.0;
     let __end0 = __6.2;
-    let __temp0 = __action26(
+    let __temp0 = __action27(
         __6,
     );
     let __temp0 = (__start0, __temp0, __end0);
-    __action21(
+    __action22(
         __0,
         __1,
         __2,

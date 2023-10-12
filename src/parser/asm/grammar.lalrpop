@@ -86,6 +86,9 @@ pub Op: AssemblyOp = {
     "pushnull" => {
         Op::PushNull.into()
     },
+    "pushnamespace" <ident:"identifier"> => {
+        AssemblyOp::PushNamespace(ident)
+    },
     "pushscope" => {
         Op::PushScope.into()
     },

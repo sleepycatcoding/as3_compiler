@@ -15,6 +15,7 @@ pub enum AssemblyOp {
     IfFalse(String),
     IfEq(String),
     PushString(String),
+    PushNamespace(String),
 }
 
 impl From<Op> for AssemblyOp {
