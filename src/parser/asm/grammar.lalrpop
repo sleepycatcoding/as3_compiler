@@ -28,11 +28,17 @@ extern {
         "pushscope" => Token::OpPushScope,
 
         "pop" => Token::OpPop,
+        "swap" => Token::OpSwap,
 
         "coerce_a" => Token::OpCoerceA,
         "coerce_s" => Token::OpCoerceS,
 
+        "getglobalscope" => Token::OpGetGlobalScope,
+        "getslot" => Token::OpGetSlot,
+        "setslot" => Token::OpSetSlot,
         "findproperty" => Token::OpFindProperty,
+        "findpropstrict" => Token::OpFindPropStrict,
+        "callproperty" => Token::OpCallProperty,
         "callpropvoid" => Token::OpCallPropVoid,
         "call" => Token::OpCall,
 
@@ -104,6 +110,9 @@ pub Op: AssemblyOp = {
     "pop" => {
         Op::Pop.into()
     },
+    "swap" => {
+        Op::Swap.into()
+    },
 
     "coerce_a" => {
         Op::CoerceA.into()
@@ -112,8 +121,23 @@ pub Op: AssemblyOp = {
         Op::CoerceS.into()
     },
 
+    "getglobalscope" => {
+        Op::GetGlobalScope.into()
+    },
+    "getslot" <int:"int"> => {
+        Op::GetSlot { index: int as u32 }.into()
+    },
+    "setslot" <int:"int"> => {
+        Op::SetSlot { index: int as u32 }.into()
+    },
     "findproperty" <ident:"identifier"> => {
         AssemblyOp::FindProperty(ident)
+    },
+    "findpropstrict" <ident:"identifier"> => {
+        AssemblyOp::FindPropStrict(ident)
+    },
+    "callproperty" <ident:"identifier"> <int:"int"> => {
+        AssemblyOp::CallProperty(ident, int as u32)
     },
     "callpropvoid" <ident:"identifier"> <int:"int"> => {
         AssemblyOp::CallPropVoid(ident, int as u32)
@@ -150,6 +174,9 @@ pub Argument: Type = {
 pub IdSource: IdSource = {
     ".function_id" "(" <ident:"identifier"> ")" => {
         IdSource::Function(ident)
+    },
+    <ident:"identifier"> => {
+        IdSource::Other(ident)
     }
 };
 

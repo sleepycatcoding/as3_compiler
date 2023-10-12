@@ -35,7 +35,8 @@ pub mod asm {
     #[logos(skip r"//[^\n]*")]
     // Block comments.
     #[logos(skip r"/\*(?:[^*]|\*[^/])*\*/")]
-    #[logos(skip " ")]
+    #[logos(skip " ")] // White space
+    #[logos(skip "	")] // Tab
     // Store current line and column for easier debugging.
     #[logos(extras = (usize, usize))]
     pub enum Token {
@@ -73,6 +74,8 @@ pub mod asm {
 
         #[token("pop")]
         OpPop,
+        #[token("swap")]
+        OpSwap,
 
         // Coercion operations.
         #[token("coerce_a")]
@@ -80,8 +83,18 @@ pub mod asm {
         #[token("coerce_s")]
         OpCoerceS,
 
+        #[token("getglobalscope")]
+        OpGetGlobalScope,
+        #[token("getslot")]
+        OpGetSlot,
+        #[token("setslot")]
+        OpSetSlot,
         #[token("findproperty")]
         OpFindProperty,
+        #[token("findpropstrict")]
+        OpFindPropStrict,
+        #[token("callproperty")]
+        OpCallProperty,
         #[token("callpropvoid")]
         OpCallPropVoid,
         #[token("call")]

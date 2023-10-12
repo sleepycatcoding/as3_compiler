@@ -7,6 +7,7 @@ pub mod grammar;
 #[derive(Debug)]
 pub enum IdSource {
     Function(String),
+    Other(String),
 }
 
 /// Represents an ActionScript assembly opcode.
@@ -23,6 +24,8 @@ pub enum AssemblyOp {
     PushString(String),
     PushNamespace(String),
     FindProperty(String),
+    FindPropStrict(String),
+    CallProperty(String, u32),
     CallPropVoid(String, u32),
     Call(u32),
     NewFunction(IdSource),
