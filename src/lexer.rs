@@ -59,6 +59,8 @@ pub enum Token<'src> {
     /// Control characters.
     Ctrl(char),
     Ident(&'src str),
+    Package,
+    Class,
     Fn,
     Var,
     If,
@@ -76,6 +78,8 @@ impl<'src> std::fmt::Display for Token<'src> {
             Self::Op(x) => write!(f, "{}", x),
             Self::Ctrl(x) => write!(f, "{}", x),
             Self::Ident(x) => write!(f, "{}", x),
+            Self::Package => write!(f, "package"),
+            Self::Class => write!(f, "class"),
             Self::Fn => write!(f, "function"),
             Self::Var => write!(f, "var"),
             Self::If => write!(f, "if"),
@@ -109,10 +113,12 @@ pub fn lexer<'src>(
         .map(Token::Op);
 
     // Control character parser.
-    let ctrl = one_of("()[]{};,").map(Token::Ctrl);
+    let ctrl = one_of("()[]{}:;,").map(Token::Ctrl);
 
     // Keyword and identifier parser.
     let ident = text::ascii::ident().map(|ident: &str| match ident {
+        "package" => Token::Package,
+        "class" => Token::Class,
         "function" => Token::Fn,
         "var" => Token::Var,
         "if" => Token::If,
