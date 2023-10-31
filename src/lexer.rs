@@ -42,3 +42,101 @@ impl<'input, T: Logos<'input, Source = str, Extras = (usize, usize)>> Iterator
         })
     }
 }
+
+use chumsky::prelude::*;
+
+pub type Span = SimpleSpan<usize>;
+
+/// A lexer token.
+#[derive(Clone, Debug, PartialEq)]
+pub enum Token<'src> {
+    Null,
+    Undefined,
+    Bool(bool),
+    Int(i32),
+    Str(&'src str),
+    Op(&'src str),
+    /// Control characters.
+    Ctrl(char),
+    Ident(&'src str),
+    Fn,
+    Var,
+    If,
+    Else,
+}
+
+impl<'src> std::fmt::Display for Token<'src> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Null => write!(f, "null"),
+            Self::Undefined => write!(f, "undefined"),
+            Self::Bool(x) => write!(f, "{}", x),
+            Self::Int(x) => write!(f, "{}", x),
+            Self::Str(x) => write!(f, "{}", x),
+            Self::Op(x) => write!(f, "{}", x),
+            Self::Ctrl(x) => write!(f, "{}", x),
+            Self::Ident(x) => write!(f, "{}", x),
+            Self::Fn => write!(f, "function"),
+            Self::Var => write!(f, "var"),
+            Self::If => write!(f, "if"),
+            Self::Else => write!(f, "else"),
+        }
+    }
+}
+
+pub fn lexer<'src>(
+) -> impl Parser<'src, &'src str, Vec<(Token<'src>, Span)>, extra::Err<Rich<'src, char, Span>>> {
+    // Int parser.
+    // FIXME: negative values.
+    let int = text::int(10)
+        .to_slice()
+        .from_str()
+        .unwrapped()
+        .map(Token::Int);
+
+    // String parser.
+    let str_ = just('"')
+        .ignore_then(none_of('"').repeated())
+        .then_ignore(just('"'))
+        .to_slice()
+        .map(Token::Str);
+
+    // Operator parser.
+    let op = one_of("+*-/!=")
+        .repeated()
+        .at_least(1)
+        .to_slice()
+        .map(Token::Op);
+
+    // Control character parser.
+    let ctrl = one_of("()[]{};,").map(Token::Ctrl);
+
+    // Keyword and identifier parser.
+    let ident = text::ascii::ident().map(|ident: &str| match ident {
+        "function" => Token::Fn,
+        "var" => Token::Var,
+        "if" => Token::If,
+        "else" => Token::Else,
+        "true" => Token::Bool(true),
+        "false" => Token::Bool(false),
+        "null" => Token::Null,
+        "undefined" => Token::Undefined,
+        _ => Token::Ident(ident),
+    });
+
+    // Combined parser
+    let token = int.or(str_).or(op).or(ctrl).or(ident);
+
+    let comment = just("//")
+        .then(any().and_is(just('\n').not()).repeated())
+        .padded();
+
+    token
+        .map_with(|tok, e| (tok, e.span()))
+        .padded_by(comment.repeated())
+        .padded()
+        // If we encounter an error, skip and attempt to lex the next character as a token instead
+        .recover_with(skip_then_retry_until(any().ignored(), end()))
+        .repeated()
+        .collect()
+}
