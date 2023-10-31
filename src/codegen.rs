@@ -3,6 +3,7 @@ use swf::avm2::types::Op;
 
 pub mod context;
 
+mod assembler;
 mod function;
 
 /// A simple label index.
