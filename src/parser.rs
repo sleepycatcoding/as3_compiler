@@ -27,7 +27,6 @@ pub enum Value<'src> {
     Bool(bool),
     Int(i32),
     Str(&'src str),
-    Array(Vec<Self>),
     // FIXME: TODO
     //Func(&'src str),
 }
@@ -53,14 +52,6 @@ impl<'src> std::fmt::Display for Value<'src> {
             Self::Bool(x) => write!(f, "{}", x),
             Self::Int(x) => write!(f, "{}", x),
             Self::Str(x) => write!(f, "{}", x),
-            Self::Array(xs) => write!(
-                f,
-                "[{}]",
-                xs.iter()
-                    .map(|x| x.to_string())
-                    .collect::<Vec<_>>()
-                    .join(", ")
-            ),
         }
     }
 }
@@ -147,9 +138,9 @@ pub struct TypedIdent<'src> {
 
 #[derive(Debug)]
 pub struct Fn<'src> {
-    name: &'src str,
-    args: Vec<Spanned<TypedIdent<'src>>>,
-    body: Vec<Spanned<Stmt<'src>>>,
+    pub name: &'src str,
+    pub args: Vec<Spanned<TypedIdent<'src>>>,
+    pub body: Vec<Spanned<Stmt<'src>>>,
 }
 
 pub fn typed_ident_parser<'tokens, 'src: 'tokens>() -> impl Parser<
