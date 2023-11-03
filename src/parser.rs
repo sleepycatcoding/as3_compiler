@@ -195,7 +195,16 @@ pub fn expr_parser<'tokens, 'src: 'tokens>() -> impl Parser<
     let op = |x| just(Token::Op(x));
 
     let inline_expr = recursive(|expr| {
-        let pratt = value.pratt((
+        let atom = value
+            .or(ident.map(Expr::Local))
+            // TODO: Would be nice if we preserved span info here, but oh well, pratt parsing does not like it.
+            // Atoms can also just be normal expressions, but surrounded with parentheses
+            .or(expr
+                .clone()
+                .delimited_by(just(Token::Ctrl('(')), just(Token::Ctrl(')'))))
+            .boxed();
+
+        let pratt = atom.pratt((
             // Negation.
             prefix(3, op("-"), |rhs| {
                 Expr::Unary(UnaryOp::Negate, Box::new(rhs))
@@ -215,20 +224,10 @@ pub fn expr_parser<'tokens, 'src: 'tokens>() -> impl Parser<
             }),
         ));
 
-        let atom = value
-            .or(ident.map(Expr::Local))
-            .or(pratt)
-            .map_with(|expr, e| (expr, e.span()))
-            // Atoms can also just be normal expressions, but surrounded with parentheses
-            .or(expr
-                .clone()
-                .delimited_by(just(Token::Ctrl('(')), just(Token::Ctrl(')'))))
-            .boxed();
-
-        atom.labelled("expression").as_context()
+        pratt.labelled("expression").as_context()
     });
 
-    inline_expr
+    inline_expr.map_with(|expr, e| (expr, e.span()))
 }
 
 pub fn stmt_parser<'tokens, 'src: 'tokens>() -> impl Parser<
