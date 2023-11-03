@@ -66,10 +66,16 @@ fn main() {
 
     let file = std::fs::read_to_string("test1.as").unwrap();
 
-    let (tokens, mut errs) = rewrite::lexer().parse(file.as_str()).into_output_errors();
+    let (tokens, mut errs) = lexer::lexer().parse(file.as_str()).into_output_errors();
+
+    // if let Some(tok) = tokens {
+    //     for tok in tok {
+    //         println!("{:?}", tok);
+    //     }
+    // }
 
     let parse_errs = if let Some(tokens) = &tokens {
-        let (ast, parse_errs) = rewrite::expr_parser()
+        let (ast, parse_errs) = parser::fn_parser()
             .map_with(|ast, e| (ast, e.span()))
             .parse(
                 tokens
@@ -79,8 +85,10 @@ fn main() {
             )
             .into_output_errors();
 
+        println!("What");
+
         if let Some(v) = &ast {
-            tracing::info!("{:#?}", v);
+            println!("{:#?}", v);
         }
 
         parse_errs

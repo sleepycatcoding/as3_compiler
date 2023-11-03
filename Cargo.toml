@@ -13,7 +13,7 @@ swf = { git = "https://github.com/sleepycatcoding/ruffle", branch = "make_write_
 tracing = "0.1.37"
 tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
 clap = { version = "4.4.6", features = ["derive"] }
-chumsky = "1.0.0-alpha.6"
+chumsky = { version = "1.0.0-alpha.6", features = ["label", "pratt"] }
 ariadne = "0.3.0"
 
 [build-dependencies]
